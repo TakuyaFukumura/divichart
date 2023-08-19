@@ -11,7 +11,6 @@
 	<groupId>com.example</groupId>
 	<artifactId>divichart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>divichart</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
