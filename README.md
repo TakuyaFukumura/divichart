@@ -10,3 +10,13 @@
 ```bash
 ./mvnw spring-boot:run
 ```
+
+## 依存関係
+- ツリー表示
+```bash
+./mvnw dependency:tree
+```
+- 分析
+```bash
+./mvnw dependency:analyze
+```
