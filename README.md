@@ -14,6 +14,11 @@ or
 ```bash
 java -jar ./target/*.jar
 ```
+### devプロファイル指定
+- `spring.profiles.active=dev`を指定することで`application-dev.properties`の値が使用される
+```
+./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
+```
 
 ## 画面表示
 - http://localhost:8080 にアクセスする
