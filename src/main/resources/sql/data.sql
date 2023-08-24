@@ -1,6 +1,6 @@
-DELETE FROM `user`
+DELETE FROM `account`
 WHERE `id` = 1;
 
-INSERT INTO `user`
+INSERT INTO `account`
 (`id`,   `name`,  `password`) VALUES
 (1, 'admin', 'pass');
