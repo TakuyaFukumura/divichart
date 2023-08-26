@@ -28,11 +28,16 @@ java -jar ./target/*.jar
 - H2コンソール表示
   - http://localhost:8080/h2-console
 ### 前提
-- ファイル(h2.mv.db)が用意されていること
+- DBデータ保存先のディレクトリが用意されていること
   - 無い場合は下記コマンドで作成すること
 ```bash
-$ mkdir .data
-$ touch ./.data/h2.mv.db
+$ mkdir -p .db/dev
+$ mkdir -p .db/prod
+
+divichart
+└── ./db
+    ├── dev
+    └── prod
 ```
 - H2コンソールを利用する場合は`/src/main/resources/application.properties`に`spring.h2.console.enabled=true`を書き加えるか、下記コマンドを実行すること
 ```
