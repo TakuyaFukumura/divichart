@@ -11,7 +11,7 @@ import java.util.Optional;
 public class IndexService {
 
     @Autowired
-    private AccountRepository repository;
+    AccountRepository repository;
 
     public String getUserNameById(Long id){
 
