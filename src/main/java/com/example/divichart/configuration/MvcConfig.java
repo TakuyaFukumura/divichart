@@ -9,7 +9,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     public void addViewControllers(ViewControllerRegistry registry) {
         // URLパターンと遷移先viewファイル名
-        registry.addViewController("/hello").setViewName("hello");
+        registry.addViewController("/operation").setViewName("operation");
         registry.addViewController("/login").setViewName("login");
     }
 
