@@ -27,7 +27,8 @@ public class WebSecurityConfig {
                 )
                 .logout((logout) -> logout.permitAll());
 
-        http.csrf().disable();
+        // h2-consoleを表示するためにCSRF対策外へ指定
+        http.csrf().ignoringAntMatchers("/h2-console/**");
         http.headers().frameOptions().disable();
 
         return http.build();
