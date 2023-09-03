@@ -16,16 +16,15 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((requests) -> requests
-                        .mvcMatchers("/", "/index").permitAll()
-                        .anyRequest().authenticated()
-                );
+
+        // 認証・認可設定
+        http.authorizeRequests()
+                .mvcMatchers("/", "/index", "/login").permitAll()
+                .anyRequest().authenticated();
 
         // ログイン設定
         http.formLogin()                                // フォーム認証の有効化
                 .loginPage("/login")                    // ログインフォームを表示するパス
-                .permitAll()
 //                .loginProcessingUrl("/authenticate")    // フォーム認証処理のパス
 //                .usernameParameter("userName")          // ユーザ名のリクエストパラメータ名
 //                .passwordParameter("password")          // パスワードのリクエストパラメータ名
