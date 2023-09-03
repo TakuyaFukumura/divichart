@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>TOP</title>
 </head>
 <body>
-トップ画面
+    <h1>トップ画面</h1>
+    <p><a th:href="@{/operation}">データ操作画面</a></p>
 </body>
 </html>
