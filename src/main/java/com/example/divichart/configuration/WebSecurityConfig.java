@@ -16,16 +16,25 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((requests) -> requests
-                        .mvcMatchers("/", "/index").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
-                .logout((logout) -> logout.permitAll());
+
+        // 認証・認可設定
+        http.authorizeRequests()
+                .mvcMatchers("/", "/index", "/login").permitAll()
+                .anyRequest().authenticated();
+
+        // ログイン設定
+        http.formLogin()                                // フォーム認証の有効化
+                .loginPage("/login")                    // ログインフォームを表示するパス
+//                .loginProcessingUrl("/authenticate")    // フォーム認証処理のパス
+//                .usernameParameter("userName")          // ユーザ名のリクエストパラメータ名
+//                .passwordParameter("password")          // パスワードのリクエストパラメータ名
+//                .defaultSuccessUrl("/home")             // 認証成功時の遷移先
+                .failureUrl("/login?error");   // 認証失敗時の遷移先
+
+        // ログアウト設定
+        http.logout()
+                .logoutSuccessUrl("/index") // ログアウト成功後の遷移先
+                .permitAll();              // アクセス全許可
 
         // h2-consoleを表示するためにCSRF対策外へ指定
         http.csrf().ignoringAntMatchers("/h2-console/**");
