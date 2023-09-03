@@ -24,8 +24,11 @@ public class WebSecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
-                )
-                .logout((logout) -> logout.permitAll());
+                );
+        // ログアウト設定
+        http.logout()
+                .logoutSuccessUrl("/index") // ログアウト成功後の遷移先
+                .permitAll();              // アクセス全許可
 
         // h2-consoleを表示するためにCSRF対策外へ指定
         http.csrf().ignoringAntMatchers("/h2-console/**");
