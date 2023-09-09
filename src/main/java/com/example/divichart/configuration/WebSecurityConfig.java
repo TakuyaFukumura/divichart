@@ -45,10 +45,9 @@ public class WebSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-        UserDetails user = users
+        UserDetails user = User.builder()
                 .username("admin")
-                .password("pass")
+                .password("{bcrypt}$2a$10$kxhJnySfXtAL6xjlVks36e.NkqIiXCSUHy2Z2zT8HO8jETJ/t6YwK")
                 .roles("USER")
                 .build();
 
