@@ -45,12 +45,11 @@ public class WebSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("admin")
-                        .password("pass")
-                        .roles("USER")
-                        .build();
+        UserDetails user = User.builder()
+                .username("admin")
+                .password("{bcrypt}$2a$10$kxhJnySfXtAL6xjlVks36e.NkqIiXCSUHy2Z2zT8HO8jETJ/t6YwK")
+                .roles("USER")
+                .build();
 
         return new InMemoryUserDetailsManager(user);
     }

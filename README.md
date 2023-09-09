@@ -8,11 +8,11 @@
 
 ## 起動
 ```bash
-./mvnw spring-boot:run
+java -jar ./target/*.jar
 ```
 or
 ```bash
-java -jar ./target/*.jar
+./mvnw clean spring-boot:run
 ```
 ### devプロファイル指定
 - `spring.profiles.active=dev`を指定することで`application-dev.properties`の値が使用される
@@ -41,7 +41,7 @@ divichart
 ```
 - H2コンソールを利用する場合は`/src/main/resources/application.properties`に`spring.h2.console.enabled=true`を書き加えるか、下記コマンドを実行すること
 ```
-./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.h2.console.enabled=true
+./mvnw clean spring-boot:run -Dspring-boot.run.arguments=--spring.h2.console.enabled=true
 ```
 ```
 java -jar ./target/*.jar --spring.h2.console.enabled=true
