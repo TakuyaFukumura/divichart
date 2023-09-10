@@ -7,6 +7,12 @@
 <body>
     <h1>配当履歴一覧画面</h1>
     <p><a th:href="@{/index}">TOP画面</a></p>
+    <form th:action="@{/list/insert}" method="post">
+        <div><label>配当金額：<input type="number" name="amountReceived"/></label></div>
+        <div><label>受取年月：<input type="date" name="receiptDate"/></label></div>
+        <div><input type="submit" value="Insert"/></div>
+    </form>
+    <br>
     <table  border="1" cellspacing = "0">
         <tr>
             <th>ID</th>
