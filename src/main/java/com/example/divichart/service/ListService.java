@@ -19,11 +19,11 @@ public class ListService {
         return repository.findAll();
     }
 
-    public DividendHistory insertDividendHistory(BigDecimal amountReceived,
-                                                 Date receiptDate){
+    public void insertDividendHistory(BigDecimal amountReceived,
+                                      Date receiptDate){
         DividendHistory dividendHistory =
                 new DividendHistory(amountReceived, receiptDate);
-        return repository.save(dividendHistory);
+        repository.save(dividendHistory);
     }
 
 }
