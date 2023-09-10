@@ -25,6 +25,7 @@ public class ListService {
                                                  Date receiptDate){
         DividendHistory dividendHistory =
                 new DividendHistory(amountReceived, receiptDate);
+        System.out.println(dividendHistory.getAmountReceived()); // ここまでは小数点できてる
         return repository.save(dividendHistory);
     }
 

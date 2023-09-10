@@ -38,8 +38,8 @@ public class ListController {
                          @ModelAttribute("amountReceived") BigDecimal amountReceived,
                          @ModelAttribute("receiptDate") Date receiptDate) {
         log.info("配当insert");
-//        log.info(String.valueOf(amountReceived));
-//        log.info(String.valueOf(receiptDate));
+        log.info(String.valueOf(amountReceived));
+        log.info(String.valueOf(receiptDate));
         // insert処理
         service.insertDividendHistory(amountReceived, receiptDate);
         List<DividendHistory> dividendHistoryList = service.getAllDividendHistory();
