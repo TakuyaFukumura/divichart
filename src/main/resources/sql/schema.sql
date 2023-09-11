@@ -16,3 +16,9 @@ create table IF NOT EXISTS authorities (
 	constraint fk_authorities_users foreign key(username) references users(username)
 );
 create unique index IF NOT EXISTS ix_auth_username on authorities (username,authority);
+CREATE TABLE IF NOT EXISTS `dividend_history` (
+    `id` INT AUTO_INCREMENT, -- H2のデータ型とJavaのデータ型の対応 INT java.lang.Integer
+    `amount_received` NUMERIC(20, 2) NOT NULL, -- DECIMAL java.math.BigDecimal
+    `receipt_date` DATE NOT NULL, -- DATE java.sql.Date
+    PRIMARY KEY (`id`)
+);
