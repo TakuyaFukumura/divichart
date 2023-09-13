@@ -27,7 +27,7 @@ public class ListController {
 
     @GetMapping
     public String index(Model model) {
-        log.info("配当履歴一覧画面表示");
+        log.debug("配当履歴一覧画面表示");
         List<DividendHistory> dividendHistoryList = service.getAllDividendHistory();
         model.addAttribute("dividendHistoryList", dividendHistoryList);
         return "list";
@@ -37,7 +37,7 @@ public class ListController {
     public String insert(Model model,
                          @ModelAttribute("amountReceived") BigDecimal amountReceived,
                          @ModelAttribute("receiptDate") Date receiptDate) {
-        // log.info("配当insert");
+        log.debug("配当履歴登録");
         service.insertDividendHistory(amountReceived, receiptDate);
         List<DividendHistory> dividendHistoryList = service.getAllDividendHistory();
         model.addAttribute("dividendHistoryList", dividendHistoryList);
