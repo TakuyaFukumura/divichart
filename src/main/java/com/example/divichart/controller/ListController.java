@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -38,6 +39,13 @@ public class ListController {
                          @ModelAttribute("receiptDate") Date receiptDate) {
         log.debug("配当履歴登録");
         service.insertDividendHistory(amountReceived, receiptDate);
+        return "redirect:/list";
+    }
+
+    @PostMapping("/csvInsert")
+    public String insert(@ModelAttribute("csvFile") MultipartFile csvFile) {
+        log.debug("配当履歴CSV一括登録");
+        service.csvInsert(csvFile);
         return "redirect:/list";
     }
 }
