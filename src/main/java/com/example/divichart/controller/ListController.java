@@ -34,13 +34,10 @@ public class ListController {
     }
 
     @PostMapping("/insert")
-    public String insert(Model model,
-                         @ModelAttribute("amountReceived") BigDecimal amountReceived,
+    public String insert(@ModelAttribute("amountReceived") BigDecimal amountReceived,
                          @ModelAttribute("receiptDate") Date receiptDate) {
         log.debug("配当履歴登録");
         service.insertDividendHistory(amountReceived, receiptDate);
-        List<DividendHistory> dividendHistoryList = service.getAllDividendHistory();
-        model.addAttribute("dividendHistoryList", dividendHistoryList);
-        return "list";
+        return "redirect:/list";
     }
 }
