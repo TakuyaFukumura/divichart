@@ -43,8 +43,8 @@ public class ListService {
      */
     public void csvInsert(MultipartFile csvFile) {
         List<DividendHistory> dividendHistoryList = new ArrayList<>(); //格納用のリスト
-        try {
-            InputStream stream = csvFile.getInputStream();
+        try ( InputStream stream = csvFile.getInputStream() ){
+
             Reader reader = new InputStreamReader(stream, "SJIS"); //参考ページ：https://dev.classmethod.jp/articles/csv_read_java_char_trans/
             BufferedReader buf = new BufferedReader(reader);
 
