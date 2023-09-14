@@ -14,12 +14,10 @@
     </form>
     <br>
     <form th:action="@{/list/csvInsert}" method="post" enctype="multipart/form-data">
-        <div>
-            楽天証券の配当金・分配金一覧csvファイルを選択してください
-            <input type="file" name="csvFile" accept=".csv">
-            <p>例）dividendlist_20210111.csv</p>
-        </div>
-        <button type="submit">アップロード</button>
+        <div>楽天証券の配当金・分配金一覧CSVファイルを選択してください。</div>
+        <div>一括登録をします。<input type="file" name="csvFile" accept=".csv"></div>
+        <div>例）dividendlist_20210111.csv</div>
+        <div><input type="submit" value="アップロード"/></div>
     </form>
     <br>
     <table  border="1" cellspacing = "0">
