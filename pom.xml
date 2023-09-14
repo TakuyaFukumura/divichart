@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>divichart</artifactId>
-	<version>0.3.0</version>
+	<version>0.4.0</version>
 	<name>divichart</name>
 	<properties>
 		<java.version>11</java.version>
@@ -51,6 +51,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.5</version>
 		</dependency>
 	</dependencies>
 

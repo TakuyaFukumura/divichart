@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -27,20 +28,24 @@ public class ListController {
 
     @GetMapping
     public String index(Model model) {
-        log.info("配当履歴一覧画面表示");
+        log.debug("配当履歴一覧画面表示");
         List<DividendHistory> dividendHistoryList = service.getAllDividendHistory();
         model.addAttribute("dividendHistoryList", dividendHistoryList);
         return "list";
     }
 
     @PostMapping("/insert")
-    public String insert(Model model,
-                         @ModelAttribute("amountReceived") BigDecimal amountReceived,
+    public String insert(@ModelAttribute("amountReceived") BigDecimal amountReceived,
                          @ModelAttribute("receiptDate") Date receiptDate) {
-        // log.info("配当insert");
+        log.debug("配当履歴登録");
         service.insertDividendHistory(amountReceived, receiptDate);
-        List<DividendHistory> dividendHistoryList = service.getAllDividendHistory();
-        model.addAttribute("dividendHistoryList", dividendHistoryList);
-        return "list";
+        return "redirect:/list";
+    }
+
+    @PostMapping("/csvInsert")
+    public String insert(@ModelAttribute("csvFile") MultipartFile csvFile) {
+        log.debug("配当履歴CSV一括登録");
+        service.csvInsert(csvFile);
+        return "redirect:/list";
     }
 }
