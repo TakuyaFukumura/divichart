@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping( {"/", "/index"} )
-public class Index {
+public class IndexController {
 
-    private static final Logger log = LoggerFactory.getLogger(Index.class);
+    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     IndexService service;
