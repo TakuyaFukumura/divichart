@@ -1,6 +1,5 @@
 package com.example.divichart.service;
 
-import com.example.divichart.controller.ListController;
 import com.example.divichart.entity.DividendHistory;
 import com.example.divichart.repository.DividendHistoryRepository;
 import org.apache.commons.csv.CSVFormat;
@@ -30,10 +29,8 @@ public class ListService {
         return repository.findAll();
     }
 
-    public void insertDividendHistory(BigDecimal amountReceived,
-                                      Date receiptDate){
-        DividendHistory dividendHistory =
-                new DividendHistory(amountReceived, receiptDate);
+    public void insertDividendHistory(BigDecimal amountReceived, Date receiptDate) {
+        DividendHistory dividendHistory = new DividendHistory(amountReceived, receiptDate);
         repository.save(dividendHistory);
     }
 
@@ -42,19 +39,18 @@ public class ListService {
      * @param csvFile CSVファイル内容
      */
     public void csvInsert(MultipartFile csvFile) {
-        List<DividendHistory> dividendHistoryList = new ArrayList<>(); //格納用のリスト
-        try ( InputStream stream = csvFile.getInputStream() ){
 
-            Reader reader = new InputStreamReader(stream, "SJIS"); //参考ページ：https://dev.classmethod.jp/articles/csv_read_java_char_trans/
-            BufferedReader buf = new BufferedReader(reader);
+        List<DividendHistory> dividendHistoryList = new ArrayList<>();
 
-            // CSVファイルをパース
+        try (InputStream stream = csvFile.getInputStream();
+             Reader reader = new InputStreamReader(stream, "SJIS");
+             BufferedReader buf = new BufferedReader(reader)) {
+
             CSVParser parse = CSVFormat.EXCEL.withHeader().parse(buf);
-            // レコードのリストに変換
             List<CSVRecord> recordList = parse.getRecords();
-            // 各レコードを標準出力に出力＆画面表示用のリストに格納
-            for (CSVRecord record : recordList) { //参考ページ：http://itref.fc2web.com/java/commons/csv.html
-                if( !record.get("銘柄コード").isEmpty() ){
+
+            for (CSVRecord record : recordList) {
+                if (!record.get("銘柄コード").isEmpty()) {
                     BigDecimal amountReceived = new BigDecimal(record.get("受取金額[円/現地通貨]"));
                     String rowDate = record.get("入金日");
                     String sqlDate = rowDate.replace("/", "-");
@@ -63,12 +59,13 @@ public class ListService {
                             amountReceived,
                             receiptDate
                     );
-                    dividendHistoryList.add(dividendHistory); // リストに加える
+                    dividendHistoryList.add(dividendHistory);
                 }
             }
             repository.saveAll(dividendHistoryList);
-        } catch (IOException e) { // csv読み込み失敗時
-            log.error(e.getMessage());
+
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
         }
     }
 
