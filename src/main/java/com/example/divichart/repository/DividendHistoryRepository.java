@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 public interface DividendHistoryRepository extends JpaRepository<DividendHistory, Long> {
-    @Query(value = "SELECT SUM(amount_received) FROM dividend_history", nativeQuery = true)
+    @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history", nativeQuery = true)
     BigDecimal getDividendSum();
 
-    @Query(value = "SELECT SUM(amount_received) FROM dividend_history " +
+    @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history " +
             "WHERE receipt_date BETWEEN :startDate AND :endDate", nativeQuery = true)
     BigDecimal getDividendSum(
             @Param("startDate") Date startDate
