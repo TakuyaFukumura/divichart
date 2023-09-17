@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.StringJoiner;
 
 @Service
@@ -26,26 +25,20 @@ public class LineChartService {
         return createChartData(cumulativeDividend);
     }
 
-    /*
-     * 月別配当金額合計額を取得する
+    /**
+     * 月別配当金額を取得する
+     * @param year 対象年
+     * @return 月別配当配列
      */
     private BigDecimal[] getMonthlyDividend(String year) {
         BigDecimal[] monthlyDividend = new BigDecimal[12];
 
         for (int i = 0; i < 12; i++) {
+            int month = i + 1;
+            String formattedMonth = String.format("%02d", month);
 
-            String startMonth = String.format("%02d", i+1);
-
-            Date startDate = Date.valueOf(year + "-" + startMonth + "-01");
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(startDate);
-
-            calendar.add(Calendar.MONTH, 1); // 次月にする
-            calendar.add(Calendar.DATE, -1); // 1引いて月末にする
-
-            long timeInMilliSeconds = calendar.getTime().getTime();
-            Date endDate = new Date(timeInMilliSeconds);
+            LocalDate startDate = LocalDate.parse(year + "-" + formattedMonth + "-01");
+            LocalDate endDate = startDate.plusMonths(1).minusDays(1);
 
             BigDecimal dividendSum = repository.getDividendSum(startDate, endDate);
             monthlyDividend[i] = dividendSum;

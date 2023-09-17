@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 
 public interface DividendHistoryRepository extends JpaRepository<DividendHistory, Long> {
     @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history", nativeQuery = true)
@@ -15,7 +15,7 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
     @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history " +
             "WHERE receipt_date BETWEEN :startDate AND :endDate", nativeQuery = true)
     BigDecimal getDividendSum(
-            @Param("startDate") Date startDate
-            ,@Param("endDate") Date endDate
+            @Param("startDate") LocalDate startDate
+            ,@Param("endDate") LocalDate endDate
     );
 }
