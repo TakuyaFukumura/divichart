@@ -23,6 +23,7 @@ public class LineChartService {
         // 該当する年のデータを取得。月別の合計(sum)で取りたい
         BigDecimal[] monthlyDividendSum = getMonthlyDividendSum(year);
         // 累計の配列に作り直す
+        BigDecimal[] cumulativeDividend = getCumulativeDividend(monthlyDividendSum);
         // コンマで連結する
         return chartData;
     }
@@ -52,6 +53,23 @@ public class LineChartService {
             monthlyDividendSum[i] = dividendSum;
         }
         return monthlyDividendSum;
+    }
+
+    /**
+     * 累計額の配列にして返す
+     * @param monthlyDividendSum 月別配当
+     * @return cumulativeDividend 累計配当
+     */
+    private BigDecimal[] getCumulativeDividend(BigDecimal[] monthlyDividendSum) {
+        BigDecimal[] cumulativeDividend = new BigDecimal[12];
+        BigDecimal sum = new BigDecimal("0");
+
+        for (int i = 0; i < 12; i++) {
+            sum = sum.add(monthlyDividendSum[i]);
+            cumulativeDividend[i] = sum;
+        }
+
+        return cumulativeDividend;
     }
 
 }
