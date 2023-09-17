@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>累計配当グラフ覧</title>
+    <link th:href="@{/css/lineChart.css}" rel="styleSheet">
+</head>
+<body>
+    <h1>累計配当グラフ</h1>
+    <p><a th:href="@{/index}">TOP画面</a></p>
+    <div class="chart-container">
+        <canvas id="lineChart"></canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+    <script>
+        var ctx = document.getElementById("lineChart");
+        var myLineChart = new Chart(ctx, {
+            type : 'line',
+            data : {
+                labels : [ '2020年1月', '2月', '3月', '4月', '5月', '6月'
+                    , '7月', '8月', '9月', '10月', '11月', '12月'],
+                datasets : [ {
+                    label : '累計配当受取額(ドル）',
+                    data : [ [[${chartData}]] ],
+                    borderColor : "rgba(0,0,255,1)",
+                    backgroundColor : "rgba(0,0,0,0)"
+                } ],
+            },
+            options : {
+                title : {
+                    display : true,
+                    text : '配当推移（2020年1月~2020年12月）'
+                },
+                scales : {
+                    yAxes : [ {
+                        ticks : {
+                            suggestedMax : 40,
+                            suggestedMin : 0,
+                            stepSize : 10,
+                            callback : function(value, index, values) {
+                                return value + 'ドル'
+                            }
+                        }
+                    } ]
+                },
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+</body>
+</html>
