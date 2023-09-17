@@ -14,18 +14,15 @@ public class LineChartService {
     @Autowired
     DividendHistoryRepository repository;
 
-    /*
-     * @return result グラフ描画用データ
+    /**
+     * グラフ描画用に、指定年の1月～12月までの配当累計を計算する
+     * @param year データ作成対象年
+     * @return グラフ描画用文字列
      */
     public String getChartData(String year) {
-
-        String chartData = "";
-        // 該当する年のデータを取得。月別の合計(sum)で取りたい
         BigDecimal[] monthlyDividend = getMonthlyDividend(year);
-        // 累計の配列に作り直す
         BigDecimal[] cumulativeDividend = getCumulativeDividend(monthlyDividend);
-        // コンマで連結する
-        return chartData;
+        return createChartData(cumulativeDividend);
     }
 
     /*
@@ -70,6 +67,21 @@ public class LineChartService {
         }
 
         return cumulativeDividend;
+    }
+
+    /**
+     * 受け取ったデータをコンマ区切りの文字列に合成して返す
+     * @param cumulativeDividend 合成したいデータ
+     * @return 合成した文字列 例）"1,2,3,4,5"
+     */
+    private String createChartData(BigDecimal[] cumulativeDividend) {
+        StringBuilder chartData = new StringBuilder();
+        chartData.append(cumulativeDividend[0].toString());
+        for (int i = 1; i < cumulativeDividend.length; i++) {
+            chartData.append(",");
+            chartData.append(cumulativeDividend[i].toString());
+        }
+        return chartData.toString();
     }
 
 }
