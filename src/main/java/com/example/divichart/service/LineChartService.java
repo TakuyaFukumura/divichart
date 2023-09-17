@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.StringJoiner;
 
 @Service
 public class LineChartService {
@@ -69,16 +70,14 @@ public class LineChartService {
     }
 
     /**
-     * 受け取ったデータをコンマ区切りの文字列に合成して返す
-     * @param cumulativeDividend 合成したいデータ
+     * 受け取ったデータをグラフ描画用に合成する
+     * @param cumulativeDividend 合成したいデータ配列
      * @return 合成した文字列 例）"1,2,3,4,5"
      */
     private String createChartData(BigDecimal[] cumulativeDividend) {
-        StringBuilder chartData = new StringBuilder();
-        chartData.append(cumulativeDividend[0].toString());
-        for (int i = 1; i < cumulativeDividend.length; i++) {
-            chartData.append(",");
-            chartData.append(cumulativeDividend[i].toString());
+        StringJoiner chartData = new StringJoiner(",");
+        for (BigDecimal dividend : cumulativeDividend) {
+            chartData.add(dividend.toString());
         }
         return chartData.toString();
     }
