@@ -55,17 +55,16 @@ public class LineChartService {
     /**
      * 累計額の配列にして返す
      * @param monthlyDividend 月別配当
-     * @return cumulativeDividend 累計配当
+     * @return 累計配当
      */
     private BigDecimal[] getCumulativeDividend(BigDecimal[] monthlyDividend) {
-        BigDecimal[] cumulativeDividend = new BigDecimal[12];
-        BigDecimal sum = new BigDecimal("0");
-
-        for (int i = 0; i < monthlyDividend.length; i++) {
+        int arrayLength = monthlyDividend.length;
+        BigDecimal[] cumulativeDividend = new BigDecimal[arrayLength];
+        BigDecimal sum = BigDecimal.ZERO;
+        for (int i = 0; i < arrayLength; i++) {
             sum = sum.add(monthlyDividend[i]);
             cumulativeDividend[i] = sum;
         }
-
         return cumulativeDividend;
     }
 
