@@ -35,10 +35,11 @@ public class ListController {
     }
 
     @PostMapping("/insert")
-    public String insert(@ModelAttribute("amountReceived") BigDecimal amountReceived,
+    public String insert(@ModelAttribute("tickerSymbol") String tickerSymbol,
+                         @ModelAttribute("amountReceived") BigDecimal amountReceived,
                          @ModelAttribute("receiptDate") Date receiptDate) {
         log.debug("配当履歴登録");
-        service.insertDividendHistory(amountReceived, receiptDate);
+        service.insertDividendHistory(tickerSymbol, amountReceived, receiptDate);
         return "redirect:/list";
     }
 

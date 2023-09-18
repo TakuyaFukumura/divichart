@@ -29,8 +29,8 @@ public class ListService {
         return repository.findAll();
     }
 
-    public void insertDividendHistory(BigDecimal amountReceived, Date receiptDate) {
-        DividendHistory dividendHistory = new DividendHistory(amountReceived, receiptDate);
+    public void insertDividendHistory(String tickerSymbol, BigDecimal amountReceived, Date receiptDate) {
+        DividendHistory dividendHistory = new DividendHistory(tickerSymbol, amountReceived, receiptDate);
         repository.save(dividendHistory);
     }
 
@@ -52,11 +52,13 @@ public class ListService {
 
             for (CSVRecord record : recordList) {
                 if (!record.get("銘柄コード").isEmpty()) {
+                    String tickerSymbol = record.get("銘柄コード");
                     BigDecimal amountReceived = new BigDecimal(record.get("受取金額[円/現地通貨]"));
                     String rowDate = record.get("入金日");
                     String sqlDate = rowDate.replace("/", "-");
                     Date receiptDate = Date.valueOf(sqlDate);
                     DividendHistory dividendHistory = new DividendHistory(
+                            tickerSymbol,
                             amountReceived,
                             receiptDate
                     );

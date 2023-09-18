@@ -9,8 +9,8 @@ DELETE FROM `dividend_history`
 WHERE `id` = 1;
 
 INSERT INTO `dividend_history`
-(`id`, `amount_received`, `receipt_date`) VALUES
-(   1,               120,   '2022-11-14');
+(`id`, `ticker_symbol`, `amount_received`, `receipt_date`) VALUES
+(   1,            'VT',               120,   '2022-11-14');
 
 DELETE FROM `authorities`
 WHERE `username` = 'admin';
