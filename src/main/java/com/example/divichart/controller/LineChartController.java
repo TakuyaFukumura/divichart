@@ -25,16 +25,18 @@ public class LineChartController {
 
     @GetMapping
     public String index(Model model,
-                        @ModelAttribute("year") String year) {
+                        @ModelAttribute("targetYear") String targetYear) {
         log.debug("累計配当グラフ表示");
-        if (year.isEmpty()){
+        if (targetYear.isEmpty()){
             LocalDate currentDate = LocalDate.now();
             int currentYear = currentDate.getYear();
-            year = Integer.valueOf(currentYear).toString();
+            targetYear = Integer.valueOf(currentYear).toString();
         } // serviceに移したい
-        String chartData = service.getChartData(year);
+        String chartData = service.getChartData(targetYear);
         model.addAttribute("chartData", chartData);
-        model.addAttribute("year", year);
+        String[] years = {"2020", "2021", "2022", "2023"};
+        model.addAttribute("targetYear", targetYear);
+        model.addAttribute("years", years);
         return "lineChart";
     }
 
