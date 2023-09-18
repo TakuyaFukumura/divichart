@@ -16,6 +16,6 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
             "WHERE receipt_date BETWEEN :startDate AND :endDate", nativeQuery = true)
     BigDecimal getDividendSum(
             @Param("startDate") LocalDate startDate
-            ,@Param("endDate") LocalDate endDate
+            , @Param("endDate") LocalDate endDate
     );
 }

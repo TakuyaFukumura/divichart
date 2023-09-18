@@ -8,12 +8,13 @@ import javax.persistence.Id;
 @Entity
 public class Account {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String password;
 
-    protected Account() {}
+    protected Account() {
+    }
 
     public Account(String name, String password) {
         this.name = name;

@@ -25,7 +25,7 @@ public class ListService {
     @Autowired
     DividendHistoryRepository repository;
 
-    public List<DividendHistory> getAllDividendHistory(){
+    public List<DividendHistory> getAllDividendHistory() {
         return repository.findAll();
     }
 
@@ -36,6 +36,7 @@ public class ListService {
 
     /**
      * CSVファイルを読み取って配当履歴をinsertする
+     *
      * @param csvFile CSVファイル内容
      */
     public void csvInsert(MultipartFile csvFile) {

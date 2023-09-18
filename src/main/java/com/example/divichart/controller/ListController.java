@@ -18,7 +18,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping( "/list" )
+@RequestMapping("/list")
 public class ListController {
 
     private static final Logger log = LoggerFactory.getLogger(ListController.class);

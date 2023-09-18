@@ -15,7 +15,7 @@ import java.util.Date;
 
 
 @Controller
-@RequestMapping( "/lineChart" )
+@RequestMapping("/lineChart")
 public class LineChartController {
 
     private static final Logger log = LoggerFactory.getLogger(LineChartController.class);
@@ -30,7 +30,7 @@ public class LineChartController {
 
         String[] recentYears = service.getRecentYears();
         if (targetYear.isEmpty()) targetYear = recentYears[0];
-        
+
         String chartData = service.getChartData(targetYear);
         model.addAttribute("chartData", chartData);
 
