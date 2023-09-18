@@ -88,8 +88,21 @@ public class LineChartService {
         }
         return recentYears;
     }
-    public String[] getRecentYears(int numbOfYears) {
-        return null;
+    
+    /**
+     * 指定された数の最近の年を取得する。
+     *
+     * @param numOfYears 取得する年数
+     * @return 最近の年の文字列配列
+     */
+    public String[] getRecentYears(int numOfYears) {
+        String[] recentYears = new String[numOfYears];
+        int currentYear = LocalDate.now().getYear();
+
+        for (int i = 0; i < numOfYears; i++) {
+            recentYears[i] = String.valueOf(currentYear - i);
+        }
+        return recentYears;
     }
 
 }
