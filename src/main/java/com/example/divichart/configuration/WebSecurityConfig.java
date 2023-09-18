@@ -28,6 +28,7 @@ public class WebSecurityConfig {
                 .mvcMatchers("/"
                         ,"/index"
                         ,"/login"
+                        ,"/css/**"
                         ,"/lineChart"
                 ).permitAll()
                 .anyRequest().authenticated();
