@@ -16,6 +16,7 @@ public class BasicChartService {
 
     /**
      * 月別配当金額を取得する
+     *
      * @param year 対象年
      * @return 月別配当配列
      */
@@ -37,6 +38,7 @@ public class BasicChartService {
 
     /**
      * 受け取ったデータをグラフ描画用に合成する
+     *
      * @param cumulativeDividend 合成したいデータ配列
      * @return 合成した文字列 例）"1,2,3,4,5"
      */
@@ -50,6 +52,7 @@ public class BasicChartService {
 
     /**
      * 今年も含めて過去5年分の年（西暦）を取得する
+     *
      * @return 年を表す配列
      */
     public String[] getRecentYears() {
@@ -61,7 +64,7 @@ public class BasicChartService {
         }
         return recentYears;
     }
-    
+
     /**
      * 指定された数の最近の年を取得する。
      *

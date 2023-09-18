@@ -13,15 +13,15 @@ public class IndexService {
     @Autowired
     AccountRepository repository;
 
-    public String getUserNameById(Long id){
+    public String getUserNameById(Long id) {
 
         Optional<Account> accountOptional = repository.findById(id);
 
-        if( accountOptional.isPresent() ) {
+        if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
             return account.getName();
 
-        }else{
+        } else {
             return "";
         }
     }

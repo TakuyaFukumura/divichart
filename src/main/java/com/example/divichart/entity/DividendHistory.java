@@ -10,12 +10,13 @@ import java.sql.Date;
 @Entity
 public class DividendHistory {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private BigDecimal amountReceived;
     private Date receiptDate;
 
-    protected DividendHistory() {}
+    protected DividendHistory() {
+    }
 
     public DividendHistory(BigDecimal amountReceived, Date receiptDate) {
         this.amountReceived = amountReceived;
