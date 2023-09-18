@@ -25,7 +25,10 @@ public class WebSecurityConfig {
 
         // 認証・認可設定
         http.authorizeRequests()
-                .mvcMatchers("/", "/index", "/login").permitAll()
+                .mvcMatchers("/"
+                        ,"/index"
+                        ,"/login"
+                ).permitAll()
                 .anyRequest().authenticated();
 
         // ログイン設定
