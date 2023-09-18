@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -19,10 +20,19 @@ public class BarChartController {
     private static final Logger log = LoggerFactory.getLogger(BarChartController.class);
 
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model,
+                        @ModelAttribute("targetYear") String targetYear) {
         log.debug("月別配当グラフ表示");
-        String chartData = service.getChartData("2020");
+
+        String[] recentYears = service.getRecentYears();
+        model.addAttribute("recentYears", recentYears);
+
+        if (targetYear.isEmpty()) targetYear = recentYears[0];
+        model.addAttribute("targetYear", targetYear);
+
+        String chartData = service.getChartData(targetYear);
         model.addAttribute("chartData", chartData);
+
         return "barChart";
     }
 
