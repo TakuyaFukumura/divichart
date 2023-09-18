@@ -30,6 +30,7 @@ public class WebSecurityConfig {
                         ,"/login"
                         ,"/css/**"
                         ,"/lineChart"
+                        ,"/barChart"
                 ).permitAll()
                 .anyRequest().authenticated();
 

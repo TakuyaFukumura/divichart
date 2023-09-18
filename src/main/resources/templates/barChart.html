@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>月別配当グラフ</title>
+    <link th:href="@{/css/basicChart.css}" rel="styleSheet">
+</head>
+<body>
+    <h1>月別配当グラフ</h1>
+    <p><a th:href="@{/index}">TOP画面</a></p>
+    <form th:action="@{/barChart}" method="get">
+        <p>対象年：
+            <select name="targetYear">
+                <option th:each="year : ${recentYears}" th:value="${year}" th:text="${year}" th:selected="${year == targetYear}"></option>
+            </select>
+            <input type="submit" value="表示" />
+        </p>
+    </form>
+    <div class="chart-container">
+        <canvas id="barChart"></canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+    <script>
+        var ctx = document.getElementById("barChart");
+        var myBarChart = new Chart(ctx, {
+            type : 'bar',
+            data : {
+                labels : [ "1月","2月","3月","4月","5月","6月","7月",
+                      "8月", "9月", "10月", "11月", "12月" ],
+                datasets : [ {
+                    label : '配当受取額',
+                    data : [ [[${chartData}]] ],
+                    backgroundColor : "rgba(130,201,169,0.5)"
+                } ]
+            },
+            options : {
+                title : {
+                    display : true,
+                    text : '月別配当受取額'
+                },
+                scales : {
+                    yAxes : [ {
+                        ticks : {
+                            suggestedMax : 100,
+                            suggestedMin : 0,
+                            stepSize : 10,
+                            callback : function(value, index, values) {
+                                return value + 'ドル'
+                            }
+                        }
+                    } ]
+                },
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+</body>
+</html>

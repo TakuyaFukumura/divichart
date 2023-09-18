@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>divichart</artifactId>
-	<version>0.6.1</version>
+	<version>0.7.0</version>
 	<name>divichart</name>
 	<properties>
 		<java.version>11</java.version>
