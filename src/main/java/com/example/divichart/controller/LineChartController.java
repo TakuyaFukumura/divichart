@@ -27,16 +27,19 @@ public class LineChartController {
     public String index(Model model,
                         @ModelAttribute("targetYear") String targetYear) {
         log.debug("累計配当グラフ表示");
+
+        String[] recentYears = service.getRecentYears();
         if (targetYear.isEmpty()){
             LocalDate currentDate = LocalDate.now();
             int currentYear = currentDate.getYear();
             targetYear = Integer.valueOf(currentYear).toString();
         } // serviceに移したい
+        
         String chartData = service.getChartData(targetYear);
         model.addAttribute("chartData", chartData);
-        String[] years = {"2020", "2021", "2022", "2023"};
+
         model.addAttribute("targetYear", targetYear);
-        model.addAttribute("years", years);
+        model.addAttribute("recentYears", recentYears);
         return "lineChart";
     }
 
