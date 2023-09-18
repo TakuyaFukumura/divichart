@@ -81,11 +81,10 @@ public class LineChartService {
      */
     public String[] getRecentYears() {
         String[] recentYears = new String[5];
-        LocalDate currentDate = LocalDate.now();
-        int currentYear = currentDate.getYear();
+        int currentYear = LocalDate.now().getYear();
+
         for (int i = 0; i < 5; i++) {
-            recentYears[i] = Integer.valueOf(currentYear).toString();
-            currentYear--;
+            recentYears[i] = String.valueOf(currentYear - i);
         }
         return recentYears;
     }
