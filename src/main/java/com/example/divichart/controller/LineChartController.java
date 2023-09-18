@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 
 @Controller
@@ -20,10 +24,18 @@ public class LineChartController {
     LineChartService service;
 
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model,
+                        @ModelAttribute("targetYear") String targetYear) {
         log.debug("累計配当グラフ表示");
-        String chartData = service.getChartData("2020"); // TODO:年は変数にする
+
+        String[] recentYears = service.getRecentYears();
+        if (targetYear.isEmpty()) targetYear = recentYears[0];
+        
+        String chartData = service.getChartData(targetYear);
         model.addAttribute("chartData", chartData);
+
+        model.addAttribute("targetYear", targetYear);
+        model.addAttribute("recentYears", recentYears);
         return "lineChart";
     }
 

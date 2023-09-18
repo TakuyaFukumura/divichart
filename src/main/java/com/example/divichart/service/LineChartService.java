@@ -75,4 +75,34 @@ public class LineChartService {
         return chartData.toString();
     }
 
+    /**
+     * 今年も含めて過去5年分の年（西暦）を取得する
+     * @return 年を表す配列
+     */
+    public String[] getRecentYears() {
+        String[] recentYears = new String[5];
+        int currentYear = LocalDate.now().getYear();
+
+        for (int i = 0; i < 5; i++) {
+            recentYears[i] = String.valueOf(currentYear - i);
+        }
+        return recentYears;
+    }
+    
+    /**
+     * 指定された数の最近の年を取得する。
+     *
+     * @param numOfYears 取得する年数
+     * @return 最近の年の文字列配列
+     */
+    public String[] getRecentYears(int numOfYears) {
+        String[] recentYears = new String[numOfYears];
+        int currentYear = LocalDate.now().getYear();
+
+        for (int i = 0; i < numOfYears; i++) {
+            recentYears[i] = String.valueOf(currentYear - i);
+        }
+        return recentYears;
+    }
+
 }
