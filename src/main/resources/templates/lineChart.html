@@ -11,14 +11,7 @@
     <form th:action="@{/lineChart}" method="get">
         <p>対象年：
             <select name="targetYear">
-                <th:block th:each="year : ${years}">
-                    <th:block th:if="${year} == ${targetYear}">
-                        <option th:value="${year}" th:text="${year}" selected></option>
-                    </th:block>
-                    <th:block th:if="${year} != ${targetYear}">
-                        <option th:value="${year}" th:text="${year}"></option>
-                    </th:block>
-                </th:block>
+                <option th:each="year : ${years}" th:value="${year}" th:text="${year}" th:selected="${year == targetYear}"></option>
             </select>
             <input type="submit" value="表示" />
         </p>
