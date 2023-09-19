@@ -23,6 +23,16 @@ public class PieChartController {
     public String index(Model model,
                         @ModelAttribute("targetYear") String targetYear) {
         log.debug("月別配当グラフ表示");
+
+        String[] recentYears = service.getRecentYears();
+        model.addAttribute("recentYears", recentYears);
+
+        if (targetYear.isEmpty()) targetYear = recentYears[0];
+        model.addAttribute("targetYear", targetYear);
+
+        String[] chartData = service.getChartData(targetYear);
+        model.addAttribute("chartData", chartData);
+
         return "pieChart";
     }
 

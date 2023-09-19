@@ -8,5 +8,40 @@
 <body>
     <h1>配当割合グラフ</h1>
     <p><a th:href="@{/index}">TOP画面</a></p>
+    <form th:action="@{/pieChart}" method="get">
+        <p>対象年：
+            <select name="targetYear">
+                <option th:each="year : ${recentYears}" th:value="${year}" th:text="${year}" th:selected="${year == targetYear}"></option>
+            </select>
+            <input type="submit" value="表示" />
+        </p>
+    </form>
+    <div class="chart-container">
+        <canvas id="pieChart"></canvas>
+    </div>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+
+    <script>
+        var ctx = document.getElementById("pieChart");
+        var pieChart = new Chart(ctx, {
+            type : 'pie',
+            data : {
+                labels : [ [(${chartData[0]})] ],
+                datasets : [ {
+                    backgroundColor : [ "#c73327","#e8c400","#eff2f7","#3b95d3","#BB5179", "#FAFF67", "#58A27C",
+                            "#3C00FF" ],
+                    data : [ [[${chartData[1]}]] ]
+                } ]
+            },
+            options : {
+                title : {
+                    display : true,
+                    text : '銘柄別  配当受取額割合'
+                },
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
 </body>
 </html>
