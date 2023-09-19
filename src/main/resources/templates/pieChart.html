@@ -16,12 +16,14 @@
             <input type="submit" value="表示" />
         </p>
     </form>
+    <th:block th:if="${#strings.isEmpty(chartData[1])}">
+        <p>データがありません</p>
+    </th:block>
+    <th:block th:if="${!#strings.isEmpty(chartData[1])}">
     <div class="chart-container">
         <canvas id="pieChart"></canvas>
     </div>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <script>
         var ctx = document.getElementById("pieChart");
         var pieChart = new Chart(ctx, {
@@ -43,5 +45,6 @@
             }
         });
     </script>
+    </th:block>
 </body>
 </html>
