@@ -17,45 +17,36 @@ public class PieChartService extends BasicChartService {
 
     /**
      * グラフ描画用に、指定年の配当割合データを取得する
-     * TODO:見直す
+     *
      * @param year データ作成対象年
-     * @return グラフ描画用文字列
+     * @return グラフ描画用文字列配列
      */
     public String[] getChartData(String year) {
-        // 必要なもの：グラフ描画用データ、銘柄データ
         LocalDate startDate = LocalDate.parse(year + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
-        List<Object[]> dividendTotalForStock = repository.getDividendTotalForStock(startDate, endDate);
-        return createChartData(dividendTotalForStock);
+        List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
+        return createChartData(dividendSummaryList);
     }
 
-    private String[] createChartData(List<Object[]> dividendTotalForStock) {
-        String[] chartData = new String[2];
-        StringJoiner AmountReceivedData = new StringJoiner(",");
-        for (Object[] dividendDto : dividendTotalForStock) {
-            BigDecimal tmp = (BigDecimal) dividendDto[1];
-            AmountReceivedData.add(tmp.toString());
+    /**
+     * 配当情報からグラフ描画用のデータを生成する
+     *
+     * @param dividendSummaryList 配当情報
+     * @return グラフ描画用文字列配列
+     */
+    private String[] createChartData(List<Object[]> dividendSummaryList) {
+        StringJoiner tickerSymbolData = new StringJoiner("\",\"", "\"", "\"");
+        StringJoiner amountReceivedData = new StringJoiner(",");
+
+        for (Object[] dividendSummary : dividendSummaryList) {
+            String tickerSymbol = (String) dividendSummary[0];
+            BigDecimal amountReceived = (BigDecimal) dividendSummary[1];
+
+            tickerSymbolData.add(tickerSymbol);
+            amountReceivedData.add(amountReceived.toString());
         }
 
-        String[] monthlyDividend = new String[dividendTotalForStock.size()];
-        for(int i = 0; i < monthlyDividend.length; ++i) {
-            Object[] tmp = dividendTotalForStock.get(i);
-            monthlyDividend[i] = (String) tmp[0];
-
-        }
-        String result = "\"";
-        if(monthlyDividend.length != 0){
-            result += monthlyDividend[0];
-            for(int i = 1; i < monthlyDividend.length; i++) {
-                result += "\",\"";
-                result += monthlyDividend[i];
-            }
-        }
-        result += "\"";
-
-        chartData[0] = result;
-        chartData[1] = AmountReceivedData.toString();
-        return chartData;
+        return new String[]{tickerSymbolData.toString(), amountReceivedData.toString()};
     }
 
 }
