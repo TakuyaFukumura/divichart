@@ -1,6 +1,5 @@
 package com.example.divichart.repository;
 
-import com.example.divichart.dto.DividendDto;
 import com.example.divichart.entity.DividendHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public interface DividendHistoryRepository extends JpaRepository<DividendHistory, Long> {
     @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history", nativeQuery = true)
