@@ -51,9 +51,8 @@ public class ListService {
             List<CSVRecord> recordList = parse.getRecords();
 
             for (CSVRecord record : recordList) {
-                String stockCode = record.get("銘柄コード");
-                if (!stockCode.isEmpty() && stockCode.matches("^[A-Z]*$")) {
-                    String tickerSymbol = stockCode;
+                if (!record.get("銘柄コード").isEmpty()) {
+                    String tickerSymbol = record.get("銘柄コード");
                     BigDecimal amountReceived = new BigDecimal(record.get("受取金額[円/現地通貨]"));
                     String rowDate = record.get("入金日");
                     String sqlDate = rowDate.replace("/", "-");
