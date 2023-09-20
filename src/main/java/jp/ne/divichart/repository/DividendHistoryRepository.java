@@ -1,6 +1,6 @@
-package com.example.divichart.repository;
+package jp.ne.divichart.repository;
 
-import com.example.divichart.entity.DividendHistory;
+import jp.ne.divichart.entity.DividendHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

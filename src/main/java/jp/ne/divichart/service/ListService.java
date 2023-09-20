@@ -1,7 +1,7 @@
-package com.example.divichart.service;
+package jp.ne.divichart.service;
 
-import com.example.divichart.entity.DividendHistory;
-import com.example.divichart.repository.DividendHistoryRepository;
+import jp.ne.divichart.entity.DividendHistory;
+import jp.ne.divichart.repository.DividendHistoryRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;

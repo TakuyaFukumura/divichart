@@ -1,4 +1,4 @@
-package com.example.divichart.entity;
+package jp.ne.divichart.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

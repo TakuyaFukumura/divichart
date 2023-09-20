@@ -1,4 +1,4 @@
-package com.example.divichart.controller;
+package jp.ne.divichart.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
