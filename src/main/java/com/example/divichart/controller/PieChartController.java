@@ -22,7 +22,7 @@ public class PieChartController {
     @GetMapping
     public String index(Model model,
                         @ModelAttribute("targetYear") String targetYear) {
-        log.debug("月別配当グラフ表示");
+        log.debug("配当割合グラフ表示");
 
         String[] recentYears = service.getRecentYears();
         model.addAttribute("recentYears", recentYears);
