@@ -40,17 +40,28 @@ public class ListService {
      * @param csvFile CSVファイル内容
      */
     public void csvInsert(MultipartFile csvFile) {
+        try {
+            List<DividendHistory> dividendHistoryList = parseCsvFile(csvFile);
+            repository.saveAll(dividendHistoryList);
+        } catch (IOException e) {
+            log.error("CSVファイルの読み込みまたはDBへの保存中にエラーが発生しました。", e);
+        }
+    }
 
+    /**
+     *
+     * @param csvFile アップロードされた配当CSV
+     * @return CSVファイルを読み込んで取得した配当履歴リスト
+     * @throws IOException 入出力例外
+     */
+    private List<DividendHistory> parseCsvFile(MultipartFile csvFile) throws IOException {
         List<DividendHistory> dividendHistoryList = new ArrayList<>();
 
         try (InputStream stream = csvFile.getInputStream();
              Reader reader = new InputStreamReader(stream, "SJIS");
-             BufferedReader buf = new BufferedReader(reader)) {
+             CSVParser parse = CSVFormat.EXCEL.withHeader().parse(reader)) {
 
-            CSVParser parse = CSVFormat.EXCEL.withHeader().parse(buf);
-            List<CSVRecord> recordList = parse.getRecords();
-
-            for (CSVRecord record : recordList) {
+            for (CSVRecord record : parse) {
                 String tickerSymbol = record.get("銘柄コード");
                 if (!tickerSymbol.isEmpty() && tickerSymbol.matches("^[A-Z]*$")) {
                     BigDecimal amountReceived = new BigDecimal(record.get("受取金額[円/現地通貨]"));
@@ -65,11 +76,18 @@ public class ListService {
                     dividendHistoryList.add(dividendHistory);
                 }
             }
-            repository.saveAll(dividendHistoryList);
-
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
         }
+        return dividendHistoryList;
+    }
+
+    /**
+     * 銘柄コードが大文字の英字のみで構成されているかを検証します。
+     *
+     * @param tickerSymbol 銘柄コード
+     * @return 大文字英字のみの銘柄コードである場合はtrue、それ以外の場合はfalse
+     */
+    private boolean isValidTickerSymbol(String tickerSymbol) {
+        return !tickerSymbol.isEmpty() && tickerSymbol.matches("^[A-Z]*$");
     }
 
 }
