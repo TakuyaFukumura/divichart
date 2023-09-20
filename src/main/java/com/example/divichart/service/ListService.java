@@ -49,27 +49,28 @@ public class ListService {
     }
 
     /**
+     * CSVファイルを解析し、配当履歴リストを取得します。
      *
      * @param csvFile アップロードされた配当CSV
      * @return CSVファイルを読み込んで取得した配当履歴リスト
-     * @throws IOException 入出力例外
+     * @throws IOException 入出力例外が発生した場合
      */
     private List<DividendHistory> parseCsvFile(MultipartFile csvFile) throws IOException {
         List<DividendHistory> dividendHistoryList = new ArrayList<>();
 
-        try (InputStream stream = csvFile.getInputStream();
-             Reader reader = new InputStreamReader(stream, "SJIS");
-             CSVParser parse = CSVFormat.EXCEL.withHeader().parse(reader)) {
+        try (InputStream inputStream = csvFile.getInputStream();
+             Reader reader = new InputStreamReader(inputStream, "SJIS");
+             CSVParser csvParser = CSVFormat.EXCEL.withHeader().parse(reader)) {
 
-            for (CSVRecord record : parse) {
-                String tickerSymbol = record.get("銘柄コード");
-                if (!tickerSymbol.isEmpty() && tickerSymbol.matches("^[A-Z]*$")) {
+            for (CSVRecord record : csvParser) {
+                String stockCode = record.get("銘柄コード");
+                if (isTickerSymbol(stockCode)) {
                     BigDecimal amountReceived = new BigDecimal(record.get("受取金額[円/現地通貨]"));
-                    String rowDate = record.get("入金日");
-                    String sqlDate = rowDate.replace("/", "-");
-                    Date receiptDate = Date.valueOf(sqlDate);
+                    String rawDate = record.get("入金日");
+                    String formattedDate = rawDate.replace("/", "-");
+                    Date receiptDate = Date.valueOf(formattedDate);
                     DividendHistory dividendHistory = new DividendHistory(
-                            tickerSymbol,
+                            stockCode,
                             amountReceived,
                             receiptDate
                     );
@@ -81,13 +82,13 @@ public class ListService {
     }
 
     /**
-     * 銘柄コードが大文字の英字のみで構成されているかを検証します。
+     * 銘柄コードがティッカーシンボルであるかを検証します。
      *
-     * @param tickerSymbol 銘柄コード
-     * @return 大文字英字のみの銘柄コードである場合はtrue、それ以外の場合はfalse
+     * @param stockCode 銘柄コード
+     * @return 空でなく大文字英字のみである場合はtrue、それ以外の場合はfalse
      */
-    private boolean isValidTickerSymbol(String tickerSymbol) {
-        return !tickerSymbol.isEmpty() && tickerSymbol.matches("^[A-Z]*$");
+    private boolean isTickerSymbol(String stockCode) {
+        return !stockCode.isEmpty() && stockCode.matches("^[A-Z]*$");
     }
 
 }
