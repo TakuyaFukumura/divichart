@@ -1,4 +1,4 @@
-package com.example.divichart;
+package jp.ne.divichart;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

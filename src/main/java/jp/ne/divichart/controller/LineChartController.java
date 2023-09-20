@@ -1,6 +1,6 @@
-package com.example.divichart.controller;
+package jp.ne.divichart.controller;
 
-import com.example.divichart.service.LineChartService;
+import jp.ne.divichart.service.LineChartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.time.LocalDate;
-import java.util.Date;
 
 
 @Controller

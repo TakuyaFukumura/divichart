@@ -1,4 +1,4 @@
-package com.example.divichart.configuration;
+package jp.ne.divichart.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

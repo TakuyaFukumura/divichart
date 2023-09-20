@@ -1,6 +1,6 @@
-package com.example.divichart.service;
+package jp.ne.divichart.service;
 
-import com.example.divichart.repository.DividendHistoryRepository;
+import jp.ne.divichart.repository.DividendHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

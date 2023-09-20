@@ -1,4 +1,4 @@
-package com.example.divichart.service;
+package jp.ne.divichart.service;
 
 import org.springframework.stereotype.Service;
 
