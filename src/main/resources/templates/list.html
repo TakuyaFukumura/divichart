@@ -38,35 +38,25 @@
     <!-- ↓ページネーション -->
     <div>
         <ul>
-            <li style="display:inline;">
-                <span th:if="${dividendHistoryPage.first}">&lt;&lt;前</span>
-                <a
-                        th:if="${!dividendHistoryPage.first}"
-                        th:href="@{/list(page = ${dividendHistoryPage.number} - 1)}"
-                >
-                    &lt;&lt;前
-                </a>
+            <li th:if="${!dividendHistoryPage.first}" style="display:inline;">
+                <a th:href="@{/list(page=${dividendHistoryPage.number - 1})}">&lt;&lt;前</a>
             </li>
-            <li
-                    th:each="i : ${#numbers.sequence(0, dividendHistoryPage.totalPages - 1)}"
-                    style="display:inline; margin-left:10px;"
-            >
-                <span th:if="${i} == ${dividendHistoryPage.number}" th:text="${i + 1}">1</span>
-                <a
-                        th:if="${i} != ${dividendHistoryPage.number}"
-                        th:href="@{/list(page = ${i})}"
-                >
-                    <span th:text="${i+1}">1</span>
-                </a>
-            </li>
-            <li style="display:inline; margin-left:10px;">
-                <span th:if="${dividendHistoryPage.last}">次&gt;&gt;</span>
-                <a
-                        th:if="${!dividendHistoryPage.last}"
-                        th:href="@{/list(page = (${dividendHistoryPage.number} + 1))}"
-                >
-                    次&gt;&gt;
-                </a>
+
+            <th:block th:each="pageNo : ${#numbers.sequence(0, dividendHistoryPage.totalPages - 1)}">
+                <li style="display:inline; margin-left:10px;">
+                    <th:block th:if="${pageNo == dividendHistoryPage.number}">
+                        <span th:text="${pageNo + 1}">1</span>
+                    </th:block>
+                    <th:block th:if="${pageNo != dividendHistoryPage.number}">
+                        <a th:href="@{/list(page=${pageNo})}">
+                            <span th:text="${pageNo + 1}">1</span>
+                        </a>
+                    </th:block>
+                </li>
+            </th:block>
+
+            <li th:if="${!dividendHistoryPage.last}" style="display:inline; margin-left:10px;">
+                <a th:href="@{/list(page=${dividendHistoryPage.number + 1})}">次&gt;&gt;</a>
             </li>
         </ul>
     </div>
