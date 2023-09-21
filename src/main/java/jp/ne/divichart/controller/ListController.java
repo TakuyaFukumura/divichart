@@ -5,6 +5,8 @@ import jp.ne.divichart.service.ListService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping("/list")
@@ -27,10 +28,12 @@ public class ListController {
     ListService service;
 
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model,
+                        Pageable pageable) {
         log.debug("配当履歴一覧画面表示");
-        List<DividendHistory> dividendHistoryList = service.getAllDividendHistory();
-        model.addAttribute("dividendHistoryList", dividendHistoryList);
+        Page<DividendHistory> dividendHistoryPage = service.getDividendHistory(pageable);
+        model.addAttribute("dividendHistoryPage", dividendHistoryPage);
+        model.addAttribute("dividendHistories", dividendHistoryPage.getContent());
         return "list";
     }
 

@@ -24,16 +24,52 @@
     <table  border="1" cellspacing = "0">
         <tr>
             <th>ID</th>
+            <th>ティッカーシンボル</th>
             <th>配当金額</th>
             <th>受取年月</th>
         </tr>
-        <tr th:each="dividendHistory : ${dividendHistoryList}">
+        <tr th:each="dividendHistory : ${dividendHistories}">
             <td th:text="${dividendHistory.getId()}"></td>
             <td th:text="${dividendHistory.getTickerSymbol()}"></td>
             <td th:text="${dividendHistory.getAmountReceived()}"></td>
             <td th:text="${dividendHistory.getReceiptDate()}"></td>
         </tr>
     </table>
+    <!-- ↓ページネーション -->
+    <div>
+        <ul>
+            <li style="display:inline;">
+                <span th:if="${dividendHistoryPage.first}">&lt;&lt;前</span>
+                <a
+                        th:if="${!dividendHistoryPage.first}"
+                        th:href="@{/list(page = ${dividendHistoryPage.number} - 1)}"
+                >
+                    &lt;&lt;前
+                </a>
+            </li>
+            <li
+                    th:each="i : ${#numbers.sequence(0, dividendHistoryPage.totalPages - 1)}"
+                    style="display:inline; margin-left:10px;"
+            >
+                <span th:if="${i} == ${dividendHistoryPage.number}" th:text="${i + 1}">1</span>
+                <a
+                        th:if="${i} != ${dividendHistoryPage.number}"
+                        th:href="@{/list(page = ${i})}"
+                >
+                    <span th:text="${i+1}">1</span>
+                </a>
+            </li>
+            <li style="display:inline; margin-left:10px;">
+                <span th:if="${dividendHistoryPage.last}">次&gt;&gt;</span>
+                <a
+                        th:if="${!dividendHistoryPage.last}"
+                        th:href="@{/list(page = (${dividendHistoryPage.number} + 1))}"
+                >
+                    次&gt;&gt;
+                </a>
+            </li>
+        </ul>
+    </div>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
