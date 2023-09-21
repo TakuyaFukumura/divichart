@@ -21,20 +21,6 @@
         <div><input type="submit" value="アップロード"/></div>
     </form>
     <br>
-    <table  border="1" cellspacing = "0">
-        <tr>
-            <th>ID</th>
-            <th>ティッカーシンボル</th>
-            <th>配当金額</th>
-            <th>受取年月</th>
-        </tr>
-        <tr th:each="dividendHistory : ${dividendHistories}">
-            <td th:text="${dividendHistory.getId()}"></td>
-            <td th:text="${dividendHistory.getTickerSymbol()}"></td>
-            <td th:text="${dividendHistory.getAmountReceived()}"></td>
-            <td th:text="${dividendHistory.getReceiptDate()}"></td>
-        </tr>
-    </table>
     <!-- ↓ページネーション -->
     <div>
         <ul>
@@ -60,6 +46,21 @@
             </li>
         </ul>
     </div>
+    <!-- ↓一覧表 -->
+    <table  border="1" cellspacing = "0">
+        <tr>
+            <th>ID</th>
+            <th>ティッカーシンボル</th>
+            <th>配当金額</th>
+            <th>受取年月</th>
+        </tr>
+        <tr th:each="dividendHistory : ${dividendHistories}">
+            <td th:text="${dividendHistory.getId()}"></td>
+            <td th:text="${dividendHistory.getTickerSymbol()}"></td>
+            <td th:text="${dividendHistory.getAmountReceived()}"></td>
+            <td th:text="${dividendHistory.getReceiptDate()}"></td>
+        </tr>
+    </table>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
