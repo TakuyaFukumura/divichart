@@ -10,10 +10,9 @@
     <p><a th:href="@{/index}">TOP画面</a></p>
     <form th:action="@{/barChart}" method="get">
         <p>対象年：
-            <select name="targetYear">
+            <select name="targetYear" onchange="submit(this.form)">
                 <option th:each="year : ${recentYears}" th:value="${year}" th:text="${year}" th:selected="${year == targetYear}"></option>
             </select>
-            <input type="submit" value="表示" />
         </p>
     </form>
     <div class="chart-container">
