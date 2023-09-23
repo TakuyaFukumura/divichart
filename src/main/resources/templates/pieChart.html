@@ -16,9 +16,7 @@
             <input type="submit" value="表示" />
         </p>
     </form>
-    <th:block th:if="${#strings.isEmpty(chartData[1])}">
-        <p>データがありません</p>
-    </th:block>
+    <p th:if="${#strings.isEmpty(chartData[1])}">データがありません</p>
     <th:block th:if="${!#strings.isEmpty(chartData[1])}">
     <div class="chart-container">
         <canvas id="pieChart"></canvas>
