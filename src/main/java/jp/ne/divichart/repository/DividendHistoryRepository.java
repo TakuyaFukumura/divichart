@@ -1,6 +1,8 @@
 package jp.ne.divichart.repository;
 
 import jp.ne.divichart.entity.DividendHistory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +32,6 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
     );
+
+    Page<DividendHistory> findAll(Pageable pageable);
 }

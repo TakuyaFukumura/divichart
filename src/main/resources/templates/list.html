@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>配当履歴一覧</title>
+    <link th:href="@{/css/list.css}" rel="styleSheet">
 </head>
 <body>
     <h1>配当履歴一覧画面</h1>
@@ -21,13 +22,45 @@
         <div><input type="submit" value="アップロード"/></div>
     </form>
     <br>
+    <!-- ↓ページネーション -->
+    <div>
+        <ul>
+            <li th:if="${!dividendHistoryPage.first}">
+                <a th:href="@{/list(page=${dividendHistoryPage.number - 1})}">&lt;&lt;前</a>
+            </li>
+            <li th:if="${dividendHistoryPage.number gt 2}">
+                <!-- 先頭ページ -->
+                <a th:href="@{/list(page=0)}">1</a>
+            </li>
+            <li th:if="${dividendHistoryPage.number gt 3}">
+                <span>…</span>
+            </li>
+            <li th:if="${pageNo ge 0 and pageNo lt dividendHistoryPage.totalPages}"
+                th:each="pageNo : ${ #numbers.sequence(dividendHistoryPage.number - 2, dividendHistoryPage.number + 2) }">
+                <span th:if="${pageNo == dividendHistoryPage.number}" th:text="${pageNo + 1}"></span>
+                <a th:if="${pageNo != dividendHistoryPage.number}" th:href="@{/list(page=${pageNo})}" th:text="${pageNo + 1}"></a>
+            </li>
+            <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 4)}">
+                <span>…</span>
+            </li>
+            <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 3)}">
+                <!-- 最終ページ -->
+                <a th:href="@{/list(page=${dividendHistoryPage.totalPages - 1})}" th:text="${dividendHistoryPage.totalPages}"></a>
+            </li>
+            <li th:if="${!dividendHistoryPage.last}">
+                <a th:href="@{/list(page=${dividendHistoryPage.number + 1})}">次&gt;&gt;</a>
+            </li>
+        </ul>
+    </div>
+    <!-- ↓一覧表 -->
     <table  border="1" cellspacing = "0">
         <tr>
             <th>ID</th>
+            <th>ティッカーシンボル</th>
             <th>配当金額</th>
             <th>受取年月</th>
         </tr>
-        <tr th:each="dividendHistory : ${dividendHistoryList}">
+        <tr th:each="dividendHistory : ${dividendHistories}">
             <td th:text="${dividendHistory.getId()}"></td>
             <td th:text="${dividendHistory.getTickerSymbol()}"></td>
             <td th:text="${dividendHistory.getAmountReceived()}"></td>
