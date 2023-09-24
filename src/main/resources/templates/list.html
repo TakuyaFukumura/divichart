@@ -45,7 +45,7 @@
                 <span>…</span>
             </li>
             <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 3)}">
-                <!-- 最後ページ -->
+                <!-- 最終ページ -->
                 <a th:href="@{/list(page=${dividendHistoryPage.totalPages - 1})}" th:text="${dividendHistoryPage.totalPages}"></a>
             </li>
             <li th:if="${!dividendHistoryPage.last}">
