@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/pieChart")
 public class PieChartController {
 
+    private static final Logger log = LoggerFactory.getLogger(PieChartController.class);
     @Autowired
     PieChartService service;
 
-    private static final Logger log = LoggerFactory.getLogger(PieChartController.class);
-
     @GetMapping
-    public String index(Model model,
-                        @ModelAttribute("targetYear") String targetYear) {
+    public String index(Model model, @ModelAttribute("targetYear") String targetYear) {
         log.debug("配当割合グラフ表示");
 
         String[] recentYears = service.getRecentYears();
