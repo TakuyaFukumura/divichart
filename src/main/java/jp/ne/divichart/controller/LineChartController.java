@@ -21,8 +21,7 @@ public class LineChartController {
     LineChartService service;
 
     @GetMapping
-    public String index(Model model,
-                        @ModelAttribute("targetYear") String targetYear) {
+    public String index(Model model, @ModelAttribute("targetYear") String targetYear) {
         log.debug("累計配当グラフ表示");
 
         String[] recentYears = service.getRecentYears();
