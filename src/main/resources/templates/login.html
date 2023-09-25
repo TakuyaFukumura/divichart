@@ -5,8 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link th:href="@{/css/header.css}" rel="styleSheet">
 </head>
 <body>
+    <header th:replace="header"></header>
     <h1>ログイン画面</h1>
     <div th:if="${param.error}">
         ログインエラー

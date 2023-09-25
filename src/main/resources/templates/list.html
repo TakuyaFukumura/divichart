@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>配当履歴一覧</title>
+    <link th:href="@{/css/header.css}" rel="styleSheet">
     <link th:href="@{/css/list.css}" rel="styleSheet">
 </head>
 <body>
+    <header th:replace="header"></header>
     <h1>配当履歴一覧画面</h1>
-    <p><a th:href="@{/index}">TOP画面</a></p>
     <form th:action="@{/list/insert}" method="post">
         <div><label>ティッカー：<input type="text" name="tickerSymbol"/></label></div><!-- TODO:バリデーション作成 -->
         <div><label>配当金額　：<input type="number" step="0.01" name="amountReceived"/></label></div>

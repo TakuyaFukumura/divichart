@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>累計配当グラフ</title>
+    <link th:href="@{/css/header.css}" rel="styleSheet">
     <link th:href="@{/css/basicChart.css}" rel="styleSheet">
 </head>
 <body>
+    <header th:replace="header"></header>
     <h1>累計配当グラフ</h1>
-    <p><a th:href="@{/index}">TOP画面</a></p>
     <form th:action="@{/lineChart}" method="get">
         <p>対象年：
             <select name="targetYear" onchange="submit(this.form)">
