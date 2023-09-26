@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>配当割合グラフ</title>
+    <link th:href="@{/css/header.css}" rel="styleSheet">
     <link th:href="@{/css/basicChart.css}" rel="styleSheet">
 </head>
 <body>
+    <header th:replace="header"></header>
     <h1>配当割合グラフ</h1>
-    <p><a th:href="@{/index}">TOP画面</a></p>
     <form th:action="@{/pieChart}" method="get">
         <p>対象年：
             <select name="targetYear" onchange="submit(this.form)">

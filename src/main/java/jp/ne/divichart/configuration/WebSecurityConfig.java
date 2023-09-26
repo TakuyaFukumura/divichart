@@ -26,7 +26,6 @@ public class WebSecurityConfig {
         // 認証・認可設定
         http.authorizeRequests()
                 .mvcMatchers("/"
-                        ,"/index"
                         ,"/login"
                         ,"/css/**"
                         ,"/lineChart"
@@ -46,7 +45,7 @@ public class WebSecurityConfig {
 
         // ログアウト設定
         http.logout()
-                .logoutSuccessUrl("/index") // ログアウト成功後の遷移先
+                .logoutSuccessUrl("/") // ログアウト成功後の遷移先
                 .permitAll();              // アクセス全許可
 
         // h2-consoleを表示するためにCSRF対策外へ指定

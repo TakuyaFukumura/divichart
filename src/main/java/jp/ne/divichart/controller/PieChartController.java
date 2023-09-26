@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/pieChart")
+@RequestMapping({"/", "/pieChart"})
 public class PieChartController {
 
     private static final Logger log = LoggerFactory.getLogger(PieChartController.class);
