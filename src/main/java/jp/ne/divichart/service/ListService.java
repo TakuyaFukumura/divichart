@@ -31,10 +31,6 @@ public class ListService {
         return repository.findAll(pageable);
     }
 
-    public List<DividendHistory> getAllDividendHistory() {
-        return repository.findAll();
-    }
-
     public void insertDividendHistory(String tickerSymbol, BigDecimal amountReceived, Date receiptDate) {
         DividendHistory dividendHistory = new DividendHistory(tickerSymbol, amountReceived, receiptDate);
         repository.save(dividendHistory);
