@@ -93,7 +93,7 @@ public class ListService {
      * @param stockCode 銘柄コード
      * @return 空でなく大文字英字のみである場合はtrue、それ以外の場合はfalse
      */
-    private boolean isTickerSymbol(String stockCode) {
+    boolean isTickerSymbol(String stockCode) {
         return !stockCode.isEmpty() && stockCode.matches("^[A-Z]*$");
     }
 
