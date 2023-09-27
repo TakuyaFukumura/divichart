@@ -3,6 +3,7 @@ package jp.ne.divichart.service;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 @Service
 public class LineChartService extends BasicChartService {
@@ -26,12 +27,10 @@ public class LineChartService extends BasicChartService {
      * @return 累計配当
      */
     BigDecimal[] getCumulativeDividend(BigDecimal[] monthlyDividend) {
-        int arrayLength = monthlyDividend.length;
-        BigDecimal[] cumulativeDividend = new BigDecimal[arrayLength];
-        BigDecimal sum = BigDecimal.ZERO;
-        for (int i = 0; i < arrayLength; i++) {
-            sum = sum.add(monthlyDividend[i]);
-            cumulativeDividend[i] = sum;
+        BigDecimal[] cumulativeDividend = Arrays.copyOf(monthlyDividend, monthlyDividend.length);
+
+        for (int i = 1; i < cumulativeDividend.length; i++) {
+            cumulativeDividend[i] = cumulativeDividend[i].add(cumulativeDividend[i - 1]);
         }
         return cumulativeDividend;
     }
