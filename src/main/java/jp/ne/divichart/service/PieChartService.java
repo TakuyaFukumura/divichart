@@ -34,7 +34,7 @@ public class PieChartService extends BasicChartService {
      * @param dividendSummaryList 配当情報
      * @return グラフ描画用文字列配列
      */
-    private String[] createChartData(List<Object[]> dividendSummaryList) {
+    String[] createChartData(List<Object[]> dividendSummaryList) {
         StringJoiner tickerSymbolData = new StringJoiner("\",\"", "\"", "\"");
         StringJoiner amountReceivedData = new StringJoiner(",");
 
