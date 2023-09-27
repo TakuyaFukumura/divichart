@@ -25,7 +25,7 @@ public class LineChartService extends BasicChartService {
      * @param monthlyDividend 月別配当
      * @return 累計配当
      */
-    private BigDecimal[] getCumulativeDividend(BigDecimal[] monthlyDividend) {
+    BigDecimal[] getCumulativeDividend(BigDecimal[] monthlyDividend) {
         int arrayLength = monthlyDividend.length;
         BigDecimal[] cumulativeDividend = new BigDecimal[arrayLength];
         BigDecimal sum = BigDecimal.ZERO;
