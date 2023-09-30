@@ -34,19 +34,25 @@ or
   - 無い場合は下記コマンドで作成すること
 ```bash
 $ mkdir -p .db/dev
-$ mkdir -p .db/prod
+$ mkdir -p ~/db/prod
 
 divichart
 └── ./db
-    ├── dev
-    └── prod
+    └── dev
 ```
-- H2コンソールを利用する場合は`/src/main/resources/application.properties`に`spring.h2.console.enabled=true`を書き加えるか、下記コマンドを実行すること
+### H2コンソールを利用する場合
+`/src/main/resources/application.properties`に`spring.h2.console.enabled=true`を書き加えるか、下記コマンドを実行すること
 ```
 ./mvnw clean spring-boot:run -Dspring-boot.run.arguments=--spring.h2.console.enabled=true
 ```
 ```
 java -jar ./target/*.jar --spring.h2.console.enabled=true
+```
+### PRODでテーブルを作成する場合
+下記コマンドで最初に一度だけ手動で起動すると、
+指定されたディレクトリにデータが作成される。
+```bash
+java -jar ./target/*.jar --spring.sql.init.mode=always --spring.sql.init.schema-locations=classpath:./sql/schema.sql
 ```
 
 ## 依存関係
