@@ -1,4 +1,4 @@
-package jp.ne.divichart.configuration;
+package click.divichart.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;

@@ -1,4 +1,4 @@
-package jp.ne.divichart.service;
+package click.divichart.service;
 
 
 

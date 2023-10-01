@@ -1,6 +1,6 @@
-package jp.ne.divichart.service;
+package click.divichart.service;
 
-import jp.ne.divichart.repository.DividendHistoryRepository;
+import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

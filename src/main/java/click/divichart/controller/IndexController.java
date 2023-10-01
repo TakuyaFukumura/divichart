@@ -1,4 +1,4 @@
-package jp.ne.divichart.controller;
+package click.divichart.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
