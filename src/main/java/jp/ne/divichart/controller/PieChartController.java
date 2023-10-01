@@ -25,7 +25,7 @@ public class PieChartController {
         String[] recentYears = service.getRecentYears();
         model.addAttribute("recentYears", recentYears);
 
-        if (targetYear.isEmpty()) targetYear = recentYears[0];
+        if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
         model.addAttribute("targetYear", targetYear);
 
         String[] chartData = service.getChartData(targetYear);

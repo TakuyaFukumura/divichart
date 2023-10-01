@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.StringJoiner;
+import java.util.regex.Pattern;
 
 @Service
 public class BasicChartService {
@@ -63,6 +64,16 @@ public class BasicChartService {
             recentYears[i] = String.valueOf(currentYear - i);
         }
         return recentYears;
+    }
+
+    /**
+     * 引数が4桁の西暦年を表す文字列かどうかを判定します。
+     *
+     * @param input パラメータ文字列
+     * @return 引数が西暦年を表す文字列ならtrue、そうでなければfalse
+     */
+    public boolean isNotYear(String input){
+        return !Pattern.matches("^[1-9]\\d{3}$", input);
     }
 
 }
