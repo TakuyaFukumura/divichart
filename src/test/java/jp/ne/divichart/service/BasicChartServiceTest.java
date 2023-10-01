@@ -43,4 +43,29 @@ class BasicChartServiceTest {
         }
     }
 
+    @Test
+    void testIsNotYearWithValidYear() {
+        assertFalse(basicChartService.isNotYear("2023"));
+    }
+
+    @Test
+    void testIsNotYearWithInvalidYear() {
+        assertTrue(basicChartService.isNotYear("food")); // 無効な年の文字列
+    }
+
+    @Test
+    void testIsNotYearWithEmptyString() {
+        assertTrue(basicChartService.isNotYear("")); // 空の文字列
+    }
+
+    @Test
+    void testIsNotYearWithTooManyDigits() {
+        assertTrue(basicChartService.isNotYear("12345")); // 桁数が大きすぎるケース
+    }
+
+    @Test
+    void testIsNotYearWithLeadingZero() {
+        assertTrue(basicChartService.isNotYear("0123")); // 先頭が0のケース
+    }
+
 }

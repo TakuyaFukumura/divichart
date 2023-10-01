@@ -25,7 +25,7 @@ public class LineChartController {
         log.debug("累計配当グラフ表示");
 
         String[] recentYears = service.getRecentYears();
-        if (targetYear.isEmpty()) targetYear = recentYears[0];
+        if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
 
         String chartData = service.getChartData(targetYear);
         model.addAttribute("chartData", chartData);
