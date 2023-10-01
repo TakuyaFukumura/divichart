@@ -1,7 +1,7 @@
-package jp.ne.divichart.controller;
+package click.divichart.controller;
 
-import jp.ne.divichart.entity.DividendHistory;
-import jp.ne.divichart.service.ListService;
+import click.divichart.entity.DividendHistory;
+import click.divichart.service.ListService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

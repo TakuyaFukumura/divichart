@@ -1,6 +1,6 @@
-package jp.ne.divichart.repository;
+package click.divichart.repository;
 
-import jp.ne.divichart.entity.DividendHistory;
+import click.divichart.entity.DividendHistory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

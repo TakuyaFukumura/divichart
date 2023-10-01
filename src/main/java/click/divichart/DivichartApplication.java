@@ -1,4 +1,4 @@
-package jp.ne.divichart;
+package click.divichart;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
