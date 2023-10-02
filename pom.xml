@@ -23,6 +23,7 @@
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
+			<!-- spring-boot-starter-thymeleafの依存関係にあるsnakeyamlに脆弱性があるため個別にアップデート -->
 			<version>2.2</version>
 		</dependency>
 		<dependency>
