@@ -24,7 +24,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         // 認証・認可設定
-        http.authorizeRequests()
+        http.authorizeHttpRequests()
                 .requestMatchers("/"
                         ,"/login"
                         ,"/css/**"
