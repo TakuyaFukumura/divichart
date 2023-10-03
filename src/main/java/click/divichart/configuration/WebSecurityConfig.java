@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import javax.sql.DataSource;
 
@@ -21,16 +24,17 @@ public class WebSecurityConfig {
     private DataSource dataSource;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
+        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
         // 認証・認可設定
         http.authorizeHttpRequests()
-                .requestMatchers("/"
-                        ,"/login"
-                        ,"/css/**"
-                        ,"/lineChart"
-                        ,"/barChart"
-                        ,"/pieChart"
+                .requestMatchers(
+                        mvcMatcherBuilder.pattern("/"),
+                        mvcMatcherBuilder.pattern("/login"),
+                        mvcMatcherBuilder.pattern("/css/**"),
+                        mvcMatcherBuilder.pattern("/lineChart"),
+                        mvcMatcherBuilder.pattern("/barChart"),
+                        mvcMatcherBuilder.pattern("/pieChart")
                 ).permitAll()
                 .anyRequest().authenticated();
 
@@ -49,7 +53,9 @@ public class WebSecurityConfig {
                 .permitAll();              // アクセス全許可
 
         // h2-consoleを表示するためにCSRF対策外へ指定
-        http.csrf().ignoringRequestMatchers("/h2-console/**");
+        http.csrf().ignoringRequestMatchers(
+                AntPathRequestMatcher.antMatcher("/h2-console/**")
+        );
         http.headers().frameOptions().disable();
 
         return http.build();
