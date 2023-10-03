@@ -25,7 +25,7 @@ public class WebSecurityConfig {
 
         // 認証・認可設定
         http.authorizeRequests()
-                .mvcMatchers("/"
+                .requestMatchers("/"
                         ,"/login"
                         ,"/css/**"
                         ,"/lineChart"
@@ -49,7 +49,7 @@ public class WebSecurityConfig {
                 .permitAll();              // アクセス全許可
 
         // h2-consoleを表示するためにCSRF対策外へ指定
-        http.csrf().ignoringAntMatchers("/h2-console/**");
+        http.csrf().ignoringRequestMatchers("/h2-console/**");
         http.headers().frameOptions().disable();
 
         return http.build();
