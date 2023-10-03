@@ -7,7 +7,7 @@
     <link th:href="@{/css/basicChart.css}" rel="styleSheet">
 </head>
 <body>
-    <header th:replace="header"></header>
+    <header th:replace="~{header}"></header>
     <h1>月別配当グラフ</h1>
     <form th:action="@{/barChart}" method="get">
         <p>対象年：
