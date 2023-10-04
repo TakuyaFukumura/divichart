@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 public class ListService {
 
-    private static final Logger log = LoggerFactory.getLogger(ListService.class);
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     DividendHistoryRepository repository;

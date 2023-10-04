@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 @RequestMapping("/index")
 public class IndexController {
 
-    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping
     public String index() {

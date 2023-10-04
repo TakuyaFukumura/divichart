@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/lineChart")
 public class LineChartController {
 
-    private static final Logger log = LoggerFactory.getLogger(LineChartController.class);
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     LineChartService service;

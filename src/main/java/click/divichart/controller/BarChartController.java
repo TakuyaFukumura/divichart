@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/barChart")
 public class BarChartController {
 
-    private static final Logger log = LoggerFactory.getLogger(BarChartController.class);
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     BarChartService service;
 
