@@ -55,19 +55,23 @@
         </ul>
     </div>
     <!-- ↓一覧表 -->
-    <table  border="1" cellspacing = "0">
-        <tr>
-            <th>ID</th>
-            <th>ティッカーシンボル</th>
-            <th>配当金額</th>
-            <th>受取年月</th>
-        </tr>
-        <tr th:each="dividendHistory : ${dividendHistories}">
-            <td th:text="${dividendHistory.getId()}"></td>
-            <td th:text="${dividendHistory.getTickerSymbol()}"></td>
-            <td th:text="${dividendHistory.getAmountReceived()}"></td>
-            <td th:text="${dividendHistory.getReceiptDate()}"></td>
-        </tr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">ティッカーシンボル</th>
+                <th scope="col">配当金額</th>
+                <th scope="col">受取年月</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr th:each="dividendHistory : ${dividendHistories}">
+                <th th:text="${dividendHistory.getId()}" scope="row"></th>
+                <td th:text="${dividendHistory.getTickerSymbol()}"></td>
+                <td th:text="${dividendHistory.getAmountReceived()}"></td>
+                <td th:text="${dividendHistory.getReceiptDate()}"></td>
+            </tr>
+        </tbody>
     </table>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
