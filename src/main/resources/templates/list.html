@@ -7,7 +7,7 @@
     <link th:href="@{/css/list.css}" rel="styleSheet">
 </head>
 <body>
-    <header th:replace="header"></header>
+    <header th:replace="~{header}"></header>
     <h1>配当履歴一覧</h1>
     <form th:action="@{/list/insert}" method="post">
         <div><label>ティッカー：<input type="text" name="tickerSymbol"/></label></div><!-- TODO:バリデーション作成 -->
