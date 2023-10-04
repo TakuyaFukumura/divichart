@@ -10,11 +10,25 @@
 <body>
     <header th:replace="~{header}"></header>
     <h1>配当履歴一覧</h1>
-    <form th:action="@{/list/insert}" method="post">
-        <div><label>ティッカー：<input type="text" name="tickerSymbol"/></label></div><!-- TODO:バリデーション作成 -->
-        <div><label>配当金額　：<input type="number" step="0.01" name="amountReceived"/></label></div>
-        <div><label>受取年月　：<input type="date" name="receiptDate"/></label></div>
-        <div><input type="submit" value="Insert"/></div>
+    <form th:action="@{/list/insert}" method="post" class="border">
+        <div class="mb-3">
+            <label class="form-label">ティッカー
+                <input type="text" name="tickerSymbol"  class="form-control"/>
+            </label>
+        </div><!-- TODO:バリデーション作成 -->
+        <div class="mb-3">
+            <label class="form-label">配当金額
+                <input type="number" step="0.01" name="amountReceived" class="form-control"/>
+            </label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">受取年月
+                <input type="date" name="receiptDate" class="form-control"/>
+            </label>
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Insert"  class="btn btn-primary"/>
+        </div>
     </form>
     <br>
     <form th:action="@{/list/csvInsert}" method="post" enctype="multipart/form-data">
