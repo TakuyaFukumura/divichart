@@ -3,6 +3,12 @@
 - 目的
   - インカムゲイン重視な投資家の資産形成モチベーションを維持する
 
+## 動作環境
+- OS
+  - Ubuntu 20.04 LTS
+- Java
+  - Amazon Corretto 17
+
 ## build
 ```bash
 ./mvnw clean package
