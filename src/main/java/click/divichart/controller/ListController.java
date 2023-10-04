@@ -22,7 +22,7 @@ import java.sql.Date;
 @RequestMapping("/list")
 public class ListController {
 
-    private static final Logger log = LoggerFactory.getLogger(ListController.class);
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     ListService service;
