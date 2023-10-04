@@ -9,7 +9,7 @@
 - Java
   - Amazon Corretto 17
 
-## build
+## Build
 ```bash
 ./mvnw clean package
 ```
@@ -22,7 +22,7 @@ or
 ```bash
 ./mvnw clean spring-boot:run
 ```
-### devプロファイル指定
+### DEV用の設定を使う場合
 - `spring.profiles.active=dev`を指定することで`application-dev.properties`の値が使用される
 ```
 ./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
