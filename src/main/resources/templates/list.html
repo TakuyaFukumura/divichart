@@ -12,19 +12,16 @@
     <h1>配当履歴一覧</h1>
     <form th:action="@{/list/insert}" method="post" class="border">
         <div class="mb-3">
-            <label class="form-label">ティッカー
-                <input type="text" name="tickerSymbol"  class="form-control"/>
-            </label>
+            <label for="tickerSymbol" class="form-label">ティッカー</label>
+            <input type="text" id="tickerSymbol" name="tickerSymbol"  class="form-control"/>
         </div><!-- TODO:バリデーション作成 -->
         <div class="mb-3">
-            <label class="form-label">配当金額
-                <input type="number" step="0.01" name="amountReceived" class="form-control"/>
-            </label>
+            <label for="amountReceived" class="form-label">配当金額</label>
+            <input type="number" id="amountReceived" step="0.01" name="amountReceived" class="form-control"/>
         </div>
         <div class="mb-3">
-            <label class="form-label">受取年月
-                <input type="date" name="receiptDate" class="form-control"/>
-            </label>
+            <label for="receiptDate" class="form-label">受取年月</label>
+            <input type="date" id="receiptDate" name="receiptDate" class="form-control"/>
         </div>
         <div class="mb-3">
             <input type="submit" value="Insert"  class="btn btn-primary"/>
