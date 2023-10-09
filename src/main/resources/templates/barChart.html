@@ -23,7 +23,8 @@
     <div class="chart-container">
         <canvas id="barChart"></canvas>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
         var ctx = document.getElementById("barChart");
         var myBarChart = new Chart(ctx, {
@@ -38,21 +39,23 @@
                 } ]
             },
             options : {
-                title : {
-                    display : true,
-                    text : '月別配当受取額'
+                plugins : {
+                    title : {
+                        display : true,
+                        text : '月別配当受取額'
+                    },
                 },
                 scales : {
-                    yAxes : [ {
+                    y : {
+                        suggestedMax : 100,
+                        suggestedMin : 0,
                         ticks : {
-                            suggestedMax : 100,
-                            suggestedMin : 0,
                             stepSize : 10,
                             callback : function(value, index, values) {
                                 return value + 'ドル'
                             }
                         }
-                    } ]
+                    }
                 },
                 maintainAspectRatio: false,
             }
