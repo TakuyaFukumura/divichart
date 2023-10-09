@@ -23,41 +23,52 @@
     <div class="chart-container">
         <canvas id="lineChart"></canvas>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        var ctx = document.getElementById("lineChart");
-        var myLineChart = new Chart(ctx, {
-            type : 'line',
-            data : {
-                labels : [ '[[${targetYear}]]年1月', '2月', '3月', '4月', '5月', '6月'
-                    , '7月', '8月', '9月', '10月', '11月', '12月'],
-                datasets : [ {
-                    label : '累計配当受取額(ドル）',
-                    data : [ [[${chartData}]] ],
-                    borderColor : "rgba(0,0,255,1)",
-                    backgroundColor : "rgba(0,0,0,0)"
-                } ],
-            },
-            options : {
-                title : {
-                    display : true,
-                    text : '配当推移（[[${targetYear}]]年1月~[[${targetYear}]]年12月）'
+        let ctx = document.getElementById( "lineChart" );
+        let chart = new Chart( ctx,
+            {
+                type: 'line',
+                data: {
+                    labels: [
+                        '[[${targetYear}]]年1月',
+                        '2月', '3月', '4月', '5月', '6月',
+                        '7月', '8月', '9月', '10月', '11月', '12月'
+                    ],
+                    datasets: [
+                        {
+                            label: '累計配当受取額(ドル）',
+                            data: [ [[${chartData}]] ],
+                            borderColor: "rgba( 0, 0, 255, 1 )",
+                            backgroundColor: "rgba( 0, 0, 0, 0 )",
+                            lineTension: 0.4,
+                        },
+                    ],
                 },
-                scales : {
-                    yAxes : [ {
-                        ticks : {
-                            suggestedMax : 40,
-                            suggestedMin : 0,
-                            stepSize : 10,
-                            callback : function(value, index, values) {
-                                return value + 'ドル'
-                            }
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '配当推移（[[${targetYear}]]年1月~[[${targetYear}]]年12月）'
                         }
-                    } ]
-                },
-                maintainAspectRatio: false,
-            }
-        });
+                    },
+                    scales: {
+                        y: {
+                            suggestedMax: 40,
+                            suggestedMin: 0,
+                            ticks: {
+                                stepSize: 10,
+                                callback: function(value, index, values) {
+                                    return value + 'ドル'
+                                }
+                            }
+                        },
+                    },
+                    maintainAspectRatio: false,
+                }
+            },
+        );
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
