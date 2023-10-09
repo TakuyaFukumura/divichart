@@ -1,4 +1,7 @@
 # divichart
+[![Build](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml/badge.svg)](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/TakuyaFukumura/divichart)
+
 - http://divichart.click/
 - 配当金を可視化するアプリ
 - 目的
