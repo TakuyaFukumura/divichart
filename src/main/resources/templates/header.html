@@ -1,10 +1,38 @@
 <header th:fragment="header">
-        <nav>
-            <ul>
-                <li><a th:href="@{/pieChart}">配当割合グラフ</a></li>
-                <li><a th:href="@{/barChart}">月別配当グラフ</a></li>
-                <li><a th:href="@{/lineChart}">累計配当グラフ</a></li>
-                <li><a th:href="@{/list}">配当履歴一覧</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarToggle" aria-controls="navbarToggle"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <a th:href="@{/}" class="navbar-brand">
+                        divichart
+                    </a>
+                    <ul class="navbar-nav nav-underline">
+                        <li class="nav-item">
+                            <a th:href="@{/pieChart}" class="nav-link" style="color:white;">
+                                配当割合グラフ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/barChart}" class="nav-link" style="color:white;">
+                                月別配当グラフ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/lineChart}" class="nav-link" style="color:white;">
+                                累計配当グラフ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/list}" class="nav-link" style="color:white;">
+                                配当履歴一覧
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>

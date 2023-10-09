@@ -2,74 +2,106 @@
 <html lang="ja" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>配当履歴一覧</title>
-    <link th:href="@{/css/header.css}" rel="styleSheet">
-    <link th:href="@{/css/list.css}" rel="styleSheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
     <header th:replace="~{header}"></header>
     <h1>配当履歴一覧</h1>
-    <form th:action="@{/list/insert}" method="post">
-        <div><label>ティッカー：<input type="text" name="tickerSymbol"/></label></div><!-- TODO:バリデーション作成 -->
-        <div><label>配当金額　：<input type="number" step="0.01" name="amountReceived"/></label></div>
-        <div><label>受取年月　：<input type="date" name="receiptDate"/></label></div>
-        <div><input type="submit" value="Insert"/></div>
-    </form>
-    <br>
-    <form th:action="@{/list/csvInsert}" method="post" enctype="multipart/form-data">
-        <div>楽天証券の配当金・分配金一覧CSVファイルを選択してください。</div>
-        <div>一括登録をします。<input type="file" name="csvFile" accept=".csv"></div>
-        <div>例）dividendlist_20210111.csv</div>
-        <div><input type="submit" value="アップロード"/></div>
-    </form>
-    <br>
     <!-- ↓ページネーション -->
     <div>
-        <ul>
-            <li th:if="${!dividendHistoryPage.first}">
-                <a th:href="@{/list(page=${dividendHistoryPage.number - 1})}">&lt;&lt;前</a>
+        <ul class="pagination justify-content-center">
+            <li th:if="${!dividendHistoryPage.first}" class="page-item">
+                <a th:href="@{/list(page=${dividendHistoryPage.number - 1})}" class="page-link">Previous</a>
             </li>
-            <li th:if="${dividendHistoryPage.number gt 2}">
+            <li th:if="${dividendHistoryPage.number gt 2}" class="page-item">
                 <!-- 先頭ページ -->
-                <a th:href="@{/list(page=0)}">1</a>
+                <a th:href="@{/list(page=0)}" class="page-link">1</a>
             </li>
-            <li th:if="${dividendHistoryPage.number gt 3}">
-                <span>…</span>
+            <li th:if="${dividendHistoryPage.number gt 3}" class="page-item">
+                <a class="page-link">…</a>
             </li>
             <li th:if="${pageNo ge 0 and pageNo lt dividendHistoryPage.totalPages}"
-                th:each="pageNo : ${ #numbers.sequence(dividendHistoryPage.number - 2, dividendHistoryPage.number + 2) }">
-                <span th:if="${pageNo == dividendHistoryPage.number}" th:text="${pageNo + 1}"></span>
-                <a th:if="${pageNo != dividendHistoryPage.number}" th:href="@{/list(page=${pageNo})}" th:text="${pageNo + 1}"></a>
+                th:each="pageNo : ${ #numbers.sequence(dividendHistoryPage.number - 2, dividendHistoryPage.number + 2) }"
+                class="page-item">
+                <a th:if="${pageNo == dividendHistoryPage.number}" th:text="${pageNo + 1}" class="page-link active"></a>
+                <a th:if="${pageNo != dividendHistoryPage.number}"
+                   th:href="@{/list(page=${pageNo})}" th:text="${pageNo + 1}" class="page-link">
+                </a>
             </li>
-            <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 4)}">
-                <span>…</span>
+            <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 4)}" class="page-item">
+                <a class="page-link">…</a>
             </li>
-            <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 3)}">
+            <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 3)}" class="page-item">
                 <!-- 最終ページ -->
-                <a th:href="@{/list(page=${dividendHistoryPage.totalPages - 1})}" th:text="${dividendHistoryPage.totalPages}"></a>
+                <a th:href="@{/list(page=${dividendHistoryPage.totalPages - 1})}"
+                   th:text="${dividendHistoryPage.totalPages}" class="page-link">
+                </a>
             </li>
-            <li th:if="${!dividendHistoryPage.last}">
-                <a th:href="@{/list(page=${dividendHistoryPage.number + 1})}">次&gt;&gt;</a>
+            <li th:if="${!dividendHistoryPage.last}" class="page-item">
+                <a th:href="@{/list(page=${dividendHistoryPage.number + 1})}" class="page-link">Next</a>
             </li>
         </ul>
     </div>
     <!-- ↓一覧表 -->
-    <table  border="1" cellspacing = "0">
-        <tr>
-            <th>ID</th>
-            <th>ティッカーシンボル</th>
-            <th>配当金額</th>
-            <th>受取年月</th>
-        </tr>
-        <tr th:each="dividendHistory : ${dividendHistories}">
-            <td th:text="${dividendHistory.getId()}"></td>
-            <td th:text="${dividendHistory.getTickerSymbol()}"></td>
-            <td th:text="${dividendHistory.getAmountReceived()}"></td>
-            <td th:text="${dividendHistory.getReceiptDate()}"></td>
-        </tr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">ティッカーシンボル</th>
+                <th scope="col">配当金額</th>
+                <th scope="col">受取年月</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr th:each="dividendHistory : ${dividendHistories}">
+                <th th:text="${dividendHistory.getId()}" scope="row"></th>
+                <td th:text="${dividendHistory.getTickerSymbol()}"></td>
+                <td th:text="${dividendHistory.getAmountReceived()}"></td>
+                <td th:text="${dividendHistory.getReceiptDate()}"></td>
+            </tr>
+        </tbody>
     </table>
+    <!-- ↓ログアウトボタン -->
     <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
+        <input type="submit" value="Logout" class="btn btn-secondary">
     </form>
+    <br>
+    <!-- ↓CSV一括登録 -->
+    <form th:action="@{/list/csvInsert}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="csvFile" class="form-label">
+                楽天証券の配当金・分配金一覧CSVファイルを選択してください。一括登録をします。
+            </label>
+            <input type="file" id="csvFile" name="csvFile" accept=".csv" class="form-control">
+            <div class="form-text">例）dividendlist_20210111.csv</div>
+        </div>
+        <input type="submit" value="アップロード" class="btn btn-primary">
+    </form>
+    <br>
+    <!-- ↓個別登録 -->
+    <form th:action="@{/list/insert}" method="post" class="border">
+        <div class="mb-3">
+            <label for="tickerSymbol" class="form-label">ティッカー</label>
+            <input type="text" id="tickerSymbol" name="tickerSymbol"  class="form-control"/>
+        </div><!-- TODO:バリデーション作成 -->
+        <div class="mb-3">
+            <label for="amountReceived" class="form-label">配当金額</label>
+            <input type="number" id="amountReceived" step="0.01" name="amountReceived" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="receiptDate" class="form-label">受取年月</label>
+            <input type="date" id="receiptDate" name="receiptDate" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Insert"  class="btn btn-primary"/>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous">
+    </script>
 </body>
 </html>
