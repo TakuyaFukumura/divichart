@@ -1,29 +1,39 @@
 # divichart
+[![Build](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml/badge.svg)](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/TakuyaFukumura/divichart)
+
+- http://divichart.click/
 - 配当金を可視化するアプリ
 - 目的
   - インカムゲイン重視な投資家の資産形成モチベーションを維持する
 
-## build
+## 動作環境
+- OS
+  - Ubuntu 20.04 LTS
+- Java
+  - Amazon Corretto 17
+
+## Build
 ```bash
 ./mvnw clean package
 ```
 
 ## 起動
 ```bash
-java -jar ./target/*.jar
+java -jar ./target/divichart.jar
 ```
 or
 ```bash
 ./mvnw clean spring-boot:run
 ```
-### devプロファイル指定
+### DEV用の設定を使う場合
 - `spring.profiles.active=dev`を指定することで`application-dev.properties`の値が使用される
 ```
 ./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
 ```
 
 ## 画面表示
-- http://localhost:8080 にアクセスする
+- http://localhost:8080 をブラウザで開く
 
 ## DB
 - Embedded H2 Database を使用している
@@ -46,13 +56,13 @@ divichart
 ./mvnw clean spring-boot:run -Dspring-boot.run.arguments=--spring.h2.console.enabled=true
 ```
 ```
-java -jar ./target/*.jar --spring.h2.console.enabled=true
+java -jar ./target/divichart.jar --spring.h2.console.enabled=true
 ```
 ### PRODでテーブルを作成する場合
 下記コマンドで最初に一度だけ手動で起動すると、
 指定されたディレクトリにデータが作成される。
 ```bash
-java -jar ./target/*.jar --spring.sql.init.mode=always --spring.sql.init.schema-locations=classpath:./sql/schema.sql
+java -jar ./target/divichart.jar --spring.sql.init.mode=always --spring.sql.init.schema-locations=classpath:./sql/schema.sql
 ```
 
 ## 依存関係
@@ -64,3 +74,19 @@ java -jar ./target/*.jar --spring.sql.init.mode=always --spring.sql.init.schema-
 ```bash
 ./mvnw dependency:analyze
 ```
+
+## 使用技術・ツール
+- バックエンドフレームワーク
+  - Spring Boot
+- ビルドツール
+  - Maven
+- テスティングフレームワーク
+  - JUnit
+- テンプレートエンジン
+  - Thymeleaf
+- フロントエンドフレームワーク
+  - Bootstrap
+- グラフ描画ライブラリ
+  - Chart.js
+- DB
+  - H2 Database Engine
