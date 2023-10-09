@@ -25,7 +25,8 @@
     <div class="chart-container">
         <canvas id="pieChart"></canvas>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
         var ctx = document.getElementById("pieChart");
         var pieChart = new Chart(ctx, {
@@ -40,9 +41,11 @@
                 } ]
             },
             options : {
-                title : {
-                    display : true,
-                    text : '銘柄別  配当受取額割合'
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '銘柄別  配当受取額割合'
+                    }
                 },
                 maintainAspectRatio: false,
             }
