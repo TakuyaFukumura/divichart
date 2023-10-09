@@ -13,11 +13,13 @@
     <header th:replace="~{header}"></header>
     <h1>配当割合グラフ</h1>
     <form th:action="@{/pieChart}" method="get">
-        <p>対象年：
-            <select name="targetYear" onchange="submit(this.form)">
-                <option th:each="year : ${recentYears}" th:value="${year}" th:text="${year}" th:selected="${year == targetYear}"></option>
+        <div class="mb-3">
+            <label for="selectYear" class="form-label">対象年</label>
+            <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
+                <option th:each="year : ${recentYears}" th:value="${year}"
+                        th:text="${year}" th:selected="${year == targetYear}"></option>
             </select>
-        </p>
+        </div>
     </form>
     <p th:if="${#strings.isEmpty(chartData[1])}">データがありません</p>
     <th:block th:if="${!#strings.isEmpty(chartData[1])}">
