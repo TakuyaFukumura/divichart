@@ -70,3 +70,19 @@ java -jar ./target/*.jar --spring.sql.init.mode=always --spring.sql.init.schema-
 ```bash
 ./mvnw dependency:analyze
 ```
+
+## 使用技術・ツール
+- バックエンドフレームワーク
+  - Spring Boot
+- ビルドツール
+  - Maven
+- テスティングフレームワーク
+  - JUnit
+- テンプレートエンジン
+  - Thymeleaf
+- フロントエンドフレームワーク
+  - Bootstrap
+- グラフ描画ライブラリ
+  - Chart.js
+- DB
+  - H2 Database Engine
