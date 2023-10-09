@@ -33,7 +33,7 @@ or
 ```
 
 ## 画面表示
-- http://localhost:8080 にアクセスする
+- http://localhost:8080 をブラウザで開く
 
 ## DB
 - Embedded H2 Database を使用している
