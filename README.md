@@ -16,7 +16,7 @@
 
 ## 起動
 ```bash
-java -jar ./target/*.jar
+java -jar ./target/divichart.jar
 ```
 or
 ```bash
@@ -52,13 +52,13 @@ divichart
 ./mvnw clean spring-boot:run -Dspring-boot.run.arguments=--spring.h2.console.enabled=true
 ```
 ```
-java -jar ./target/*.jar --spring.h2.console.enabled=true
+java -jar ./target/divichart.jar --spring.h2.console.enabled=true
 ```
 ### PRODでテーブルを作成する場合
 下記コマンドで最初に一度だけ手動で起動すると、
 指定されたディレクトリにデータが作成される。
 ```bash
-java -jar ./target/*.jar --spring.sql.init.mode=always --spring.sql.init.schema-locations=classpath:./sql/schema.sql
+java -jar ./target/divichart.jar --spring.sql.init.mode=always --spring.sql.init.schema-locations=classpath:./sql/schema.sql
 ```
 
 ## 依存関係
