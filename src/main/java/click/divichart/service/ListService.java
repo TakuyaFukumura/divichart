@@ -1,6 +1,6 @@
 package click.divichart.service;
 
-import click.divichart.entity.DividendHistory;
+import click.divichart.bean.entity.DividendHistory;
 import click.divichart.repository.DividendHistoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;

@@ -1,6 +1,6 @@
 package click.divichart.controller;
 
-import click.divichart.entity.DividendHistory;
+import click.divichart.bean.entity.DividendHistory;
 import click.divichart.service.ListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package click.divichart.entity;
+package click.divichart.bean.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
