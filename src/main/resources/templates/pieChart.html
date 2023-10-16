@@ -16,7 +16,7 @@
             <label for="selectYear" class="form-label">対象年</label>
             <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
                 <option th:each="year : ${recentYears}" th:value="${year}"
-                        th:text="${year}" th:selected="${year == targetYear}"></option>
+                        th:text="${year}" th:selected="${year == pieChartForm.targetYear}"></option>
             </select>
         </div>
     </form>
