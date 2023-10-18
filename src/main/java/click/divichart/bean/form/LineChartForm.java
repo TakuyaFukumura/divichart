@@ -1,12 +1,16 @@
 package click.divichart.bean.form;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class LineChartForm {
+import java.io.Serializable;
+
+@Getter
+@Setter
+public class LineChartForm implements Serializable {
     private String targetYear; // 表示対象年
 
-    LineChartForm(){
+    LineChartForm() {
         this.targetYear = "";
     }
 }
