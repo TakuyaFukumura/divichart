@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class PieChartForm implements Serializable {
     private String targetYear; // 表示対象年
 
-    PieChartForm(){
+    PieChartForm() {
         this.targetYear = "";
     }
 }

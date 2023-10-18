@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class BarChartForm implements Serializable {
     private String targetYear; // 表示対象年
 
-    BarChartForm(){
+    BarChartForm() {
         this.targetYear = "";
     }
 }
