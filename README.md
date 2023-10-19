@@ -2,7 +2,7 @@
 [![Build](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml/badge.svg)](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/TakuyaFukumura/divichart)
 
-- http://divichart.click/
+- https://divichart.click/
 - 配当金を可視化するアプリ
 - 目的
   - インカムゲイン重視な投資家の資産形成モチベーションを維持する
@@ -28,7 +28,7 @@ or
 ```
 ### DEV用の設定を使う場合
 - `spring.profiles.active=dev`を指定することで`application-dev.properties`の値が使用される
-```
+```bash
 ./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
 ```
 
@@ -52,10 +52,10 @@ divichart
 ```
 ### H2コンソールを利用する場合
 `/src/main/resources/application.properties`に`spring.h2.console.enabled=true`を書き加えるか、下記コマンドを実行すること
-```
+```bash
 ./mvnw clean spring-boot:run -Dspring-boot.run.arguments=--spring.h2.console.enabled=true
 ```
-```
+```bash
 java -jar ./target/divichart.jar --spring.h2.console.enabled=true
 ```
 ### PRODでテーブルを作成する場合
