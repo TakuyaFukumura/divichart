@@ -1,6 +1,7 @@
 package click.divichart.controller;
 
 import click.divichart.bean.entity.DividendHistory;
+import click.divichart.bean.form.list.InsertForm;
 import click.divichart.service.ListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,13 @@ public class ListController {
     }
 
     @PostMapping("/insert")
-    public String insert(@ModelAttribute("tickerSymbol") String tickerSymbol,
-                         @ModelAttribute("amountReceived") BigDecimal amountReceived,
-                         @ModelAttribute("receiptDate") Date receiptDate) {
+    public String insert(InsertForm insertForm) {
         log.debug("配当履歴登録");
-        service.insertDividendHistory(tickerSymbol, amountReceived, receiptDate);
+        service.insertDividendHistory(
+                insertForm.getTickerSymbol(),
+                insertForm.getAmountReceived(),
+                insertForm.getReceiptDate()
+        );
         return "redirect:/list";
     }
 
