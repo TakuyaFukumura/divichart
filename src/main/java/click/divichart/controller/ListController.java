@@ -43,7 +43,7 @@ public class ListController {
     }
 
     @PostMapping("/csvInsert")
-    public String insert(CsvInsertForm csvInsertForm) {
+    public String csvInsert(CsvInsertForm csvInsertForm) {
         log.debug("配当履歴CSV一括登録");
         service.csvInsert(
                 csvInsertForm.getCsvFile()
