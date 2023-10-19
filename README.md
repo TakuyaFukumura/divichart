@@ -2,7 +2,7 @@
 [![Build](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml/badge.svg)](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/TakuyaFukumura/divichart)
 
-- http://divichart.click/
+- https://divichart.click/
 - 配当金を可視化するアプリ
 - 目的
   - インカムゲイン重視な投資家の資産形成モチベーションを維持する
