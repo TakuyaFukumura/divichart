@@ -1,5 +1,6 @@
 package click.divichart.service;
 
+import click.divichart.bean.dto.PieChartDto;
 import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class PieChartService extends BasicChartService {
      * @param year データ作成対象年
      * @return グラフ描画用文字列配列
      */
-    public String[] getChartData(String year) {
+    public PieChartDto getChartData(String year) {
         LocalDate startDate = LocalDate.parse(year + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
@@ -34,7 +35,7 @@ public class PieChartService extends BasicChartService {
      * @param dividendSummaryList 配当情報
      * @return グラフ描画用文字列配列
      */
-    String[] createChartData(List<Object[]> dividendSummaryList) {
+    PieChartDto createChartData(List<Object[]> dividendSummaryList) {
         StringJoiner tickerSymbolData = new StringJoiner("\",\"", "\"", "\"");
         StringJoiner amountReceivedData = new StringJoiner(",");
 
@@ -46,7 +47,10 @@ public class PieChartService extends BasicChartService {
             amountReceivedData.add(amountReceived.toString());
         }
 
-        return new String[]{tickerSymbolData.toString(), amountReceivedData.toString()};
+        return new PieChartDto(
+                tickerSymbolData.toString(),
+                amountReceivedData.toString()
+        );
     }
 
 }

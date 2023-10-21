@@ -1,5 +1,6 @@
 package click.divichart.controller;
 
+import click.divichart.bean.dto.PieChartDto;
 import click.divichart.bean.form.PieChartForm;
 import click.divichart.service.PieChartService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class PieChartController {
         if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
         pieChartForm.setTargetYear(targetYear);
 
-        String[] chartData = service.getChartData(targetYear);
+        PieChartDto chartData = service.getChartData(targetYear);
         model.addAttribute("chartData", chartData);
 
         return "pieChart";

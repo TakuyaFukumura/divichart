@@ -20,8 +20,8 @@
             </select>
         </div>
     </form>
-    <p th:if="${#strings.isEmpty(chartData[1])}">データがありません</p>
-    <th:block th:if="${!#strings.isEmpty(chartData[1])}">
+    <p th:if="${#strings.isEmpty(chartData.getAmountReceivedData())}">データがありません</p>
+    <th:block th:if="${!#strings.isEmpty(chartData.getAmountReceivedData())}">
     <div class="chart-container">
         <canvas id="pieChart"></canvas>
     </div>
@@ -32,12 +32,12 @@
         var pieChart = new Chart(ctx, {
             type : 'pie',
             data : {
-                labels : [ [(${chartData[0]})] ],
+                labels : [ [(${chartData.getTickerSymbolData()})] ],
                 datasets : [ {
                     backgroundColor : [ "#c73327", "#e8c400", "#3C00FF", "#3b95d3", "#BB5179",
                                         "#FAFF67", "#58A27C", "#F41111", "#FFD80F", "#44B009",
                                         "#45CAFF", "#332FCC", "#D819FF" ],
-                    data : [ [[${chartData[1]}]] ]
+                    data : [ [[${chartData.getAmountReceivedData()}]] ]
                 } ]
             },
             options : {
