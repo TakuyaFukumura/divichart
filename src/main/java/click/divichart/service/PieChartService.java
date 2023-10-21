@@ -47,12 +47,10 @@ public class PieChartService extends BasicChartService {
             amountReceivedData.add(amountReceived.toString());
         }
 
-        PieChartDto pieChartDto = new PieChartDto(
+        return new PieChartDto(
                 tickerSymbolData.toString(),
                 amountReceivedData.toString()
         );
-
-        return pieChartDto;
     }
 
 }
