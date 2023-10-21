@@ -1,5 +1,6 @@
 package click.divichart.service;
 
+import click.divichart.bean.dto.PieChartDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,28 +25,26 @@ class PieChartServiceTest {
         dividendSummaryList.add(new Object[]{"AAPL", BigDecimal.valueOf(100.01)});
         dividendSummaryList.add(new Object[]{"GOOG", BigDecimal.valueOf(50.01)});
 
-        String[] chartData = pieChartService.createChartData(dividendSummaryList);
+        PieChartDto chartData = pieChartService.createChartData(dividendSummaryList);
 
         assertNotNull(chartData);
-        assertEquals(2, chartData.length);
 
         // 期待される結果を確認します
-        assertEquals("\"AAPL\",\"GOOG\"", chartData[0]);
-        assertEquals("100.01,50.01", chartData[1]);
+        assertEquals("\"AAPL\",\"GOOG\"", chartData.getTickerSymbolData());
+        assertEquals("100.01,50.01", chartData.getAmountReceivedData());
     }
 
     @Test
     public void testCreateChartDataWithEmptyList() {
         List<Object[]> emptyList = new ArrayList<>();
 
-        String[] chartData = pieChartService.createChartData(emptyList);
+        PieChartDto chartData = pieChartService.createChartData(emptyList);
 
         assertNotNull(chartData);
-        assertEquals(2, chartData.length);
 
         // 空のリストが渡された場合、空の文字列が返されることを確認します
-        assertEquals("\"\"", chartData[0]);
-        assertEquals("", chartData[1]);
+        assertEquals("\"\"", chartData.getTickerSymbolData());
+        assertEquals("", chartData.getAmountReceivedData());
     }
 
 }
