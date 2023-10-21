@@ -1,5 +1,6 @@
 package click.divichart.service;
 
+import click.divichart.bean.dto.DividendTotalForStockDto;
 import click.divichart.bean.dto.PieChartDto;
 import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -27,6 +29,33 @@ public class PieChartService extends BasicChartService {
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
         return createChartData(dividendSummaryList);
+    List<DividendTotalForStockDto> dataFormatting(List<Object[]> dividendSummaryList){
+
+        List<DividendTotalForStockDto> dividendTotalForStockDtoList = new ArrayList<>();
+        DividendTotalForStockDto other = new DividendTotalForStockDto(
+                "その他",
+                BigDecimal.ZERO
+        );
+
+        for (Object[] dividendSummary : dividendSummaryList) {
+            DividendTotalForStockDto dividendTotalForStockDto = new DividendTotalForStockDto(
+                    (String) dividendSummary[0],
+                    (BigDecimal) dividendSummary[1]
+            );
+            if(dividendTotalForStockDtoList.size() < 15){
+                dividendTotalForStockDtoList.add(dividendTotalForStockDto);
+            }else{
+                other.setAmountReceived(
+                        other.getAmountReceived().add(
+                                dividendTotalForStockDto.getAmountReceived()
+                        )
+                );
+            }
+        }
+        if(!other.getAmountReceived().equals(BigDecimal.ZERO)){
+            dividendTotalForStockDtoList.add(other);
+        }
+        return dividendTotalForStockDtoList;
     }
 
     /**
