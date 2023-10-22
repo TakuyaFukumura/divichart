@@ -38,7 +38,7 @@ public class PieChartService extends BasicChartService {
     List<DividendSummaryDto> dataFormatting(List<Object[]> dividendSummaryList) {
 
         List<DividendSummaryDto> dividendSummaryDtoList = new ArrayList<>();
-        DividendSummaryDto other = new DividendSummaryDto(
+        DividendSummaryDto others = new DividendSummaryDto(
                 "その他",
                 BigDecimal.ZERO
         );
@@ -51,15 +51,15 @@ public class PieChartService extends BasicChartService {
             if (dividendSummaryDtoList.size() < MAX_DISPLAYED_STOCKS) {
                 dividendSummaryDtoList.add(dividendSummaryDto);
             } else {
-                other.setAmountReceived(
-                        other.getAmountReceived().add(
+                others.setAmountReceived(
+                        others.getAmountReceived().add(
                                 dividendSummaryDto.getAmountReceived()
                         )
                 );
             }
         }
-        if (other.getAmountReceived().compareTo(BigDecimal.ZERO) != 0) {
-            dividendSummaryDtoList.add(other);
+        if (others.getAmountReceived().compareTo(BigDecimal.ZERO) != 0) {
+            dividendSummaryDtoList.add(others);
         }
         return dividendSummaryDtoList;
     }
