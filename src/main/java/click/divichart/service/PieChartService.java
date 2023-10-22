@@ -28,7 +28,11 @@ public class PieChartService extends BasicChartService {
         LocalDate startDate = LocalDate.parse(year + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
-        return createChartData(dividendSummaryList);
+        List<DividendTotalForStockDto> dividendTotalForStockDtoList = dataFormatting(dividendSummaryList);
+
+        return createChartData(dividendTotalForStockDtoList);
+    }
+
     List<DividendTotalForStockDto> dataFormatting(List<Object[]> dividendSummaryList){
 
         List<DividendTotalForStockDto> dividendTotalForStockDtoList = new ArrayList<>();
@@ -61,16 +65,16 @@ public class PieChartService extends BasicChartService {
     /**
      * 配当情報からグラフ描画用のデータを生成する
      *
-     * @param dividendSummaryList 配当情報
+     * @param dividendTotalForStockDtoList 配当情報
      * @return グラフ描画用文字列配列
      */
-    PieChartDto createChartData(List<Object[]> dividendSummaryList) {
+    PieChartDto createChartData(List<DividendTotalForStockDto> dividendTotalForStockDtoList) {
         StringJoiner tickerSymbolData = new StringJoiner("\",\"", "\"", "\"");
         StringJoiner amountReceivedData = new StringJoiner(",");
 
-        for (Object[] dividendSummary : dividendSummaryList) {
-            String tickerSymbol = (String) dividendSummary[0];
-            BigDecimal amountReceived = (BigDecimal) dividendSummary[1];
+        for (DividendTotalForStockDto dividendTotalForStockDto : dividendTotalForStockDtoList) {
+            String tickerSymbol = dividendTotalForStockDto.getTickerSymbol();
+            BigDecimal amountReceived = dividendTotalForStockDto.getAmountReceived();
 
             tickerSymbolData.add(tickerSymbol);
             amountReceivedData.add(amountReceived.toString());
