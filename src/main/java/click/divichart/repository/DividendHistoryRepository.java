@@ -15,19 +15,27 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
     @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history", nativeQuery = true)
     BigDecimal getDividendSum();
 
-    @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history " +
-            "WHERE receipt_date BETWEEN :startDate AND :endDate", nativeQuery = true)
+    @Query(value = """
+            SELECT
+                COALESCE(SUM(amount_received), 0)
+            FROM dividend_history
+            WHERE receipt_date
+            BETWEEN :startDate AND :endDate
+            """, nativeQuery = true)
     BigDecimal getDividendSum(
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
     );
 
-    @Query(value = "SELECT COALESCE(ticker_symbol, ''), " +
-            "COALESCE(SUM(amount_received), 0) AS amount_received " +
-            "FROM dividend_history " +
-            "WHERE receipt_date BETWEEN :startDate AND :endDate " +
-            "GROUP BY ticker_symbol " +
-            "ORDER BY amount_received DESC", nativeQuery = true)
+    @Query(value = """
+            SELECT
+                COALESCE(ticker_symbol, '') AS ticker_symbol,
+                COALESCE(SUM(amount_received), 0) AS amount_received
+            FROM dividend_history
+            WHERE receipt_date BETWEEN :startDate AND :endDate
+            GROUP BY ticker_symbol
+            ORDER BY amount_received DESC
+            """, nativeQuery = true)
     List<Object[]> getDividendTotalForStock(
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
