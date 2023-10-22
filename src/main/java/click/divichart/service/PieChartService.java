@@ -30,12 +30,12 @@ public class PieChartService extends BasicChartService {
         LocalDate startDate = LocalDate.parse(year + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
-        List<DividendSummaryDto> dividendSummaryDtoList = dataFormatting(dividendSummaryList);
+        List<DividendSummaryDto> dividendSummaryDtoList = formatData(dividendSummaryList);
 
         return createChartData(dividendSummaryDtoList);
     }
 
-    List<DividendSummaryDto> dataFormatting(List<Object[]> dividendSummaryList) {
+    List<DividendSummaryDto> formatData(List<Object[]> dividendSummaryList) {
 
         List<DividendSummaryDto> dividendSummaryDtoList = new ArrayList<>();
         DividendSummaryDto others = new DividendSummaryDto("その他", BigDecimal.ZERO);
