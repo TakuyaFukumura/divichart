@@ -33,7 +33,7 @@ public class PieChartService extends BasicChartService {
         return createChartData(dividendTotalForStockDtoList);
     }
 
-    List<DividendTotalForStockDto> dataFormatting(List<Object[]> dividendSummaryList){
+    List<DividendTotalForStockDto> dataFormatting(List<Object[]> dividendSummaryList) {
 
         List<DividendTotalForStockDto> dividendTotalForStockDtoList = new ArrayList<>();
         DividendTotalForStockDto other = new DividendTotalForStockDto(
@@ -46,9 +46,9 @@ public class PieChartService extends BasicChartService {
                     (String) dividendSummary[0],
                     (BigDecimal) dividendSummary[1]
             );
-            if(dividendTotalForStockDtoList.size() < 15){
+            if (dividendTotalForStockDtoList.size() < 15) {
                 dividendTotalForStockDtoList.add(dividendTotalForStockDto);
-            }else{
+            } else {
                 other.setAmountReceived(
                         other.getAmountReceived().add(
                                 dividendTotalForStockDto.getAmountReceived()
@@ -56,7 +56,7 @@ public class PieChartService extends BasicChartService {
                 );
             }
         }
-        if(other.getAmountReceived().compareTo(BigDecimal.ZERO) != 0){
+        if (other.getAmountReceived().compareTo(BigDecimal.ZERO) != 0) {
             dividendTotalForStockDtoList.add(other);
         }
         return dividendTotalForStockDtoList;
