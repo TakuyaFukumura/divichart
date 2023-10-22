@@ -56,7 +56,7 @@ public class PieChartService extends BasicChartService {
                 );
             }
         }
-        if(!other.getAmountReceived().equals(BigDecimal.ZERO)){
+        if(other.getAmountReceived().compareTo(BigDecimal.ZERO) != 0){
             dividendTotalForStockDtoList.add(other);
         }
         return dividendTotalForStockDtoList;
