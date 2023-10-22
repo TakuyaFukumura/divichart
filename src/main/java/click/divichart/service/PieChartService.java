@@ -41,29 +41,36 @@ public class PieChartService extends BasicChartService {
      * @return 整形された配当の集計情報
      */
     List<DividendSummaryDto> formatData(List<Object[]> dividendSummaryList) {
-
         List<DividendSummaryDto> dividendSummaryDtoList = new ArrayList<>();
         DividendSummaryDto others = new DividendSummaryDto("その他", BigDecimal.ZERO);
 
         for (Object[] dividendSummary : dividendSummaryList) {
-            DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(
-                    (String) dividendSummary[0],
-                    (BigDecimal) dividendSummary[1]
-            );
+            String stockName = (String) dividendSummary[0];
+            BigDecimal amountReceived = (BigDecimal) dividendSummary[1];
+
+            DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(stockName, amountReceived);
+
             if (dividendSummaryDtoList.size() < MAX_DISPLAYED_STOCKS) {
                 dividendSummaryDtoList.add(dividendSummaryDto);
             } else {
-                others.setAmountReceived(
-                        others.getAmountReceived().add(
-                                dividendSummaryDto.getAmountReceived()
-                        )
-                );
+                addToOthers(others, dividendSummaryDto);
             }
         }
         if (others.getAmountReceived().compareTo(BigDecimal.ZERO) != 0) {
             dividendSummaryDtoList.add(others);
         }
         return dividendSummaryDtoList;
+    }
+
+    /***
+     * その他の配当情報に加算
+     * @param others その他の配当情報
+     * @param dividendSummaryDto 加算したい配当情報
+     */
+    private void addToOthers(DividendSummaryDto others, DividendSummaryDto dividendSummaryDto) {
+        BigDecimal currentAmountReceived = others.getAmountReceived();
+        BigDecimal newAmountReceived = currentAmountReceived.add(dividendSummaryDto.getAmountReceived());
+        others.setAmountReceived(newAmountReceived);
     }
 
     /**
