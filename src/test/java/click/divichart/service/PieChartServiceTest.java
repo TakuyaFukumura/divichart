@@ -23,18 +23,8 @@ class PieChartServiceTest {
     @Test
     public void testCreateChartDataWithValidData() {
         List<DividendSummaryDto> dividendSummaryDtoList = new ArrayList<>();
-        dividendSummaryDtoList.add(
-                new DividendSummaryDto(
-                        "AAPL",
-                        BigDecimal.valueOf(100.01)
-                )
-        );
-        dividendSummaryDtoList.add(
-                new DividendSummaryDto(
-                    "GOOG",
-                    BigDecimal.valueOf(50.01)
-                )
-        );
+        dividendSummaryDtoList.add(new DividendSummaryDto("AAPL", BigDecimal.valueOf(100.01)));
+        dividendSummaryDtoList.add(new DividendSummaryDto("GOOG", BigDecimal.valueOf(50.01)));
 
         PieChartDto chartData = pieChartService.createChartData(dividendSummaryDtoList);
 

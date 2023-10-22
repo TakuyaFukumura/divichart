@@ -37,6 +37,7 @@ public class PieChartService extends BasicChartService {
 
     /**
      * 配当の集計情報を整形して、小さいデータはその他にまとめる
+     *
      * @param dividendSummaryList 配当の集計情報
      * @return 整形された配当の集計情報
      */
