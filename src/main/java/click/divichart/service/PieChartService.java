@@ -15,6 +15,8 @@ import java.util.StringJoiner;
 @Service
 public class PieChartService extends BasicChartService {
 
+    private static final int MAX_DISPLAYED_STOCKS = 15;
+
     @Autowired
     DividendHistoryRepository repository;
 
@@ -46,7 +48,7 @@ public class PieChartService extends BasicChartService {
                     (String) dividendSummary[0],
                     (BigDecimal) dividendSummary[1]
             );
-            if (dividendTotalForStockDtoList.size() < 15) {
+            if (dividendTotalForStockDtoList.size() < MAX_DISPLAYED_STOCKS) {
                 dividendTotalForStockDtoList.add(dividendTotalForStockDto);
             } else {
                 other.setAmountReceived(
