@@ -38,10 +38,7 @@ public class PieChartService extends BasicChartService {
     List<DividendSummaryDto> dataFormatting(List<Object[]> dividendSummaryList) {
 
         List<DividendSummaryDto> dividendSummaryDtoList = new ArrayList<>();
-        DividendSummaryDto others = new DividendSummaryDto(
-                "その他",
-                BigDecimal.ZERO
-        );
+        DividendSummaryDto others = new DividendSummaryDto("その他", BigDecimal.ZERO);
 
         for (Object[] dividendSummary : dividendSummaryList) {
             DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(
