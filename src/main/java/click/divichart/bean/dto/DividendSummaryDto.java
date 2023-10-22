@@ -10,11 +10,11 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DividendTotalForStockDto implements Serializable {
+public class DividendSummaryDto implements Serializable {
     private String tickerSymbol;
     private BigDecimal amountReceived;
 
-    public DividendTotalForStockDto(String tickerSymbol, BigDecimal amountReceived) {
+    public DividendSummaryDto(String tickerSymbol, BigDecimal amountReceived) {
         this.tickerSymbol = tickerSymbol;
         this.amountReceived = amountReceived;
     }

@@ -1,6 +1,6 @@
 package click.divichart.service;
 
-import click.divichart.bean.dto.DividendTotalForStockDto;
+import click.divichart.bean.dto.DividendSummaryDto;
 import click.divichart.bean.dto.PieChartDto;
 import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,53 +30,53 @@ public class PieChartService extends BasicChartService {
         LocalDate startDate = LocalDate.parse(year + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
-        List<DividendTotalForStockDto> dividendTotalForStockDtoList = dataFormatting(dividendSummaryList);
+        List<DividendSummaryDto> dividendSummaryDtoList = dataFormatting(dividendSummaryList);
 
-        return createChartData(dividendTotalForStockDtoList);
+        return createChartData(dividendSummaryDtoList);
     }
 
-    List<DividendTotalForStockDto> dataFormatting(List<Object[]> dividendSummaryList) {
+    List<DividendSummaryDto> dataFormatting(List<Object[]> dividendSummaryList) {
 
-        List<DividendTotalForStockDto> dividendTotalForStockDtoList = new ArrayList<>();
-        DividendTotalForStockDto other = new DividendTotalForStockDto(
+        List<DividendSummaryDto> dividendSummaryDtoList = new ArrayList<>();
+        DividendSummaryDto other = new DividendSummaryDto(
                 "その他",
                 BigDecimal.ZERO
         );
 
         for (Object[] dividendSummary : dividendSummaryList) {
-            DividendTotalForStockDto dividendTotalForStockDto = new DividendTotalForStockDto(
+            DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(
                     (String) dividendSummary[0],
                     (BigDecimal) dividendSummary[1]
             );
-            if (dividendTotalForStockDtoList.size() < MAX_DISPLAYED_STOCKS) {
-                dividendTotalForStockDtoList.add(dividendTotalForStockDto);
+            if (dividendSummaryDtoList.size() < MAX_DISPLAYED_STOCKS) {
+                dividendSummaryDtoList.add(dividendSummaryDto);
             } else {
                 other.setAmountReceived(
                         other.getAmountReceived().add(
-                                dividendTotalForStockDto.getAmountReceived()
+                                dividendSummaryDto.getAmountReceived()
                         )
                 );
             }
         }
         if (other.getAmountReceived().compareTo(BigDecimal.ZERO) != 0) {
-            dividendTotalForStockDtoList.add(other);
+            dividendSummaryDtoList.add(other);
         }
-        return dividendTotalForStockDtoList;
+        return dividendSummaryDtoList;
     }
 
     /**
      * 配当情報からグラフ描画用のデータを生成する
      *
-     * @param dividendTotalForStockDtoList 配当情報
+     * @param dividendSummaryDtoList 配当情報
      * @return グラフ描画用文字列配列
      */
-    PieChartDto createChartData(List<DividendTotalForStockDto> dividendTotalForStockDtoList) {
+    PieChartDto createChartData(List<DividendSummaryDto> dividendSummaryDtoList) {
         StringJoiner tickerSymbolData = new StringJoiner("\",\"", "\"", "\"");
         StringJoiner amountReceivedData = new StringJoiner(",");
 
-        for (DividendTotalForStockDto dividendTotalForStockDto : dividendTotalForStockDtoList) {
-            String tickerSymbol = dividendTotalForStockDto.getTickerSymbol();
-            BigDecimal amountReceived = dividendTotalForStockDto.getAmountReceived();
+        for (DividendSummaryDto dividendSummaryDto : dividendSummaryDtoList) {
+            String tickerSymbol = dividendSummaryDto.getTickerSymbol();
+            BigDecimal amountReceived = dividendSummaryDto.getAmountReceived();
 
             tickerSymbolData.add(tickerSymbol);
             amountReceivedData.add(amountReceived.toString());
