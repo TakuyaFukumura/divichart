@@ -35,6 +35,11 @@ public class PieChartService extends BasicChartService {
         return createChartData(dividendSummaryDtoList);
     }
 
+    /**
+     * 配当の集計情報を整形して、小さいデータはその他にまとめる
+     * @param dividendSummaryList 配当の集計情報
+     * @return 整形された配当の集計情報
+     */
     List<DividendSummaryDto> formatData(List<Object[]> dividendSummaryList) {
 
         List<DividendSummaryDto> dividendSummaryDtoList = new ArrayList<>();
