@@ -81,19 +81,19 @@ public class PieChartService extends BasicChartService {
      * @return グラフ描画用文字列配列
      */
     PieChartDto createChartData(List<DividendSummaryDto> dividendSummaryDtoList) {
-        StringJoiner tickerSymbolData = new StringJoiner("\",\"", "\"", "\"");
+        StringJoiner labels = new StringJoiner("\",\"", "\"", "\"");
         StringJoiner amountReceivedData = new StringJoiner(",");
 
         for (DividendSummaryDto dividendSummaryDto : dividendSummaryDtoList) {
             String tickerSymbol = dividendSummaryDto.getTickerSymbol();
             BigDecimal amountReceived = dividendSummaryDto.getAmountReceived();
 
-            tickerSymbolData.add(tickerSymbol);
+            labels.add(tickerSymbol);
             amountReceivedData.add(amountReceived.toString());
         }
 
         return new PieChartDto(
-                tickerSymbolData.toString(),
+                labels.toString(),
                 amountReceivedData.toString()
         );
     }

@@ -29,8 +29,8 @@ public class PieChartController {
         if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
         pieChartForm.setTargetYear(targetYear);
 
-        PieChartDto chartData = service.getChartData(targetYear);
-        model.addAttribute("chartData", chartData);
+        PieChartDto pieChartDto = service.getChartData(targetYear);
+        model.addAttribute("pieChartDto", pieChartDto);
 
         return "pieChart";
     }

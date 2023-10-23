@@ -31,7 +31,7 @@ class PieChartServiceTest {
         assertNotNull(chartData);
 
         // 期待される結果を確認します
-        assertEquals("\"AAPL\",\"GOOG\"", chartData.getTickerSymbolData());
+        assertEquals("\"AAPL\",\"GOOG\"", chartData.getLabels());
         assertEquals("100.01,50.01", chartData.getAmountReceivedData());
     }
 
@@ -44,7 +44,7 @@ class PieChartServiceTest {
         assertNotNull(chartData);
 
         // 空のリストが渡された場合、空の文字列が返されることを確認します
-        assertEquals("\"\"", chartData.getTickerSymbolData());
+        assertEquals("\"\"", chartData.getLabels());
         assertEquals("", chartData.getAmountReceivedData());
     }
 
