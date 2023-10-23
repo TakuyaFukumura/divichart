@@ -10,11 +10,11 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class PieChartDto implements Serializable {
-    private String tickerSymbolData;
+    private String labels;
     private String amountReceivedData;
 
-    public PieChartDto(String tickerSymbolData, String amountReceivedData) {
-        this.tickerSymbolData = tickerSymbolData;
+    public PieChartDto(String labels, String amountReceivedData) {
+        this.labels = labels;
         this.amountReceivedData = amountReceivedData;
     }
 }
