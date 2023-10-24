@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>配当履歴編集</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <header th:replace="~{header}"></header>
+    <h1>配当履歴編集画面</h1>
+    <form th:action="@{/edit/submit}" method="post" class="border">
+        <div class="mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input type="number" id="id" name="id"
+                   class="form-control" th:value="${dividendHistoryDto.getId()}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="tickerSymbol" class="form-label">ティッカー</label>
+            <input type="text" id="tickerSymbol" name="tickerSymbol"
+                   class="form-control" th:value="${dividendHistoryDto.getTickerSymbol()}">
+        </div><!-- TODO:バリデーション作成 -->
+        <div class="mb-3">
+            <label for="amountReceived" class="form-label">配当金額</label>
+            <input type="number" id="amountReceived" step="0.01" name="amountReceived"
+                   class="form-control" th:value="${dividendHistoryDto.getAmountReceived()}">
+        </div>
+        <div class="mb-3">
+            <label for="receiptDate" class="form-label">受取年月</label>
+            <input type="date" id="receiptDate" name="receiptDate"
+                   class="form-control" th:value="${dividendHistoryDto.getReceiptDate()}">
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="更新"  class="btn btn-primary"/>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous">
+    </script>
+</body>
+</html>
