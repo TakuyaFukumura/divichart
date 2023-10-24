@@ -27,4 +27,11 @@ public class DividendHistory implements Serializable {
         this.amountReceived = amountReceived;
         this.receiptDate = receiptDate;
     }
+
+    public DividendHistory(Long id, String tickerSymbol, BigDecimal amountReceived, Date receiptDate) {
+        this.id = id;
+        this.tickerSymbol = tickerSymbol;
+        this.amountReceived = amountReceived;
+        this.receiptDate = receiptDate;
+    }
 }
