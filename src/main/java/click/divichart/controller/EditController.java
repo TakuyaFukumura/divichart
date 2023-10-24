@@ -1,6 +1,7 @@
 package click.divichart.controller;
 
 import click.divichart.bean.dto.DividendHistoryDto;
+import click.divichart.bean.form.EditForm;
 import click.divichart.service.EditService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,14 @@ public class EditController {
     }
 
     @PostMapping("/submit")
-    public String submit() {
+    public String submit(EditForm editForm) {
         log.debug("配当履歴編集登録画面表示");
-
-        // フォームで情報受取
-        // table update
-
+        service.save(
+                editForm.getId(),
+                editForm.getTickerSymbol(),
+                editForm.getAmountReceived(),
+                editForm.getReceiptDate()
+        );
         return "redirect:/list";
     }
 
