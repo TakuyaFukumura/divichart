@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
 @Service
 public class EditService {
 
@@ -22,5 +25,15 @@ public class EditService {
                 dividendHistory.getAmountReceived(),
                 dividendHistory.getReceiptDate()
         );
+    }
+
+    public void save(Long id, String tickerSymbol, BigDecimal amountReceived, Date receiptDate) {
+        DividendHistory dividendHistory = new DividendHistory(
+                id,
+                tickerSymbol,
+                amountReceived,
+                receiptDate
+        );
+        repository.save(dividendHistory);
     }
 }
