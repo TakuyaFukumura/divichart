@@ -41,10 +41,4 @@ public class EditController {
         );
         return "redirect:/list";
     }
-
-    @GetMapping("/cansel")
-    public String cansel() {
-        return "redirect:/list";
-    }
-
 }
