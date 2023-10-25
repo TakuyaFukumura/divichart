@@ -1,5 +1,6 @@
 package click.divichart.controller;
 
+import click.divichart.bean.dto.LineChartDto;
 import click.divichart.bean.form.LineChartForm;
 import click.divichart.service.LineChartService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,12 @@ public class LineChartController {
 
         String chartData = service.getChartData(targetYear);
         model.addAttribute("chartData", chartData);
+
+        LineChartDto lineChartDto = new LineChartDto(
+                recentYears,
+                targetYear,
+                chartData
+        );
 
         return "lineChart";
     }
