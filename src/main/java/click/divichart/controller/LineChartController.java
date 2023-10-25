@@ -23,20 +23,18 @@ public class LineChartController {
         log.debug("累計配当グラフ表示");
 
         String[] recentYears = service.getRecentYears();
-        model.addAttribute("recentYears", recentYears);
 
         String targetYear = lineChartForm.getTargetYear();
         if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
-        lineChartForm.setTargetYear(targetYear);
 
         String chartData = service.getChartData(targetYear);
-        model.addAttribute("chartData", chartData);
 
         LineChartDto lineChartDto = new LineChartDto(
                 recentYears,
                 targetYear,
                 chartData
         );
+        model.addAttribute("lineChartDto", lineChartDto);
 
         return "lineChart";
     }
