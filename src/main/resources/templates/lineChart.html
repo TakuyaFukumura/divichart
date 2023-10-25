@@ -15,8 +15,8 @@
         <div class="mb-3">
             <label for="selectYear" class="form-label">対象年</label>
             <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
-                <option th:each="year : ${recentYears}" th:value="${year}"
-                        th:text="${year}" th:selected="${year == lineChartForm.targetYear}"></option>
+                <option th:each="year : ${lineChartDto.getRecentYears}" th:value="${year}"
+                        th:text="${year}" th:selected="${year == lineChartDto.getTargetYear}"></option>
             </select>
         </div>
     </form>
@@ -32,14 +32,14 @@
                 type: 'line',
                 data: {
                     labels: [
-                        '[[${targetYear}]]年1月',
+                        '[[${lineChartDto.getTargetYear}]]年1月',
                         '2月', '3月', '4月', '5月', '6月',
                         '7月', '8月', '9月', '10月', '11月', '12月'
                     ],
                     datasets: [
                         {
                             label: '累計配当受取額(ドル）',
-                            data: [ [[${chartData}]] ],
+                            data: [ [[${lineChartDto.getChartData}]] ],
                             borderColor: "rgba( 0, 0, 255, 1 )",
                             backgroundColor: "rgba( 0, 0, 0, 0 )",
                             lineTension: 0.4,
@@ -50,7 +50,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: '配当推移（[[${targetYear}]]年1月~[[${targetYear}]]年12月）'
+                            text: '配当推移（[[${lineChartDto.getTargetYear}]]年1月~[[${lineChartDto.getTargetYear}]]年12月）'
                         }
                     },
                     scales: {
