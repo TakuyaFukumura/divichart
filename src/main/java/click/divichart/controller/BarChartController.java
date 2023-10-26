@@ -23,9 +23,7 @@ public class BarChartController {
         log.debug("月別配当グラフ表示");
 
         String[] recentYears = service.getRecentYears();
-
         String targetYear = service.getTargetYear(recentYears[0], barChartForm.getTargetYear());
-
         String chartData = service.getChartData(targetYear);
 
         BarChartDto barChartDto = new BarChartDto(
@@ -33,7 +31,6 @@ public class BarChartController {
                 targetYear,
                 chartData
         );
-
         model.addAttribute("barChartDto", barChartDto);
 
         return "barChart";
