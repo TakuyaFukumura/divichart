@@ -1,5 +1,6 @@
 package click.divichart.controller;
 
+import click.divichart.bean.dto.BarChartDto;
 import click.divichart.bean.form.BarChartForm;
 import click.divichart.service.BarChartService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +23,19 @@ public class BarChartController {
         log.debug("月別配当グラフ表示");
 
         String[] recentYears = service.getRecentYears();
-        model.addAttribute("recentYears", recentYears);
 
         String targetYear = barChartForm.getTargetYear();
         if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
-        barChartForm.setTargetYear(targetYear);
 
         String chartData = service.getChartData(targetYear);
-        model.addAttribute("chartData", chartData);
+
+        BarChartDto barChartDto = new BarChartDto(
+                recentYears,
+                targetYear,
+                chartData
+        );
+
+        model.addAttribute("barChartDto", barChartDto);
 
         return "barChart";
     }

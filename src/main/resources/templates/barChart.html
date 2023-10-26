@@ -15,8 +15,8 @@
         <div class="mb-3">
             <label for="selectYear" class="form-label">対象年</label>
             <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
-                <option th:each="year : ${recentYears}" th:value="${year}"
-                        th:text="${year}" th:selected="${year == barChartForm.targetYear}"></option>
+                <option th:each="year : ${barChartDto.getRecentYears()}" th:value="${year}"
+                        th:text="${year}" th:selected="${year == barChartDto.getTargetYear()}"></option>
             </select>
         </div>
     </form>
@@ -34,7 +34,7 @@
                       "8月", "9月", "10月", "11月", "12月" ],
                 datasets : [ {
                     label : '配当受取額',
-                    data : [ [[${chartData}]] ],
+                    data : [ [[${barChartDto.getChartData()}]] ],
                     backgroundColor : "rgba(130,201,169,0.5)"
                 } ]
             },
