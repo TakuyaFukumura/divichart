@@ -76,4 +76,17 @@ public class BasicChartService {
         return !Pattern.matches("^[1-9]\\d{3}$", input);
     }
 
+    /**
+     * 表示対象年を取得する
+     *
+     * @param thisYear   今年
+     * @param targetYear 表示対象年
+     * @return 表示対象年が不正であれば今年を返す。そうでなければ表示対象年をそのまま返す。
+     */
+    public String getTargetYear(String thisYear, String targetYear) {
+        if (targetYear.isEmpty() || this.isNotYear(targetYear)) {
+            return thisYear;
+        }
+        return targetYear;
+    }
 }

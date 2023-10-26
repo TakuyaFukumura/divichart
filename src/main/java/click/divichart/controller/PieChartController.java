@@ -24,8 +24,7 @@ public class PieChartController {
 
         String[] recentYears = service.getRecentYears();
 
-        String targetYear = pieChartForm.getTargetYear();
-        if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
+        String targetYear = service.getTargetYear(recentYears[0], pieChartForm.getTargetYear());
 
         PieChartDto pieChartDto = service.getChartData(targetYear);
 

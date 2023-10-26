@@ -24,8 +24,7 @@ public class BarChartController {
 
         String[] recentYears = service.getRecentYears();
 
-        String targetYear = barChartForm.getTargetYear();
-        if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
+        String targetYear = service.getTargetYear(recentYears[0], barChartForm.getTargetYear());
 
         String chartData = service.getChartData(targetYear);
 
