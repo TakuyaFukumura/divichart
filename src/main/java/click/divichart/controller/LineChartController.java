@@ -24,8 +24,7 @@ public class LineChartController {
 
         String[] recentYears = service.getRecentYears();
 
-        String targetYear = lineChartForm.getTargetYear();
-        if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
+        String targetYear = service.getTargetYear(recentYears[0], lineChartForm.getTargetYear());
 
         String chartData = service.getChartData(targetYear);
 
