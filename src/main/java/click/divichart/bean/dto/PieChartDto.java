@@ -10,6 +10,8 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class PieChartDto implements Serializable {
+    private String[] recentYears;
+    private String targetYear;
     private String labels;
     private String chartData;
 
