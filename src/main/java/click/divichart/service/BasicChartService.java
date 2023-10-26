@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 @Service
 public class BasicChartService {
 
+    private static final int TWELVE_MONTHS = 12;
+
     @Autowired
     DividendHistoryRepository repository;
 
@@ -22,9 +24,9 @@ public class BasicChartService {
      * @return 月別配当配列
      */
     protected BigDecimal[] getMonthlyDividend(String targetYear) {
-        BigDecimal[] monthlyDividend = new BigDecimal[12];
+        BigDecimal[] monthlyDividend = new BigDecimal[TWELVE_MONTHS];
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < TWELVE_MONTHS; i++) {
             int month = i + 1;
             String formattedMonth = String.format("%02d", month);
 
