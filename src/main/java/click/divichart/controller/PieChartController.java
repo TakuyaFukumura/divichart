@@ -23,13 +23,15 @@ public class PieChartController {
         log.debug("配当割合グラフ表示");
 
         String[] recentYears = service.getRecentYears();
-        model.addAttribute("recentYears", recentYears);
 
         String targetYear = pieChartForm.getTargetYear();
         if (targetYear.isEmpty() || service.isNotYear(targetYear)) targetYear = recentYears[0];
-        pieChartForm.setTargetYear(targetYear);
 
         PieChartDto pieChartDto = service.getChartData(targetYear);
+
+        pieChartDto.setRecentYears(recentYears);
+        pieChartDto.setTargetYear(targetYear);
+
         model.addAttribute("pieChartDto", pieChartDto);
 
         return "pieChart";

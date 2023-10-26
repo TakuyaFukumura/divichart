@@ -10,11 +10,13 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class PieChartDto implements Serializable {
+    private String[] recentYears;
+    private String targetYear;
     private String labels;
-    private String amountReceivedData;
+    private String chartData;
 
-    public PieChartDto(String labels, String amountReceivedData) {
+    public PieChartDto(String labels, String chartData) {
         this.labels = labels;
-        this.amountReceivedData = amountReceivedData;
+        this.chartData = chartData;
     }
 }

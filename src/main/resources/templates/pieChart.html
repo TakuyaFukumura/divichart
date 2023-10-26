@@ -15,13 +15,13 @@
         <div class="mb-3">
             <label for="selectYear" class="form-label">対象年</label>
             <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
-                <option th:each="year : ${recentYears}" th:value="${year}"
-                        th:text="${year}" th:selected="${year == pieChartForm.targetYear}"></option>
+                <option th:each="year : ${pieChartDto.getRecentYears()}" th:value="${year}"
+                        th:text="${year}" th:selected="${year == pieChartDto.getTargetYear()}"></option>
             </select>
         </div>
     </form>
-    <p th:if="${#strings.isEmpty(pieChartDto.getAmountReceivedData())}">データがありません</p>
-    <th:block th:if="${!#strings.isEmpty(pieChartDto.getAmountReceivedData())}">
+    <p th:if="${#strings.isEmpty(pieChartDto.getChartData())}">データがありません</p>
+    <th:block th:if="${!#strings.isEmpty(pieChartDto.getChartData())}">
     <div class="chart-container">
         <canvas id="pieChart"></canvas>
     </div>
@@ -38,7 +38,7 @@
                     backgroundColor : [ "#c73327", "#e8c400", "#3C00FF", "#3b95d3", "#BB5179",
                                         "#FAFF67", "#58A27C", "#F41111", "#FFD80F", "#44B009",
                                         "#45CAFF", "#332FCC", "#D819FF" ],
-                    data : [ [[${pieChartDto.getAmountReceivedData()}]] ]
+                    data : [ [[${pieChartDto.getChartData()}]] ]
                 } ]
             },
             options : {
