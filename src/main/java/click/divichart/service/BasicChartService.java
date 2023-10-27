@@ -54,15 +54,15 @@ public class BasicChartService {
     }
 
     /**
-     * 今年も含めて過去5年分の年（西暦）を取得する
-     *
+     * 今年も含めて過去指定年数分の年（西暦）を取得する
+     * @param numOfYears 年数
      * @return 年を表す配列
      */
-    public String[] getRecentYears() {
-        String[] recentYears = new String[5];
+    public String[] getRecentYears(int numOfYears) {
+        String[] recentYears = new String[numOfYears];
         int currentYear = LocalDate.now().getYear();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < numOfYears; i++) {
             recentYears[i] = String.valueOf(currentYear - i);
         }
         return recentYears;

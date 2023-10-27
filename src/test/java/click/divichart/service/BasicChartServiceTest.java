@@ -31,7 +31,7 @@ class BasicChartServiceTest {
 
     @Test
     public void testGetRecentYears() {
-        String[] recentYears = basicChartService.getRecentYears();
+        String[] recentYears = basicChartService.getRecentYears(5);
         int currentYear = LocalDate.now().getYear();
 
         // メソッドが正しい結果を返すかテストします
