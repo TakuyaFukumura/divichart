@@ -85,9 +85,9 @@ public class BasicChartService {
      * @param targetYear 表示対象年
      * @return 表示対象年が不正であれば今年を返す。そうでなければ表示対象年をそのまま返す。
      */
-    public String getTargetYear(String thisYear, String targetYear) {
+    public String getTargetYear(String currentYear, String targetYear) {
         if (targetYear.isEmpty() || this.isNotYear(targetYear)) {
-            return thisYear;
+            return currentYear;
         }
         return targetYear;
     }
