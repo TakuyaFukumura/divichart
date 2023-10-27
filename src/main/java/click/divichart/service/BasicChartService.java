@@ -71,11 +71,11 @@ public class BasicChartService {
     /**
      * 引数が4桁の西暦年を表す文字列かどうかを判定します。
      *
-     * @param input パラメータ文字列
+     * @param year 年（例、2023）
      * @return 引数が西暦年を表す文字列ならtrue、そうでなければfalse
      */
-    public boolean isNotYear(String input){
-        return !Pattern.matches("^[1-9]\\d{3}$", input);
+    public boolean isNotYear(String year) {
+        return !Pattern.matches("^[1-9]\\d{3}$", year);
     }
 
     /**
