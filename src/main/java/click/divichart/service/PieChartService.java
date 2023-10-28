@@ -23,11 +23,11 @@ public class PieChartService extends BasicChartService {
     /**
      * グラフ描画用に、指定年の配当割合データを取得する
      *
-     * @param year データ作成対象年
+     * @param targetYear データ作成対象年
      * @return グラフ描画用文字列配列
      */
-    public PieChartDto getChartData(String year) {
-        LocalDate startDate = LocalDate.parse(year + "-01-01");
+    public PieChartDto getChartData(String targetYear) {
+        LocalDate startDate = LocalDate.parse(targetYear + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
         List<DividendSummaryDto> dividendSummaryDtoList = formatData(dividendSummaryList);
