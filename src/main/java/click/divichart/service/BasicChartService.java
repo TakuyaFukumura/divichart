@@ -42,12 +42,12 @@ public class BasicChartService {
     /**
      * 受け取ったデータをグラフ描画用に合成する
      *
-     * @param cumulativeDividend 合成したいデータ配列
+     * @param dividends 合成したいデータ配列
      * @return 合成した文字列 例）"1,2,3,4,5"
      */
-    protected String createChartData(BigDecimal[] cumulativeDividend) {
+    protected String createChartData(BigDecimal[] dividends) {
         StringJoiner chartData = new StringJoiner(",");
-        for (BigDecimal dividend : cumulativeDividend) {
+        for (BigDecimal dividend : dividends) {
             chartData.add(dividend.toString());
         }
         return chartData.toString();

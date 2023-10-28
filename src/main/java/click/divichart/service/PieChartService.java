@@ -23,11 +23,11 @@ public class PieChartService extends BasicChartService {
     /**
      * グラフ描画用に、指定年の配当割合データを取得する
      *
-     * @param year データ作成対象年
+     * @param targetYear データ作成対象年
      * @return グラフ描画用文字列配列
      */
-    public PieChartDto getChartData(String year) {
-        LocalDate startDate = LocalDate.parse(year + "-01-01");
+    public PieChartDto getChartData(String targetYear) {
+        LocalDate startDate = LocalDate.parse(targetYear + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
         List<DividendSummaryDto> dividendSummaryDtoList = formatData(dividendSummaryList);
@@ -46,10 +46,10 @@ public class PieChartService extends BasicChartService {
         DividendSummaryDto others = new DividendSummaryDto("その他", BigDecimal.ZERO);
 
         for (Object[] dividendSummary : dividendSummaryList) {
-            String stockName = (String) dividendSummary[0];
+            String tickerSymbol = (String) dividendSummary[0];
             BigDecimal amountReceived = (BigDecimal) dividendSummary[1];
 
-            DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(stockName, amountReceived);
+            DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(tickerSymbol, amountReceived);
 
             if (dividendSummaryDtoList.size() < MAX_DISPLAYED_STOCKS) {
                 dividendSummaryDtoList.add(dividendSummaryDto);
@@ -82,19 +82,19 @@ public class PieChartService extends BasicChartService {
      */
     PieChartDto createChartData(List<DividendSummaryDto> dividendSummaryDtoList) {
         StringJoiner labels = new StringJoiner("\",\"", "\"", "\"");
-        StringJoiner amountReceivedData = new StringJoiner(",");
+        StringJoiner chartData = new StringJoiner(",");
 
         for (DividendSummaryDto dividendSummaryDto : dividendSummaryDtoList) {
             String tickerSymbol = dividendSummaryDto.getTickerSymbol();
             BigDecimal amountReceived = dividendSummaryDto.getAmountReceived();
 
             labels.add(tickerSymbol);
-            amountReceivedData.add(amountReceived.toString());
+            chartData.add(amountReceived.toString());
         }
 
         return new PieChartDto(
                 labels.toString(),
-                amountReceivedData.toString()
+                chartData.toString()
         );
     }
 
