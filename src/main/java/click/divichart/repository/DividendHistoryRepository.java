@@ -15,8 +15,6 @@ import java.util.List;
  * 配当履歴テーブル（dividend_history）のCRUD操作用クラス
  */
 public interface DividendHistoryRepository extends JpaRepository<DividendHistory, Long> {
-    @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history", nativeQuery = true)
-    BigDecimal getDividendSum();
 
     /**
      * 指定期間の配当受取合計額を取得する
