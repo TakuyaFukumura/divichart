@@ -14,6 +14,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         // URLパターンと遷移先viewファイル名
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/index").setViewName("index");
     }
 
     @Override
