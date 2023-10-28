@@ -16,6 +16,12 @@ public class EditService {
     @Autowired
     DividendHistoryRepository repository;
 
+    /**
+     * 指定したIDの配当履歴情報を取得する
+     *
+     * @param id 配当履歴のUK
+     * @return 配当履歴情報を詰めたDTO
+     */
     @Transactional
     public DividendHistoryDto getDividendHistory(Long id) {
         DividendHistory dividendHistory = repository.getReferenceById(id);
@@ -27,6 +33,14 @@ public class EditService {
         );
     }
 
+    /**
+     * 指定したIDの配当履歴情報を更新する
+     *
+     * @param id             配当履歴ID
+     * @param tickerSymbol   ティッカーシンボル
+     * @param amountReceived 受取配当金額
+     * @param receiptDate    受取日
+     */
     public void save(Long id, String tickerSymbol, BigDecimal amountReceived, Date receiptDate) {
         DividendHistory dividendHistory = new DividendHistory(
                 id,

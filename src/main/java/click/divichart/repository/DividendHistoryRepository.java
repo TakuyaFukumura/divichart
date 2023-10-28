@@ -11,10 +11,20 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * 配当履歴テーブル（dividend_history）のCRUD操作用クラス
+ */
 public interface DividendHistoryRepository extends JpaRepository<DividendHistory, Long> {
     @Query(value = "SELECT COALESCE(SUM(amount_received), 0) FROM dividend_history", nativeQuery = true)
     BigDecimal getDividendSum();
 
+    /**
+     * 指定期間の配当受取合計額を取得する
+     *
+     * @param startDate 開始日
+     * @param endDate   終了日
+     * @return 配当受取合計額
+     */
     @Query(value = """
             SELECT
                 COALESCE(SUM(amount_received), 0)
@@ -27,6 +37,13 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
             , @Param("endDate") LocalDate endDate
     );
 
+    /**
+     * 指定期間内の銘柄別配当受取金額合計を取得
+     *
+     * @param startDate 開始日
+     * @param endDate   終了日
+     * @return 銘柄別配当受取金額
+     */
     @Query(value = """
             SELECT
                 COALESCE(ticker_symbol, '') AS ticker_symbol,
@@ -41,5 +58,11 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
             , @Param("endDate") LocalDate endDate
     );
 
+    /**
+     * 指定ページ範囲の配当履歴情報を取得
+     *
+     * @param pageable ページ情報
+     * @return 配当履歴Page
+     */
     Page<DividendHistory> findAll(Pageable pageable);
 }

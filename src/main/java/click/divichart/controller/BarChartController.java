@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 月別配当グラフ用コントローラ
+ */
 @Slf4j
 @Controller
 @RequestMapping("/barChart")
@@ -18,6 +21,9 @@ public class BarChartController {
     @Autowired
     BarChartService service;
 
+    /**
+     * グラフ表示用のデータを用意してViewへ渡す
+     */
     @GetMapping
     public String index(Model model, BarChartForm barChartForm) {
         log.debug("月別配当グラフ表示");

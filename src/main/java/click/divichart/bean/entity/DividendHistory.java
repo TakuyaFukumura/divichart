@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+/**
+ * 配当履歴テーブル用エンティティ
+ * dividend_history
+ */
 @Entity
 @Getter
 @NoArgsConstructor

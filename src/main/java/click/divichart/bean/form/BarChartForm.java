@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * 月別配当グラフ画面用フォーム
+ */
 @Getter
 @Setter
 public class BarChartForm implements Serializable {

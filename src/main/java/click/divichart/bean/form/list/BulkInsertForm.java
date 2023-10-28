@@ -7,6 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
+/**
+ * 配当履歴一括登録用フォーム
+ */
 @Getter
 @Setter
 @NoArgsConstructor

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 配当履歴一覧用コントローラ
+ */
 @Slf4j
 @Controller
 @RequestMapping("/list")
@@ -22,6 +25,11 @@ public class ListController {
     @Autowired
     ListService service;
 
+    /**
+     * 指定ページの配当履歴一覧情報を取得してViewに渡す
+     *
+     * @param pageable ページ情報
+     */
     @GetMapping
     public String index(Model model, Pageable pageable) {
         log.debug("配当履歴一覧画面表示");
@@ -31,6 +39,12 @@ public class ListController {
         return "list";
     }
 
+    /**
+     * 配当履歴を追加して一覧を表示
+     *
+     * @param insertForm 配当履歴情報
+     * @return 一覧画面へリダイレクト
+     */
     @PostMapping("/insert")
     public String insert(InsertForm insertForm) {
         log.debug("配当履歴登録");
@@ -42,6 +56,12 @@ public class ListController {
         return "redirect:/list";
     }
 
+    /**
+     * 配当履歴を一括登録して一覧表示
+     *
+     * @param bulkInsertForm 配当履歴情報
+     * @return 一覧画面へリダイレクト
+     */
     @PostMapping("/bulkInsert")
     public String bulkInsert(BulkInsertForm bulkInsertForm) {
         log.debug("配当履歴CSV一括登録");

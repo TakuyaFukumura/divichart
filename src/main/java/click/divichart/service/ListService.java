@@ -35,6 +35,13 @@ public class ListService {
         return repository.findAll(pageable);
     }
 
+    /**
+     * 配当履歴を登録する
+     *
+     * @param tickerSymbol   ティッカーシンボル
+     * @param amountReceived 受取金額
+     * @param receiptDate    受取日
+     */
     public void insertDividendHistory(String tickerSymbol, BigDecimal amountReceived, Date receiptDate) {
         DividendHistory dividendHistory = new DividendHistory(tickerSymbol, amountReceived, receiptDate);
         repository.save(dividendHistory);

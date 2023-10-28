@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+/**
+ * 配当履歴編集画面用フォーム
+ */
 @Getter
 @Setter
 @NoArgsConstructor

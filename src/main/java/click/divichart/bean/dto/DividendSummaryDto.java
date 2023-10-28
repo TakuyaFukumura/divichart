@@ -7,6 +7,9 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * 配当情報集計DTO
+ */
 @Getter
 @Setter
 @NoArgsConstructor
