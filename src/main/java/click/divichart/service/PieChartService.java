@@ -46,10 +46,10 @@ public class PieChartService extends BasicChartService {
         DividendSummaryDto others = new DividendSummaryDto("その他", BigDecimal.ZERO);
 
         for (Object[] dividendSummary : dividendSummaryList) {
-            String stockName = (String) dividendSummary[0];
+            String tickerSymbol = (String) dividendSummary[0];
             BigDecimal amountReceived = (BigDecimal) dividendSummary[1];
 
-            DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(stockName, amountReceived);
+            DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(tickerSymbol, amountReceived);
 
             if (dividendSummaryDtoList.size() < MAX_DISPLAYED_STOCKS) {
                 dividendSummaryDtoList.add(dividendSummaryDto);
@@ -82,19 +82,19 @@ public class PieChartService extends BasicChartService {
      */
     PieChartDto createChartData(List<DividendSummaryDto> dividendSummaryDtoList) {
         StringJoiner labels = new StringJoiner("\",\"", "\"", "\"");
-        StringJoiner amountReceivedData = new StringJoiner(",");
+        StringJoiner chartData = new StringJoiner(",");
 
         for (DividendSummaryDto dividendSummaryDto : dividendSummaryDtoList) {
             String tickerSymbol = dividendSummaryDto.getTickerSymbol();
             BigDecimal amountReceived = dividendSummaryDto.getAmountReceived();
 
             labels.add(tickerSymbol);
-            amountReceivedData.add(amountReceived.toString());
+            chartData.add(amountReceived.toString());
         }
 
         return new PieChartDto(
                 labels.toString(),
-                amountReceivedData.toString()
+                chartData.toString()
         );
     }
 
