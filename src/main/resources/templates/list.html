@@ -14,7 +14,7 @@
     <div>
         <ul class="pagination justify-content-center">
             <li th:if="${!dividendHistoryPage.first}" class="page-item">
-                <a th:href="@{/list(page=${dividendHistoryPage.number - 1})}" class="page-link">Previous</a>
+                <a th:href="@{/list(page=${dividendHistoryPage.number - 1})}" class="page-link">&lt;</a>
             </li>
             <li th:if="${dividendHistoryPage.number gt 2}" class="page-item">
                 <!-- 先頭ページ -->
@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li th:if="${!dividendHistoryPage.last}" class="page-item">
-                <a th:href="@{/list(page=${dividendHistoryPage.number + 1})}" class="page-link">Next</a>
+                <a th:href="@{/list(page=${dividendHistoryPage.number + 1})}" class="page-link">&gt;</a>
             </li>
         </ul>
     </div>
