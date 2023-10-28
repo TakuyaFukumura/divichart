@@ -63,9 +63,10 @@ public class PieChartService extends BasicChartService {
         return dividendSummaryDtoList;
     }
 
-    /***
+    /**
      * その他の配当情報に加算
-     * @param others その他の配当情報
+     *
+     * @param others             その他の配当情報
      * @param dividendSummaryDto 加算したい配当情報
      */
     private void addToOthers(DividendSummaryDto others, DividendSummaryDto dividendSummaryDto) {
