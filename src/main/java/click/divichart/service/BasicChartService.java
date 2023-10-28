@@ -12,23 +12,25 @@ import java.util.regex.Pattern;
 @Service
 public class BasicChartService {
 
+    private static final int TWELVE_MONTHS = 12;
+
     @Autowired
     DividendHistoryRepository repository;
 
     /**
      * 月別配当金額を取得する
      *
-     * @param year 対象年
+     * @param targetYear 対象年
      * @return 月別配当配列
      */
-    protected BigDecimal[] getMonthlyDividend(String year) {
-        BigDecimal[] monthlyDividend = new BigDecimal[12];
+    protected BigDecimal[] getMonthlyDividend(String targetYear) {
+        BigDecimal[] monthlyDividend = new BigDecimal[TWELVE_MONTHS];
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < TWELVE_MONTHS; i++) {
             int month = i + 1;
             String formattedMonth = String.format("%02d", month);
 
-            LocalDate startDate = LocalDate.parse(year + "-" + formattedMonth + "-01");
+            LocalDate startDate = LocalDate.parse(targetYear + "-" + formattedMonth + "-01");
             LocalDate endDate = startDate.plusMonths(1).minusDays(1);
 
             BigDecimal dividendSum = repository.getDividendSum(startDate, endDate);
@@ -52,15 +54,15 @@ public class BasicChartService {
     }
 
     /**
-     * 今年も含めて過去5年分の年（西暦）を取得する
-     *
+     * 今年も含めて過去指定年数分の年（西暦）を取得する
+     * @param numOfYears 年数
      * @return 年を表す配列
      */
-    public String[] getRecentYears() {
-        String[] recentYears = new String[5];
+    public String[] getRecentYears(int numOfYears) {
+        String[] recentYears = new String[numOfYears];
         int currentYear = LocalDate.now().getYear();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < numOfYears; i++) {
             recentYears[i] = String.valueOf(currentYear - i);
         }
         return recentYears;
@@ -69,11 +71,11 @@ public class BasicChartService {
     /**
      * 引数が4桁の西暦年を表す文字列かどうかを判定します。
      *
-     * @param input パラメータ文字列
+     * @param year 年（例、2023）
      * @return 引数が西暦年を表す文字列ならtrue、そうでなければfalse
      */
-    public boolean isNotYear(String input){
-        return !Pattern.matches("^[1-9]\\d{3}$", input);
+    public boolean isNotYear(String year) {
+        return !Pattern.matches("^[1-9]\\d{3}$", year);
     }
 
     /**
@@ -83,9 +85,9 @@ public class BasicChartService {
      * @param targetYear 表示対象年
      * @return 表示対象年が不正であれば今年を返す。そうでなければ表示対象年をそのまま返す。
      */
-    public String getTargetYear(String thisYear, String targetYear) {
+    public String getTargetYear(String currentYear, String targetYear) {
         if (targetYear.isEmpty() || this.isNotYear(targetYear)) {
-            return thisYear;
+            return currentYear;
         }
         return targetYear;
     }

@@ -22,10 +22,8 @@ public class LineChartController {
     public String index(Model model, LineChartForm lineChartForm) {
         log.debug("累計配当グラフ表示");
 
-        String[] recentYears = service.getRecentYears();
-
+        String[] recentYears = service.getRecentYears(5);
         String targetYear = service.getTargetYear(recentYears[0], lineChartForm.getTargetYear());
-
         String chartData = service.getChartData(targetYear);
 
         LineChartDto lineChartDto = new LineChartDto(

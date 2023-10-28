@@ -25,7 +25,13 @@ public class ListService {
     @Autowired
     DividendHistoryRepository repository;
 
-    public Page<DividendHistory> getDividendHistory(Pageable pageable) {
+    /**
+     * 対象ページの配当履歴一覧を取得する
+     *
+     * @param pageable 取得対象ページ情報
+     * @return 対象ページの配当履歴一覧
+     */
+    public Page<DividendHistory> getDividendHistoryPage(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
@@ -39,7 +45,7 @@ public class ListService {
      *
      * @param csvFile CSVファイル内容
      */
-    public void csvInsert(MultipartFile csvFile) {
+    public void bulkInsert(MultipartFile csvFile) {
         try {
             List<DividendHistory> dividendHistoryList = parseCsvFile(csvFile);
             repository.saveAll(dividendHistoryList);

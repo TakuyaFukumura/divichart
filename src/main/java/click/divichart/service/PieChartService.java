@@ -78,7 +78,7 @@ public class PieChartService extends BasicChartService {
      * 配当情報からグラフ描画用のデータを生成する
      *
      * @param dividendSummaryDtoList 配当情報
-     * @return グラフ描画用文字列配列
+     * @return グラフ描画用文字列
      */
     PieChartDto createChartData(List<DividendSummaryDto> dividendSummaryDtoList) {
         StringJoiner labels = new StringJoiner("\",\"", "\"", "\"");
