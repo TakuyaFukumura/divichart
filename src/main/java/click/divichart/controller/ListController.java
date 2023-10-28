@@ -25,7 +25,7 @@ public class ListController {
     @GetMapping
     public String index(Model model, Pageable pageable) {
         log.debug("配当履歴一覧画面表示");
-        Page<DividendHistory> dividendHistoryPage = service.getDividendHistory(pageable);
+        Page<DividendHistory> dividendHistoryPage = service.getDividendHistoryPage(pageable);
         model.addAttribute("dividendHistoryPage", dividendHistoryPage);
         model.addAttribute("dividendHistories", dividendHistoryPage.getContent());
         return "list";
