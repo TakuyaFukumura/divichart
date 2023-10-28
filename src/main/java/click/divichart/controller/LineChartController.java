@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 累計配当グラフ用コントローラ
+ */
 @Slf4j
 @Controller
 @RequestMapping("/lineChart")
@@ -18,6 +21,9 @@ public class LineChartController {
     @Autowired
     LineChartService service;
 
+    /**
+     * グラフ表示用のデータを用意してViewへ渡す
+     */
     @GetMapping
     public String index(Model model, LineChartForm lineChartForm) {
         log.debug("累計配当グラフ表示");

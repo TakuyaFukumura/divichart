@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * 配当割合グラフ画面用DTO
+ */
 @Getter
 @Setter
 @NoArgsConstructor

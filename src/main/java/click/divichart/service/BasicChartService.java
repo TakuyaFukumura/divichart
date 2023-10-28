@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
+/**
+ * ChartService系で共通のロジックを持つクラス
+ */
 @Service
 public class BasicChartService {
 

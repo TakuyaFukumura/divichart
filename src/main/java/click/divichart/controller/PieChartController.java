@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 配当割合グラフ用コントローラ
+ */
 @Slf4j
 @Controller
 @RequestMapping({"/", "/pieChart"})
@@ -18,6 +21,9 @@ public class PieChartController {
     @Autowired
     PieChartService service;
 
+    /**
+     * グラフ表示用のデータを用意してViewへ渡す
+     */
     @GetMapping
     public String index(Model model, PieChartForm pieChartForm) {
         log.debug("配当割合グラフ表示");

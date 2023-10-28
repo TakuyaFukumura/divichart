@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * 配当割合グラフ画面用フォーム
+ */
 @Getter
 @Setter
 public class PieChartForm implements Serializable {

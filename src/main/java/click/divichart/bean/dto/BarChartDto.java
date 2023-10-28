@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * 月別配当グラフ画面用DTO
+ */
 @Getter
 @Setter
 @NoArgsConstructor
