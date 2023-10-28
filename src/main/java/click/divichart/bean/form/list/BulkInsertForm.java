@@ -10,6 +10,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CsvInsertForm implements Serializable {
+public class BulkInsertForm implements Serializable {
     private MultipartFile csvFile; // 配当履歴CSVファイル
 }

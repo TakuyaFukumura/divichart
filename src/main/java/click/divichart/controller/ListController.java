@@ -1,7 +1,7 @@
 package click.divichart.controller;
 
 import click.divichart.bean.entity.DividendHistory;
-import click.divichart.bean.form.list.CsvInsertForm;
+import click.divichart.bean.form.list.BulkInsertForm;
 import click.divichart.bean.form.list.InsertForm;
 import click.divichart.service.ListService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,11 +42,11 @@ public class ListController {
         return "redirect:/list";
     }
 
-    @PostMapping("/csvInsert")
-    public String csvInsert(CsvInsertForm csvInsertForm) {
+    @PostMapping("/bulkInsert")
+    public String bulkInsert(BulkInsertForm bulkInsertForm) {
         log.debug("配当履歴CSV一括登録");
-        service.csvInsert(
-                csvInsertForm.getCsvFile()
+        service.bulkInsert(
+                bulkInsertForm.getCsvFile()
         );
         return "redirect:/list";
     }

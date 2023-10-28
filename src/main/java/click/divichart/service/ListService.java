@@ -39,7 +39,7 @@ public class ListService {
      *
      * @param csvFile CSVファイル内容
      */
-    public void csvInsert(MultipartFile csvFile) {
+    public void bulkInsert(MultipartFile csvFile) {
         try {
             List<DividendHistory> dividendHistoryList = parseCsvFile(csvFile);
             repository.saveAll(dividendHistoryList);
