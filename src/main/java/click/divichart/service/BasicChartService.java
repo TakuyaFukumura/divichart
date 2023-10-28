@@ -81,7 +81,7 @@ public class BasicChartService {
     /**
      * 表示対象年を取得する
      *
-     * @param thisYear   今年
+     * @param currentYear   今年
      * @param targetYear 表示対象年
      * @return 表示対象年が不正であれば今年を返す。そうでなければ表示対象年をそのまま返す。
      */
