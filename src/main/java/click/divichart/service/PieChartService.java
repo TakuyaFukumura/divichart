@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,9 @@ public class PieChartService extends BasicChartService {
         List<Object[]> dividendSummaryList = repository.getDividendsForEachStock(startDate, endDate);
         List<DividendSummaryBean> dividendSummaryBeanList = consolidateSmallValues(dividendSummaryList);
 
-        return createChartData(dividendSummaryBeanList);
+        BigDecimal dividendSum = repository.getDividendSum(startDate, endDate);
+
+        return createChartData(dividendSummaryBeanList, dividendSum);
     }
 
     /**
@@ -79,10 +82,11 @@ public class PieChartService extends BasicChartService {
     /**
      * 配当情報からグラフ描画用のデータを生成する
      *
-     * @param dividendSummaryBeanList 配当情報
+     * @param dividendSummaryBeanList 配当情報リスト
+     * @param dividendSum             配当合計額
      * @return グラフ描画用文字列
      */
-    PieChartDto createChartData(List<DividendSummaryBean> dividendSummaryBeanList) {
+    PieChartDto createChartData(List<DividendSummaryBean> dividendSummaryBeanList, BigDecimal dividendSum) {
         StringJoiner labels = new StringJoiner("\",\"", "\"", "\"");
         StringJoiner chartData = new StringJoiner(",");
 
@@ -90,7 +94,9 @@ public class PieChartService extends BasicChartService {
             String tickerSymbol = dividendSummaryBean.getTickerSymbol();
             BigDecimal amountReceived = dividendSummaryBean.getAmountReceived();
 
-            labels.add(tickerSymbol);
+            String label = createLabel(tickerSymbol, amountReceived, dividendSum);
+
+            labels.add(label);
             chartData.add(amountReceived.toString());
         }
 

@@ -26,12 +26,12 @@ class PieChartServiceTest {
         dividendSummaryBeanList.add(new DividendSummaryBean("AAPL", BigDecimal.valueOf(100.01)));
         dividendSummaryBeanList.add(new DividendSummaryBean("GOOG", BigDecimal.valueOf(50.01)));
 
-        PieChartDto chartData = pieChartService.createChartData(dividendSummaryBeanList);
+        PieChartDto chartData = pieChartService.createChartData(dividendSummaryBeanList, BigDecimal.valueOf(150.02));
 
         assertNotNull(chartData);
 
         // 期待される結果を確認します
-        assertEquals("\"AAPL\",\"GOOG\"", chartData.getLabels());
+        assertEquals("\"AAPL 66.66%\",\"GOOG 33.34%\"", chartData.getLabels());
         assertEquals("100.01,50.01", chartData.getChartData());
     }
 
@@ -39,7 +39,7 @@ class PieChartServiceTest {
     public void testCreateChartDataWithEmptyList() {
         List<DividendSummaryBean> emptyList = new ArrayList<>();
 
-        PieChartDto chartData = pieChartService.createChartData(emptyList);
+        PieChartDto chartData = pieChartService.createChartData(emptyList, BigDecimal.valueOf(150.02));
 
         assertNotNull(chartData);
 
