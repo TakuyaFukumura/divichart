@@ -100,4 +100,19 @@ public class PieChartService extends BasicChartService {
         );
     }
 
+    /**
+     * チャートのラベルを作成する
+     *
+     * @param tickerSymbol   ティッカー
+     * @param amountReceived 配当受取額
+     * @param dividendSum    配当合計額
+     * @return チャートのラベル
+     */
+    String createLabel(String tickerSymbol, BigDecimal amountReceived, BigDecimal dividendSum) {
+        BigDecimal percentageOfPortfolio = amountReceived
+                .multiply(BigDecimal.valueOf(100))
+                .divide(dividendSum, RoundingMode.HALF_UP);
+        return tickerSymbol + " " + percentageOfPortfolio + "%";
+    }
+
 }
