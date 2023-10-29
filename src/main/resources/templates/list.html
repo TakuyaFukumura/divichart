@@ -20,9 +20,6 @@
                 <!-- 先頭ページ -->
                 <a th:href="@{/list(page=0)}" class="page-link">1</a>
             </li>
-            <li th:if="${dividendHistoryPage.number gt 3}" class="page-item">
-                <a class="page-link">…</a>
-            </li>
             <li th:if="${pageNo ge 0 and pageNo lt dividendHistoryPage.totalPages}"
                 th:each="pageNo : ${ #numbers.sequence(dividendHistoryPage.number - 2, dividendHistoryPage.number + 2) }"
                 class="page-item">
@@ -30,9 +27,6 @@
                 <a th:if="${pageNo != dividendHistoryPage.number}"
                    th:href="@{/list(page=${pageNo})}" th:text="${pageNo + 1}" class="page-link">
                 </a>
-            </li>
-            <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 4)}" class="page-item">
-                <a class="page-link">…</a>
             </li>
             <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 3)}" class="page-item">
                 <!-- 最終ページ -->
