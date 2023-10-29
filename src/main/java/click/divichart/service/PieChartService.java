@@ -29,6 +29,7 @@ public class PieChartService extends BasicChartService {
     public PieChartDto getChartData(String targetYear) {
         LocalDate startDate = LocalDate.parse(targetYear + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
+
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
         List<DividendSummaryBean> dividendSummaryBeanList = formatData(dividendSummaryList);
 
