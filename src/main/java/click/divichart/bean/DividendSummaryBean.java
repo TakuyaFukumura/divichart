@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * 配当情報集計DTO
+ * 配当情報集計Bean
  */
 @Getter
 @Setter
