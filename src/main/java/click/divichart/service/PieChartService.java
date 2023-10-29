@@ -31,18 +31,18 @@ public class PieChartService extends BasicChartService {
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
 
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
-        List<DividendSummaryBean> dividendSummaryBeanList = formatData(dividendSummaryList);
+        List<DividendSummaryBean> dividendSummaryBeanList = consolidateSmallValues(dividendSummaryList);
 
         return createChartData(dividendSummaryBeanList);
     }
 
     /**
-     * 配当の集計情報を整形して、小さいデータはその他にまとめる
+     * 配当の集計情報を整理して、小さいデータはその他にまとめる
      *
      * @param dividendSummaryList 配当の集計情報
-     * @return 整形された配当の集計情報
+     * @return 整理された配当の集計情報
      */
-    List<DividendSummaryBean> formatData(List<Object[]> dividendSummaryList) {
+    List<DividendSummaryBean> consolidateSmallValues(List<Object[]> dividendSummaryList) {
         List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>();
         DividendSummaryBean others = new DividendSummaryBean("その他", BigDecimal.ZERO);
 
