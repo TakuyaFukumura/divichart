@@ -1,6 +1,6 @@
 package click.divichart.service;
 
-import click.divichart.bean.dto.DividendSummaryDto;
+import click.divichart.bean.DividendSummaryBean;
 import click.divichart.bean.dto.PieChartDto;
 import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +30,9 @@ public class PieChartService extends BasicChartService {
         LocalDate startDate = LocalDate.parse(targetYear + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
         List<Object[]> dividendSummaryList = repository.getDividendTotalForStock(startDate, endDate);
-        List<DividendSummaryDto> dividendSummaryDtoList = formatData(dividendSummaryList);
+        List<DividendSummaryBean> dividendSummaryBeanList = formatData(dividendSummaryList);
 
-        return createChartData(dividendSummaryDtoList);
+        return createChartData(dividendSummaryBeanList);
     }
 
     /**
@@ -41,53 +41,53 @@ public class PieChartService extends BasicChartService {
      * @param dividendSummaryList 配当の集計情報
      * @return 整形された配当の集計情報
      */
-    List<DividendSummaryDto> formatData(List<Object[]> dividendSummaryList) {
-        List<DividendSummaryDto> dividendSummaryDtoList = new ArrayList<>();
-        DividendSummaryDto others = new DividendSummaryDto("その他", BigDecimal.ZERO);
+    List<DividendSummaryBean> formatData(List<Object[]> dividendSummaryList) {
+        List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>();
+        DividendSummaryBean others = new DividendSummaryBean("その他", BigDecimal.ZERO);
 
         for (Object[] dividendSummary : dividendSummaryList) {
             String tickerSymbol = (String) dividendSummary[0];
             BigDecimal amountReceived = (BigDecimal) dividendSummary[1];
 
-            DividendSummaryDto dividendSummaryDto = new DividendSummaryDto(tickerSymbol, amountReceived);
+            DividendSummaryBean dividendSummaryBean = new DividendSummaryBean(tickerSymbol, amountReceived);
 
-            if (dividendSummaryDtoList.size() < MAX_DISPLAYED_STOCKS) {
-                dividendSummaryDtoList.add(dividendSummaryDto);
+            if (dividendSummaryBeanList.size() < MAX_DISPLAYED_STOCKS) {
+                dividendSummaryBeanList.add(dividendSummaryBean);
             } else {
-                addToOthers(others, dividendSummaryDto);
+                addToOthers(others, dividendSummaryBean);
             }
         }
         if (others.getAmountReceived().compareTo(BigDecimal.ZERO) != 0) {
-            dividendSummaryDtoList.add(others);
+            dividendSummaryBeanList.add(others);
         }
-        return dividendSummaryDtoList;
+        return dividendSummaryBeanList;
     }
 
     /**
      * その他の配当情報に加算
      *
      * @param others             その他の配当情報
-     * @param dividendSummaryDto 加算したい配当情報
+     * @param dividendSummaryBean 加算したい配当情報
      */
-    private void addToOthers(DividendSummaryDto others, DividendSummaryDto dividendSummaryDto) {
+    private void addToOthers(DividendSummaryBean others, DividendSummaryBean dividendSummaryBean) {
         BigDecimal currentAmountReceived = others.getAmountReceived();
-        BigDecimal newAmountReceived = currentAmountReceived.add(dividendSummaryDto.getAmountReceived());
+        BigDecimal newAmountReceived = currentAmountReceived.add(dividendSummaryBean.getAmountReceived());
         others.setAmountReceived(newAmountReceived);
     }
 
     /**
      * 配当情報からグラフ描画用のデータを生成する
      *
-     * @param dividendSummaryDtoList 配当情報
+     * @param dividendSummaryBeanList 配当情報
      * @return グラフ描画用文字列
      */
-    PieChartDto createChartData(List<DividendSummaryDto> dividendSummaryDtoList) {
+    PieChartDto createChartData(List<DividendSummaryBean> dividendSummaryBeanList) {
         StringJoiner labels = new StringJoiner("\",\"", "\"", "\"");
         StringJoiner chartData = new StringJoiner(",");
 
-        for (DividendSummaryDto dividendSummaryDto : dividendSummaryDtoList) {
-            String tickerSymbol = dividendSummaryDto.getTickerSymbol();
-            BigDecimal amountReceived = dividendSummaryDto.getAmountReceived();
+        for (DividendSummaryBean dividendSummaryBean : dividendSummaryBeanList) {
+            String tickerSymbol = dividendSummaryBean.getTickerSymbol();
+            BigDecimal amountReceived = dividendSummaryBean.getAmountReceived();
 
             labels.add(tickerSymbol);
             chartData.add(amountReceived.toString());
