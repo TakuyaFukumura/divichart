@@ -29,19 +29,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
         var ctx = document.getElementById("pieChart");
-        var pieChart = new Chart(ctx, {
-            type : 'pie',
-            data : {
-                labels : [ [(${pieChartDto.getLabels()})] ],
-                datasets : [ {
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [ [(${pieChartDto.getLabels()})] ],
+                datasets: [{
                     label: 'USD',
                     backgroundColor : [ "#c73327", "#e8c400", "#3C00FF", "#3b95d3", "#BB5179",
                                         "#FAFF67", "#58A27C", "#F41111", "#FFD80F", "#44B009",
                                         "#45CAFF", "#332FCC", "#D819FF" ],
                     data : [ [[${pieChartDto.getChartData()}]] ]
-                } ]
+                }]
             },
-            options : {
+            options: {
                 animation: {
                     animateScale: true
                 },
@@ -54,7 +54,7 @@
                         maxHeight: 70
                     }
                 },
-                maintainAspectRatio: false,
+                maintainAspectRatio: false
             }
         });
     </script>

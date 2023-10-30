@@ -27,37 +27,36 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
         var ctx = document.getElementById("barChart");
-        var myBarChart = new Chart(ctx, {
-            type : 'bar',
-            data : {
-                labels : [ "1月","2月","3月","4月","5月","6月","7月",
-                      "8月", "9月", "10月", "11月", "12月" ],
-                datasets : [ {
-                    label : '配当受取額',
-                    data : [ [[${barChartDto.getChartData()}]] ],
-                    backgroundColor : "rgba(130,201,169,0.5)"
-                } ]
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                datasets: [{
+                    label: '配当受取額',
+                    data: [ [[${barChartDto.getChartData()}]] ],
+                    backgroundColor: "rgba(130, 201, 169, 0.5)"
+                }]
             },
-            options : {
-                plugins : {
-                    title : {
-                        display : true,
-                        text : '月別配当受取額'
-                    },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '月別配当受取額'
+                    }
                 },
-                scales : {
-                    y : {
-                        suggestedMax : 100,
-                        suggestedMin : 0,
-                        ticks : {
-                            stepSize : 10,
-                            callback : function(value, index, values) {
-                                return value + 'ドル'
+                scales: {
+                    y: {
+                        suggestedMax: 100,
+                        suggestedMin: 0,
+                        ticks: {
+                            stepSize: 10,
+                            callback: function (value, index, values) {
+                                return value + 'ドル';
                             }
                         }
                     }
                 },
-                maintainAspectRatio: false,
+                maintainAspectRatio: false
             }
         });
     </script>
