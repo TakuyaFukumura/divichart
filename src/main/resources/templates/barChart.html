@@ -26,8 +26,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        var ctx = document.getElementById("barChart");
-        var chart = new Chart(ctx, {
+        const ctx = document.getElementById("barChart");
+        const chart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],

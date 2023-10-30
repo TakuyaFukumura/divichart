@@ -26,9 +26,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        let year = '[[${lineChartDto.getTargetYear()}]]';
-        let ctx = document.getElementById("lineChart");
-        let chart = new Chart(ctx, {
+        const year = '[[${lineChartDto.getTargetYear()}]]';
+        const ctx = document.getElementById("lineChart");
+        const chart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: [
