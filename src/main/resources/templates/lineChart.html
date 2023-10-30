@@ -27,6 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
         const year = '[[${lineChartDto.getTargetYear()}]]';
+        const data = [ [[${lineChartDto.getChartData()}]] ];
         const ctx = document.getElementById("lineChart");
         const chart = new Chart(ctx, {
             type: 'line',
@@ -37,7 +38,7 @@
                 datasets: [
                     {
                         label: '累計配当受取額(ドル）',
-                        data: [ [[${lineChartDto.getChartData()}]] ],
+                        data: data,
                         borderColor: "rgba(0, 0, 255, 1)",
                         backgroundColor: "rgba(0, 0, 0, 0)",
                         lineTension: 0.4
