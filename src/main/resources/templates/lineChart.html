@@ -39,9 +39,7 @@
                     {
                         label: '累計配当受取額(ドル）',
                         data: data,
-                        borderColor: "rgba(0, 0, 255, 1)",
-                        backgroundColor: "rgba(0, 0, 0, 0)",
-                        lineTension: 0.4
+                        borderColor: "rgba(0, 0, 255, 1)"
                     }
                 ]
             },
@@ -54,11 +52,8 @@
                 },
                 scales: {
                     y: {
-                        suggestedMax: 40,
-                        suggestedMin: 0,
                         ticks: {
-                            stepSize: 10,
-                            callback: function(value, index, values) {
+                            callback: function(value, index, ticks) {
                                 return value + 'ドル';
                             }
                         }
