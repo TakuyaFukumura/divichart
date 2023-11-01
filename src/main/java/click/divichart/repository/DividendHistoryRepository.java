@@ -55,12 +55,4 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
     );
-
-    /**
-     * 指定ページ範囲の配当履歴情報を取得
-     *
-     * @param pageable ページ情報
-     * @return 配当履歴Page
-     */
-    Page<DividendHistory> findAll(Pageable pageable);
 }
