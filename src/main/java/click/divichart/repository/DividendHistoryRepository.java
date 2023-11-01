@@ -25,7 +25,7 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
      */
     @Query(value = """
             SELECT
-                COALESCE(SUM(amount_received), 0)
+                COALESCE(SUM(amount_received), 0) AS dividend_sum
             FROM dividend_history
             WHERE receipt_date
             BETWEEN :startDate AND :endDate
