@@ -1,8 +1,6 @@
 package click.divichart.repository;
 
 import click.divichart.bean.entity.DividendHistory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,10 +23,9 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
      */
     @Query(value = """
             SELECT
-                COALESCE(SUM(amount_received), 0)
+                COALESCE(SUM(amount_received), 0) AS dividend_sum
             FROM dividend_history
-            WHERE receipt_date
-            BETWEEN :startDate AND :endDate
+            WHERE receipt_date BETWEEN :startDate AND :endDate
             """, nativeQuery = true)
     BigDecimal getDividendSum(
             @Param("startDate") LocalDate startDate
@@ -55,12 +52,4 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
     );
-
-    /**
-     * 指定ページ範囲の配当履歴情報を取得
-     *
-     * @param pageable ページ情報
-     * @return 配当履歴Page
-     */
-    Page<DividendHistory> findAll(Pageable pageable);
 }
