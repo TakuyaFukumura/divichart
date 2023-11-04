@@ -12,12 +12,12 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BarChartDto implements Serializable {
+public class MonthlyDividendDto implements Serializable {
     private String[] recentYears;
     private String targetYear;
     private String chartData;
 
-    public BarChartDto(String[] recentYears, String targetYear, String chartData) {
+    public MonthlyDividendDto(String[] recentYears, String targetYear, String chartData) {
         this.recentYears = recentYears;
         this.targetYear = targetYear;
         this.chartData = chartData;
