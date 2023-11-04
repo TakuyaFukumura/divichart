@@ -11,24 +11,24 @@
 <body>
     <header th:replace="~{header}"></header>
     <h1>累計配当グラフ</h1>
-    <form th:action="@{/lineChart}" method="get">
+    <form th:action="@{/cumulativeDividend}" method="get">
         <div class="mb-3">
             <label for="selectYear" class="form-label">対象年</label>
             <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
-                <option th:each="year : ${lineChartDto.getRecentYears()}" th:value="${year}"
-                        th:text="${year}" th:selected="${year == lineChartDto.getTargetYear()}"></option>
+                <option th:each="year : ${cumulativeDividendDto.getRecentYears()}" th:value="${year}"
+                        th:text="${year}" th:selected="${year == cumulativeDividendDto.getTargetYear()}"></option>
             </select>
         </div>
     </form>
     <div class="chart-container">
-        <canvas id="lineChart"></canvas>
+        <canvas id="cumulativeDividend"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        const year = '[[${lineChartDto.getTargetYear()}]]';
-        const data = [ [[${lineChartDto.getChartData()}]] ];
-        const ctx = document.getElementById("lineChart");
+        const year = '[[${cumulativeDividendDto.getTargetYear()}]]';
+        const data = [ [[${cumulativeDividendDto.getChartData()}]] ];
+        const ctx = document.getElementById("cumulativeDividend");
         const chart = new Chart(ctx, {
             type: 'line',
             data: {

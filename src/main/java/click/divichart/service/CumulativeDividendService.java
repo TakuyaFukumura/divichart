@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 @Service
-public class LineChartService extends BasicChartService {
+public class CumulativeDividendService extends BasicChartService {
 
     /**
      * グラフ描画用に、指定年の1月～12月までの配当累計を計算する

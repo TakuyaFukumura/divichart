@@ -32,7 +32,7 @@ public class WebSecurityConfig {
                         mvcMatcherBuilder.pattern("/"),
                         mvcMatcherBuilder.pattern("/login"),
                         mvcMatcherBuilder.pattern("/css/**"),
-                        mvcMatcherBuilder.pattern("/lineChart"),
+                        mvcMatcherBuilder.pattern("/cumulativeDividend"),
                         mvcMatcherBuilder.pattern("/monthlyDividend"),
                         mvcMatcherBuilder.pattern("/dividendPortfolio")
                 ).permitAll()
