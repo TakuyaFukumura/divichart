@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>配当割合グラフ</title>
+    <title>配当ポートフォリオ</title>
     <link th:href="@{/css/basicChart.css}" rel="styleSheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
     <header th:replace="~{header}"></header>
-    <h1>配当割合グラフ</h1>
-    <form th:action="@{/pieChart}" method="get">
+    <h1>配当ポートフォリオ</h1>
+    <form th:action="@{/dividendPortfolio}" method="get">
         <div class="mb-3">
             <label for="selectYear" class="form-label">対象年</label>
             <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
-                <option th:each="year : ${pieChartDto.getRecentYears()}" th:value="${year}"
-                        th:text="${year}" th:selected="${year == pieChartDto.getTargetYear()}"></option>
+                <option th:each="year : ${dividendPortfolioDto.getRecentYears()}" th:value="${year}"
+                        th:text="${year}" th:selected="${year == dividendPortfolioDto.getTargetYear()}"></option>
             </select>
         </div>
     </form>
-    <p th:if="${#strings.isEmpty(pieChartDto.getChartData())}">データがありません</p>
-    <th:block th:if="${!#strings.isEmpty(pieChartDto.getChartData())}">
+    <p th:if="${#strings.isEmpty(dividendPortfolioDto.getChartData())}">データがありません</p>
+    <th:block th:if="${!#strings.isEmpty(dividendPortfolioDto.getChartData())}">
     <div class="chart-container">
-        <canvas id="pieChart"></canvas>
+        <canvas id="dividendPortfolio"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        const labels = [ [(${pieChartDto.getLabels()})] ];
-        const data = [ [[${pieChartDto.getChartData()}]] ];
-        const ctx = document.getElementById("pieChart");
+        const labels = [ [(${dividendPortfolioDto.getLabels()})] ];
+        const data = [ [[${dividendPortfolioDto.getChartData()}]] ];
+        const ctx = document.getElementById("dividendPortfolio");
         const chart = new Chart(ctx, {
             type: 'pie',
             data: {

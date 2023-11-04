@@ -34,7 +34,7 @@ public class WebSecurityConfig {
                         mvcMatcherBuilder.pattern("/css/**"),
                         mvcMatcherBuilder.pattern("/lineChart"),
                         mvcMatcherBuilder.pattern("/barChart"),
-                        mvcMatcherBuilder.pattern("/pieChart")
+                        mvcMatcherBuilder.pattern("/dividendPortfolio")
                 ).permitAll()
                 .anyRequest().authenticated();
 
