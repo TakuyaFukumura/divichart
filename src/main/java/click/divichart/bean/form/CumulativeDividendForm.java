@@ -10,10 +10,10 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class LineChartForm implements Serializable {
+public class CumulativeDividendForm implements Serializable {
     private String targetYear; // 表示対象年
 
-    LineChartForm() {
+    CumulativeDividendForm() {
         this.targetYear = "";
     }
 }

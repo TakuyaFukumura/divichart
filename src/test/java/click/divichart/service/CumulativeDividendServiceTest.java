@@ -9,12 +9,12 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LineChartServiceTest {
-    private LineChartService LineChartService;
+class CumulativeDividendServiceTest {
+    private CumulativeDividendService CumulativeDividendService;
 
     @BeforeEach
     public void setUp() {
-        LineChartService = new LineChartService();
+        CumulativeDividendService = new CumulativeDividendService();
     }
 
     @Test
@@ -26,7 +26,7 @@ class LineChartServiceTest {
                 new BigDecimal("30.00")
         };
 
-        BigDecimal[] cumulativeDividend = LineChartService.getCumulativeDividend(monthlyDividend);
+        BigDecimal[] cumulativeDividend = CumulativeDividendService.getCumulativeDividend(monthlyDividend);
 
         // メソッドが正しい結果を返すかテストします
         assertNotNull(cumulativeDividend);
