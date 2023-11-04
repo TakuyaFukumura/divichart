@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 配当割合グラフ画面用フォーム
+ * 配当ポートフォリオ画面用フォーム
  */
 @Getter
 @Setter

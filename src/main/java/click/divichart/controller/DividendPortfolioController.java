@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 配当割合グラフ用コントローラ
+ * 配当ポートフォリオ用コントローラ
  */
 @Slf4j
 @Controller
@@ -22,11 +22,11 @@ public class DividendPortfolioController {
     DividendPortfolioService service;
 
     /**
-     * グラフ表示用のデータを用意してViewへ渡す
+     * チャート描画用のデータを用意してViewへ渡す
      */
     @GetMapping
     public String index(Model model, DividendPortfolioForm dividendPortfolioForm) {
-        log.debug("配当割合グラフ表示");
+        log.debug("配当ポートフォリオ表示");
 
         String[] recentYears = service.getRecentYears(5);
         String targetYear = service.getTargetYear(recentYears[0], dividendPortfolioForm.getTargetYear());

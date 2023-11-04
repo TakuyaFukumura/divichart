@@ -22,7 +22,7 @@ public class DividendPortfolioService extends BasicChartService {
     DividendHistoryRepository repository;
 
     /**
-     * グラフ描画用に、指定年の配当割合データを取得する
+     * チャート描画用に、指定年の配当ポートフォリオデータを取得する
      *
      * @param targetYear データ作成対象年
      * @return グラフ描画用文字列配列
