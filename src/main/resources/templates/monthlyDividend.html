@@ -11,23 +11,23 @@
 <body>
     <header th:replace="~{header}"></header>
     <h1>月別配当グラフ</h1>
-    <form th:action="@{/barChart}" method="get">
+    <form th:action="@{/monthlyDividend}" method="get">
         <div class="mb-3">
             <label for="selectYear" class="form-label">対象年</label>
             <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
-                <option th:each="year : ${barChartDto.getRecentYears()}" th:value="${year}"
-                        th:text="${year}" th:selected="${year == barChartDto.getTargetYear()}"></option>
+                <option th:each="year : ${monthlyDividendDto.getRecentYears()}" th:value="${year}"
+                        th:text="${year}" th:selected="${year == monthlyDividendDto.getTargetYear()}"></option>
             </select>
         </div>
     </form>
     <div class="chart-container">
-        <canvas id="barChart"></canvas>
+        <canvas id="monthlyDividend"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        const data = [ [[${barChartDto.getChartData()}]] ];
-        const ctx = document.getElementById("barChart");
+        const data = [ [[${monthlyDividendDto.getChartData()}]] ];
+        const ctx = document.getElementById("monthlyDividend");
         const chart = new Chart(ctx, {
             type: 'bar',
             data: {

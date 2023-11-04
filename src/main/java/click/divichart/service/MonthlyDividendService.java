@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-public class BarChartService extends BasicChartService {
+public class MonthlyDividendService extends BasicChartService {
 
     /**
      * グラフ描画用に、指定年の月別配当データを取得する

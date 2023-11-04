@@ -1,8 +1,8 @@
 package click.divichart.controller;
 
-import click.divichart.bean.dto.BarChartDto;
-import click.divichart.bean.form.BarChartForm;
-import click.divichart.service.BarChartService;
+import click.divichart.bean.dto.MonthlyDividendDto;
+import click.divichart.bean.form.MonthlyDividendForm;
+import click.divichart.service.MonthlyDividendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,31 +15,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Slf4j
 @Controller
-@RequestMapping("/barChart")
-public class BarChartController {
+@RequestMapping("/monthlyDividend")
+public class MonthlyDividendController {
 
     @Autowired
-    BarChartService service;
+    MonthlyDividendService service;
 
     /**
      * グラフ表示用のデータを用意してViewへ渡す
      */
     @GetMapping
-    public String index(Model model, BarChartForm barChartForm) {
+    public String index(Model model, MonthlyDividendForm monthlyDividendForm) {
         log.debug("月別配当グラフ表示");
 
         String[] recentYears = service.getRecentYears(5);
-        String targetYear = service.getTargetYear(recentYears[0], barChartForm.getTargetYear());
+        String targetYear = service.getTargetYear(recentYears[0], monthlyDividendForm.getTargetYear());
         String chartData = service.getChartData(targetYear);
 
-        BarChartDto barChartDto = new BarChartDto(
+        MonthlyDividendDto monthlyDividendDto = new MonthlyDividendDto(
                 recentYears,
                 targetYear,
                 chartData
         );
-        model.addAttribute("barChartDto", barChartDto);
+        model.addAttribute("monthlyDividendDto", monthlyDividendDto);
 
-        return "barChart";
+        return "monthlyDividend";
     }
 
 }
