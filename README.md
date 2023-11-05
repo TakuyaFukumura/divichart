@@ -31,8 +31,8 @@ or
 ```bash
 ./mvnw clean spring-boot:run
 ```
-### DEV用の設定を使う場合
-- `spring.profiles.active=dev`を指定することで`application-dev.properties`の値が使用される
+### DEV用設定
+- `spring.profiles.active=dev`を指定することで、DEV用の設定ファイル`application-dev.properties`の値が使用される
 ```bash
 ./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
 ```
@@ -44,10 +44,12 @@ or
 - Embedded H2 Database を使用している
 - H2コンソール表示
   - http://localhost:8080/h2-console
+  - ※有効化している場合にのみ表示可能
 ### 前提
 - DBデータ保存先のディレクトリが用意されていること
-  - 無い場合は下記コマンドで作成すること
+  - 無い場合は、必要に応じて下記コマンドで作成すること
 ```bash
+$ cd /各環境のパス/divichart
 $ mkdir -p .db/dev
 $ mkdir -p ~/db/prod
 
@@ -56,7 +58,7 @@ divichart
     └── dev
 ```
 ### H2コンソールを利用する場合
-`/src/main/resources/application.properties`に`spring.h2.console.enabled=true`を書き加えるか、下記コマンドを実行すること
+`application.properties`に設定`spring.h2.console.enabled=true`を書き加えるか、下記オプション付きのコマンドを実行すること
 ```bash
 ./mvnw clean spring-boot:run -Dspring-boot.run.arguments=--spring.h2.console.enabled=true
 ```
@@ -64,7 +66,7 @@ divichart
 java -jar ./target/divichart.jar --spring.h2.console.enabled=true
 ```
 ### PRODでテーブルを作成する場合
-下記コマンドで最初に一度だけ手動で起動すると、
+下記コマンドで起動すると、
 指定されたディレクトリにデータが作成される。
 ```bash
 java -jar ./target/divichart.jar --spring.sql.init.mode=always --spring.sql.init.schema-locations=classpath:./sql/schema.sql
