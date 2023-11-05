@@ -1,7 +1,7 @@
 package click.divichart.service;
 
 import click.divichart.bean.DividendSummaryBean;
-import click.divichart.bean.dto.PieChartDto;
+import click.divichart.bean.dto.DividendPortfolioDto;
 import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 @Service
-public class PieChartService extends BasicChartService {
+public class DividendPortfolioService extends BasicChartService {
 
     private static final int MAX_DISPLAYED_STOCKS = 15;
 
@@ -22,12 +22,12 @@ public class PieChartService extends BasicChartService {
     DividendHistoryRepository repository;
 
     /**
-     * グラフ描画用に、指定年の配当割合データを取得する
+     * チャート描画用に、指定年の配当ポートフォリオデータを取得する
      *
      * @param targetYear データ作成対象年
      * @return グラフ描画用文字列配列
      */
-    public PieChartDto getChartData(String targetYear) {
+    public DividendPortfolioDto getChartData(String targetYear) {
         LocalDate startDate = LocalDate.parse(targetYear + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
 
@@ -86,7 +86,7 @@ public class PieChartService extends BasicChartService {
      * @param dividendSum             配当合計額
      * @return グラフ描画用文字列
      */
-    PieChartDto createChartData(List<DividendSummaryBean> dividendSummaryBeanList, BigDecimal dividendSum) {
+    DividendPortfolioDto createChartData(List<DividendSummaryBean> dividendSummaryBeanList, BigDecimal dividendSum) {
         StringJoiner labels = new StringJoiner("\",\"", "\"", "\"");
         StringJoiner chartData = new StringJoiner(",");
 
@@ -100,7 +100,7 @@ public class PieChartService extends BasicChartService {
             chartData.add(amountReceived.toString());
         }
 
-        return new PieChartDto(
+        return new DividendPortfolioDto(
                 labels.toString(),
                 chartData.toString()
         );

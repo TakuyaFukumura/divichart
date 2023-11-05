@@ -7,19 +7,19 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 累計配当グラフ画面用DTO
+ * 配当ポートフォリオ用DTO
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class LineChartDto implements Serializable {
+public class DividendPortfolioDto implements Serializable {
     private String[] recentYears;
     private String targetYear;
+    private String labels;
     private String chartData;
 
-    public LineChartDto(String[] recentYears, String targetYear, String chartData) {
-        this.recentYears = recentYears;
-        this.targetYear = targetYear;
+    public DividendPortfolioDto(String labels, String chartData) {
+        this.labels = labels;
         this.chartData = chartData;
     }
 }

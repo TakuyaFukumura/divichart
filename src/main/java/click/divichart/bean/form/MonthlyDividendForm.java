@@ -6,14 +6,14 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 累計配当グラフ画面用フォーム
+ * 月別配当グラフ画面用フォーム
  */
 @Getter
 @Setter
-public class LineChartForm implements Serializable {
+public class MonthlyDividendForm implements Serializable {
     private String targetYear; // 表示対象年
 
-    LineChartForm() {
+    MonthlyDividendForm() {
         this.targetYear = "";
     }
 }

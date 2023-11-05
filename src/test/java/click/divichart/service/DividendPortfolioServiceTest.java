@@ -1,7 +1,7 @@
 package click.divichart.service;
 
 import click.divichart.bean.DividendSummaryBean;
-import click.divichart.bean.dto.PieChartDto;
+import click.divichart.bean.dto.DividendPortfolioDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +11,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PieChartServiceTest {
+class DividendPortfolioServiceTest {
 
-    private PieChartService pieChartService;
+    private DividendPortfolioService dividendPortfolioService;
 
     @BeforeEach
     public void setUp() {
-        pieChartService = new PieChartService();
+        dividendPortfolioService = new DividendPortfolioService();
     }
 
     @Test
@@ -26,7 +26,7 @@ class PieChartServiceTest {
         dividendSummaryBeanList.add(new DividendSummaryBean("AAPL", BigDecimal.valueOf(100.01)));
         dividendSummaryBeanList.add(new DividendSummaryBean("GOOG", BigDecimal.valueOf(50.01)));
 
-        PieChartDto chartData = pieChartService.createChartData(dividendSummaryBeanList, BigDecimal.valueOf(150.02));
+        DividendPortfolioDto chartData = dividendPortfolioService.createChartData(dividendSummaryBeanList, BigDecimal.valueOf(150.02));
 
         assertNotNull(chartData);
 
@@ -39,7 +39,7 @@ class PieChartServiceTest {
     public void testCreateChartDataWithEmptyList() {
         List<DividendSummaryBean> emptyList = new ArrayList<>();
 
-        PieChartDto chartData = pieChartService.createChartData(emptyList, BigDecimal.valueOf(150.02));
+        DividendPortfolioDto chartData = dividendPortfolioService.createChartData(emptyList, BigDecimal.valueOf(150.02));
 
         assertNotNull(chartData);
 

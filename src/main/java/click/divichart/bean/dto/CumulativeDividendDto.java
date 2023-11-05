@@ -7,19 +7,19 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 配当割合グラフ画面用DTO
+ * 累計配当グラフ画面用DTO
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class PieChartDto implements Serializable {
+public class CumulativeDividendDto implements Serializable {
     private String[] recentYears;
     private String targetYear;
-    private String labels;
     private String chartData;
 
-    public PieChartDto(String labels, String chartData) {
-        this.labels = labels;
+    public CumulativeDividendDto(String[] recentYears, String targetYear, String chartData) {
+        this.recentYears = recentYears;
+        this.targetYear = targetYear;
         this.chartData = chartData;
     }
 }
