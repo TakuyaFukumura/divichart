@@ -84,7 +84,7 @@ java -jar ./target/divichart.jar --spring.sql.init.mode=always --spring.sql.init
   - JUnit
 - テンプレートエンジン
   - Thymeleaf
-- フロントエンドフレームワーク
+- フロントエンドツールキット
   - Bootstrap
 - グラフ描画ライブラリ
   - Chart.js
