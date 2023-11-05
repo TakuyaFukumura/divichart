@@ -2,10 +2,15 @@
 [![Build](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml/badge.svg)](https://github.com/TakuyaFukumura/divichart/actions/workflows/build.yml)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/TakuyaFukumura/divichart)
 
-- https://divichart.click/
-- 配当金を可視化するアプリ
-- 目的
-  - インカムゲイン重視な投資家の資産形成モチベーションを維持する
+- 配当金を可視化するアプリ「divichart」
+- アプリURL：https://divichart.click/
+- ミッション（使命・存在意義）
+  - インカムゲインを重視する米国株投資家の資産形成モチベーション維持に貢献する
+- ビジョン（将来像・あるべき姿）
+  - 様々な観点からインカムゲインを視覚的に捉えることができる
+- バリュー（価値観・行動指針）
+  - 現状把握や分析に役立つ情報を集計する
+  - 集計された数値をグラフとして表示する
 
 ## 動作環境
 - OS
