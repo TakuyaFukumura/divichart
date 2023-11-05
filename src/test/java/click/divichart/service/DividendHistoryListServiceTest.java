@@ -5,40 +5,40 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ListServiceTest {
+class DividendHistoryListServiceTest {
 
-    private ListService listService;
+    private DividendHistoryListService dividendHistoryListService;
 
     @BeforeEach
     public void setUp() {
-        listService = new ListService();
+        dividendHistoryListService = new DividendHistoryListService();
     }
 
     @Test
     public void testIsTickerSymbolWithValidSymbol() {
         String validSymbol = "AAPL";
-        boolean result = listService.isTickerSymbol(validSymbol);
+        boolean result = dividendHistoryListService.isTickerSymbol(validSymbol);
         assertTrue(result);
     }
 
     @Test
     public void testIsTickerSymbolWithEmptyString() {
         String emptyString = "";
-        boolean result = listService.isTickerSymbol(emptyString);
+        boolean result = dividendHistoryListService.isTickerSymbol(emptyString);
         assertFalse(result);
     }
 
     @Test
     public void testIsTickerSymbolWithInvalidSymbol() {
         String invalidSymbol = "GOOG123";
-        boolean result = listService.isTickerSymbol(invalidSymbol);
+        boolean result = dividendHistoryListService.isTickerSymbol(invalidSymbol);
         assertFalse(result);
     }
 
     @Test
     public void testIsTickerSymbolWithLowercaseSymbol() {
         String lowercaseSymbol = "msft";
-        boolean result = listService.isTickerSymbol(lowercaseSymbol);
+        boolean result = dividendHistoryListService.isTickerSymbol(lowercaseSymbol);
         assertFalse(result);
     }
 }

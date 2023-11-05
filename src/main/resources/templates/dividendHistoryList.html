@@ -15,25 +15,25 @@
         <ul class="pagination justify-content-center">
             <li th:if="${dividendHistoryPage.number gt 2}" class="page-item">
                 <!-- 先頭ページ -->
-                <a th:href="@{/list(page=0)}" class="page-link">1</a>
+                <a th:href="@{/dividendHistoryList(page=0)}" class="page-link">1</a>
             </li>
             <li th:if="${!dividendHistoryPage.first}" class="page-item">
-                <a th:href="@{/list(page=${dividendHistoryPage.number - 1})}" class="page-link">&lt;</a>
+                <a th:href="@{/dividendHistoryList(page=${dividendHistoryPage.number - 1})}" class="page-link">&lt;</a>
             </li>
             <li th:if="${pageNo ge 0 and pageNo lt dividendHistoryPage.totalPages}"
                 th:each="pageNo : ${ #numbers.sequence(dividendHistoryPage.number - 2, dividendHistoryPage.number + 2) }"
                 class="page-item">
                 <a th:if="${pageNo == dividendHistoryPage.number}" th:text="${pageNo + 1}" class="page-link active"></a>
                 <a th:if="${pageNo != dividendHistoryPage.number}"
-                   th:href="@{/list(page=${pageNo})}" th:text="${pageNo + 1}" class="page-link">
+                   th:href="@{/dividendHistoryList(page=${pageNo})}" th:text="${pageNo + 1}" class="page-link">
                 </a>
             </li>
             <li th:if="${!dividendHistoryPage.last}" class="page-item">
-                <a th:href="@{/list(page=${dividendHistoryPage.number + 1})}" class="page-link">&gt;</a>
+                <a th:href="@{/dividendHistoryList(page=${dividendHistoryPage.number + 1})}" class="page-link">&gt;</a>
             </li>
             <li th:if="${dividendHistoryPage.totalPages gt (dividendHistoryPage.number + 3)}" class="page-item">
                 <!-- 最終ページ -->
-                <a th:href="@{/list(page=${dividendHistoryPage.totalPages - 1})}"
+                <a th:href="@{/dividendHistoryList(page=${dividendHistoryPage.totalPages - 1})}"
                    th:text="${dividendHistoryPage.totalPages}" class="page-link">
                 </a>
             </li>
@@ -52,7 +52,7 @@
         <tbody class="table-group-divider">
             <tr th:each="dividendHistory : ${dividendHistories}">
                 <th>
-                    <a th:href="@{/edit(id=${dividendHistory.getId()})}" th:text="${dividendHistory.getId()}" ></a>
+                    <a th:href="@{/dividendHistoryEdit(id=${dividendHistory.getId()})}" th:text="${dividendHistory.getId()}" ></a>
                 </th>
                 <td th:text="${dividendHistory.getTickerSymbol()}"></td>
                 <td th:text="${dividendHistory.getAmountReceived()}"></td>
@@ -66,7 +66,7 @@
     </form>
     <br>
     <!-- ↓CSV一括登録 -->
-    <form th:action="@{/list/bulkInsert}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/dividendHistoryList/bulkInsert}" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="csvFile" class="form-label">
                 楽天証券の配当金・分配金一覧CSVファイルを選択してください。一括登録をします。
@@ -78,7 +78,7 @@
     </form>
     <br>
     <!-- ↓個別登録 -->
-    <form th:action="@{/list/insert}" method="post" class="border">
+    <form th:action="@{/dividendHistoryList/insert}" method="post" class="border">
         <div class="mb-3">
             <label for="tickerSymbol" class="form-label">ティッカー</label>
             <input type="text" id="tickerSymbol" name="tickerSymbol"  class="form-control"/>

@@ -1,4 +1,4 @@
-package click.divichart.bean.form.list;
+package click.divichart.bean.form;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +9,13 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
- * 配当履歴登録用フォーム
+ * 配当履歴編集画面用フォーム
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class InsertForm implements Serializable {
+public class DividendHistoryEditForm implements Serializable {
+    private Long id;
     private String tickerSymbol; // ティッカー
     private BigDecimal amountReceived; // 配当受取金額
     private Date receiptDate; // 配当受取日
