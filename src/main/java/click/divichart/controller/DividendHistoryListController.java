@@ -1,9 +1,9 @@
 package click.divichart.controller;
 
 import click.divichart.bean.entity.DividendHistory;
-import click.divichart.bean.form.list.BulkInsertForm;
-import click.divichart.bean.form.list.InsertForm;
-import click.divichart.service.ListService;
+import click.divichart.bean.form.dividendHistoryList.BulkInsertForm;
+import click.divichart.bean.form.dividendHistoryList.InsertForm;
+import click.divichart.service.DividendHistoryListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Slf4j
 @Controller
-@RequestMapping("/list")
-public class ListController {
+@RequestMapping("/dividendHistoryList")
+public class DividendHistoryListController {
 
     @Autowired
-    ListService service;
+    DividendHistoryListService service;
 
     /**
      * 指定ページの配当履歴一覧情報を取得してViewに渡す
@@ -36,7 +36,7 @@ public class ListController {
         Page<DividendHistory> dividendHistoryPage = service.getDividendHistoryPage(pageable);
         model.addAttribute("dividendHistoryPage", dividendHistoryPage);
         model.addAttribute("dividendHistories", dividendHistoryPage.getContent());
-        return "list";
+        return "dividendHistoryList";
     }
 
     /**
@@ -53,7 +53,7 @@ public class ListController {
                 insertForm.getAmountReceived(),
                 insertForm.getReceiptDate()
         );
-        return "redirect:/list";
+        return "redirect:/dividendHistoryList";
     }
 
     /**
@@ -68,6 +68,6 @@ public class ListController {
         service.bulkInsert(
                 bulkInsertForm.getCsvFile()
         );
-        return "redirect:/list";
+        return "redirect:/dividendHistoryList";
     }
 }

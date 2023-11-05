@@ -53,6 +53,6 @@ public class EditController {
                 editForm.getAmountReceived(),
                 editForm.getReceiptDate()
         );
-        return "redirect:/list";
+        return "redirect:/dividendHistoryList";
     }
 }
