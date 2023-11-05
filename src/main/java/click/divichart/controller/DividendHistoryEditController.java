@@ -1,8 +1,8 @@
 package click.divichart.controller;
 
 import click.divichart.bean.dto.DividendHistoryDto;
-import click.divichart.bean.form.EditForm;
-import click.divichart.service.EditService;
+import click.divichart.bean.form.DividendHistoryEditForm;
+import click.divichart.service.DividendHistoryEditService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Slf4j
 @Controller
-@RequestMapping("/edit")
-public class EditController {
+@RequestMapping("/dividendHistoryEdit")
+public class DividendHistoryEditController {
 
     @Autowired
-    EditService service;
+    DividendHistoryEditService service;
 
     /**
      * 編集対象の配当履歴を取得してViewへ渡す
@@ -35,23 +35,23 @@ public class EditController {
         DividendHistoryDto dividendHistoryDto = service.getDividendHistory(id);
         model.addAttribute("dividendHistoryDto", dividendHistoryDto);
 
-        return "edit";
+        return "dividendHistoryEdit";
     }
 
     /**
      * 配当履歴情報をupdateする
      *
-     * @param editForm 編集後の配当履歴情報
+     * @param dividendHistoryEditForm 編集後の配当履歴情報
      * @return 配当一覧画面へリダイレクト
      */
     @PostMapping("/submit")
-    public String submit(EditForm editForm) {
+    public String submit(DividendHistoryEditForm dividendHistoryEditForm) {
         log.debug("配当履歴編集登録画面表示");
         service.save(
-                editForm.getId(),
-                editForm.getTickerSymbol(),
-                editForm.getAmountReceived(),
-                editForm.getReceiptDate()
+                dividendHistoryEditForm.getId(),
+                dividendHistoryEditForm.getTickerSymbol(),
+                dividendHistoryEditForm.getAmountReceived(),
+                dividendHistoryEditForm.getReceiptDate()
         );
         return "redirect:/dividendHistoryList";
     }

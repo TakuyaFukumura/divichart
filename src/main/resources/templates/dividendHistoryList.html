@@ -52,7 +52,7 @@
         <tbody class="table-group-divider">
             <tr th:each="dividendHistory : ${dividendHistories}">
                 <th>
-                    <a th:href="@{/edit(id=${dividendHistory.getId()})}" th:text="${dividendHistory.getId()}" ></a>
+                    <a th:href="@{/dividendHistoryEdit(id=${dividendHistory.getId()})}" th:text="${dividendHistory.getId()}" ></a>
                 </th>
                 <td th:text="${dividendHistory.getTickerSymbol()}"></td>
                 <td th:text="${dividendHistory.getAmountReceived()}"></td>

@@ -14,7 +14,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EditForm implements Serializable {
+public class DividendHistoryEditForm implements Serializable {
     private Long id;
     private String tickerSymbol; // ティッカー
     private BigDecimal amountReceived; // 配当受取金額

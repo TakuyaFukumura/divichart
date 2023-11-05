@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 @Service
-public class EditService {
+public class DividendHistoryEditService {
 
     @Autowired
     DividendHistoryRepository repository;
