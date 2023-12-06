@@ -3,20 +3,40 @@
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/TakuyaFukumura/divichart)
 
 - 配当金を可視化するアプリ「divichart」
-- アプリURL：https://divichart.click/
+- https://divichart.click/
 - ミッション（使命・存在意義）
   - インカムゲインを重視する米国株投資家の資産形成モチベーション維持に貢献する
 - ビジョン（将来像・あるべき姿）
   - 様々な観点からインカムゲインを視覚的に捉えることができる
 - バリュー（価値観・行動指針）
   - 現状把握や分析に役立つ情報を集計する
-  - 集計された数値をグラフとして表示する
+  - 集計された情報をグラフで表現する
 
 ## 動作環境
 - OS
   - Ubuntu 20.04 LTS
 - Java
   - Amazon Corretto 17
+
+## 実行環境構築（Docker版）
+- イメージ作成
+```bash
+docker build ./docker -t divichart_image
+```
+- コンテナ作成
+```bash
+docker run -it -d -p 8080:8080 --name divichart_container divichart_image
+```
+- コンテナへ入る
+```bash
+docker exec -it divichart_container bash
+```
+- アプリ起動
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
+```
+- http://localhost:8080 をブラウザで開いて画面表示
+- src/test/resources/csv/dividendlist_20230921.csv のテストデータを読み込ませることでグラフを表示できる。
 
 ## Build
 ```bash
