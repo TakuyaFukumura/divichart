@@ -6,3 +6,9 @@ RUN apt update &&  \
 
 RUN adduser takuya-fukumura
 USER takuya-fukumura
+
+# install java
+RUN curl -s "https://get.sdkman.io" | bash
+RUN bash -c ". $HOME/.sdkman/bin/sdkman-init.sh \
+    && sdk install java 17.0.9-amzn"
+ENV JAVA_HOME="$HOME/.sdkman/candidates/java/current"
