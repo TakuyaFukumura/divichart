@@ -33,6 +33,7 @@ public class WebSecurityConfig {
                         mvcMatcherBuilder.pattern("/login"),
                         mvcMatcherBuilder.pattern("/css/**"),
                         mvcMatcherBuilder.pattern("/cumulativeDividend"),
+                        mvcMatcherBuilder.pattern("/annualDividend"),
                         mvcMatcherBuilder.pattern("/monthlyDividend"),
                         mvcMatcherBuilder.pattern("/dividendPortfolio"),
                         mvcMatcherBuilder.pattern("/dividendIncreaseRate")
