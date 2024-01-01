@@ -40,9 +40,14 @@ public class DividendIncreaseRateService extends BasicChartService {
             LocalDate previousYearEndDate = previousYearStartDate.plusYears(1).minusDays(1);
             BigDecimal previousYearsDividend = repository.getDividendSum(previousYearStartDate, previousYearEndDate);
 
-            // 増加率 = (対象年の配当 - 前年の配当) * 100 / 前年の配当
-            BigDecimal increaseAmount = targetYearsDividend.subtract(previousYearsDividend);
-            rateData[i] = increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP);
+            if (BigDecimal.ZERO.equals(previousYearsDividend)) {
+                log.error("cannot divide by zero");
+                return "";
+            } else {
+                // 増加率 = (対象年の配当 - 前年の配当) * 100 / 前年の配当
+                BigDecimal increaseAmount = targetYearsDividend.subtract(previousYearsDividend);
+                rateData[i] = increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP);
+            }
         }
         return createChartData(rateData);
     }
