@@ -11,6 +11,7 @@ import java.util.List;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         // URLパターンと遷移先viewファイル名
         registry.addViewController("/login").setViewName("login");
