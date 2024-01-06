@@ -1,7 +1,5 @@
 package click.divichart.service;
 
-import click.divichart.repository.DividendHistoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,9 +8,6 @@ import java.util.StringJoiner;
 
 @Service
 public class YearlyDividendService extends BasicChartService {
-
-    @Autowired
-    DividendHistoryRepository repository;
 
     /**
      * グラフ描画用に、年別配当データを取得する
