@@ -13,12 +13,12 @@ class CumulativeDividendServiceTest {
     private CumulativeDividendService CumulativeDividendService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         CumulativeDividendService = new CumulativeDividendService();
     }
 
     @Test
-    public void testGetCumulativeDividend() {
+    void testGetCumulativeDividend() {
         BigDecimal[] monthlyDividend = {
                 new BigDecimal("100.00"),
                 new BigDecimal("50.00"),

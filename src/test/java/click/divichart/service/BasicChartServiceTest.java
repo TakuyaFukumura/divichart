@@ -14,12 +14,12 @@ class BasicChartServiceTest {
     private BasicChartService basicChartService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         basicChartService = new BasicChartService();
     }
 
     @Test
-    public void testCreateChartData() {
+    void testCreateChartData() {
         BigDecimal[] testData = { BigDecimal.valueOf(1.23), BigDecimal.valueOf(2.34), BigDecimal.valueOf(3.45) };
         String expectedResult = "1.23,2.34,3.45";
 
@@ -30,7 +30,7 @@ class BasicChartServiceTest {
     }
 
     @Test
-    public void testGetRecentYears() {
+    void testGetRecentYears() {
         String[] recentYears = basicChartService.getRecentYears(5);
         int currentYear = LocalDate.now().getYear();
 

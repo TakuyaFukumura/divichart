@@ -16,12 +16,12 @@ class DividendPortfolioServiceTest {
     private DividendPortfolioService dividendPortfolioService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         dividendPortfolioService = new DividendPortfolioService();
     }
 
     @Test
-    public void testCreateChartDataWithValidData() {
+    void testCreateChartDataWithValidData() {
         List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>();
         dividendSummaryBeanList.add(new DividendSummaryBean("AAPL", BigDecimal.valueOf(100.01)));
         dividendSummaryBeanList.add(new DividendSummaryBean("GOOG", BigDecimal.valueOf(50.01)));
@@ -36,7 +36,7 @@ class DividendPortfolioServiceTest {
     }
 
     @Test
-    public void testCreateChartDataWithEmptyList() {
+    void testCreateChartDataWithEmptyList() {
         List<DividendSummaryBean> emptyList = new ArrayList<>();
 
         DividendPortfolioDto chartData = dividendPortfolioService.createChartData(emptyList, BigDecimal.valueOf(150.02));
