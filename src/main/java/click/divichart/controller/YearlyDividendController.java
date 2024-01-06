@@ -1,7 +1,7 @@
 package click.divichart.controller;
 
-import click.divichart.bean.dto.AnnualDividendDto;
-import click.divichart.service.AnnualDividendService;
+import click.divichart.bean.dto.YearlyDividendDto;
+import click.divichart.service.YearlyDividendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Slf4j
 @Controller
-@RequestMapping("/annualDividend")
-public class AnnualDividendController {
+@RequestMapping("/yearlyDividend")
+public class YearlyDividendController {
     private static final int NUM_OF_YEARS = 5;
 
     @Autowired
-    AnnualDividendService service;
+    YearlyDividendService service;
 
     /**
      * グラフ表示用のデータを用意してViewへ渡す
@@ -31,12 +31,12 @@ public class AnnualDividendController {
         String labels = service.getLabels(NUM_OF_YEARS);
         String chartData = service.getChartData(NUM_OF_YEARS);
 
-        AnnualDividendDto annualDividendDto = new AnnualDividendDto(
+        YearlyDividendDto yearlyDividendDto = new YearlyDividendDto(
                 labels,
                 chartData
         );
-        model.addAttribute("annualDividendDto", annualDividendDto);
+        model.addAttribute("yearlyDividendDto", yearlyDividendDto);
 
-        return "annualDividend";
+        return "yearlyDividend";
     }
 }

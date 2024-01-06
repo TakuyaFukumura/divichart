@@ -13,12 +13,12 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class AnnualDividendServiceTest {
+class YearlyDividendServiceTest {
     @Mock
     private DividendHistoryRepository repository;
 
     @InjectMocks
-    private AnnualDividendService annualDividendService;
+    private YearlyDividendService yearlyDividendService;
 
     @BeforeEach
     void setUp() {
@@ -41,7 +41,7 @@ class AnnualDividendServiceTest {
         ).thenReturn(new BigDecimal("800"));
 
         // When
-        String chartData = annualDividendService.getChartData(2);
+        String chartData = yearlyDividendService.getChartData(2);
 
         // Then
         assertEquals("1000,800", chartData);
@@ -53,7 +53,7 @@ class AnnualDividendServiceTest {
         int currentYear = LocalDate.now().getYear();
 
         // When
-        String labels = annualDividendService.getLabels(3);
+        String labels = yearlyDividendService.getLabels(3);
 
         // Then
         assertEquals("\"" + (currentYear - 2) + "年\",\"" +
@@ -68,7 +68,7 @@ class AnnualDividendServiceTest {
         int currentYear = LocalDate.now().getYear();
 
         // When
-        String[] recentYears = annualDividendService.getRecentYearsAsc(3);
+        String[] recentYears = yearlyDividendService.getRecentYearsAsc(3);
 
         // Then
         assertEquals(3, recentYears.length);

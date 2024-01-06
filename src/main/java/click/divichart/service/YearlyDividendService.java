@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.StringJoiner;
 
 @Service
-public class AnnualDividendService extends BasicChartService {
+public class YearlyDividendService extends BasicChartService {
 
     @Autowired
     DividendHistoryRepository repository;
@@ -22,13 +22,13 @@ public class AnnualDividendService extends BasicChartService {
      */
     public String getChartData(int numOfYears) {
         String[] recentYears = getRecentYearsAsc(numOfYears);
-        BigDecimal[] annualDividend = new BigDecimal[numOfYears];
+        BigDecimal[] yearlyDividend = new BigDecimal[numOfYears];
         for (int i = 0; i < numOfYears; i++) {
             LocalDate startDate = LocalDate.parse(recentYears[i] + "-01-01");
             LocalDate endDate = startDate.plusYears(1).minusDays(1);
-            annualDividend[i] = repository.getDividendSum(startDate, endDate);
+            yearlyDividend[i] = repository.getDividendSum(startDate, endDate);
         }
-        return createChartData(annualDividend);
+        return createChartData(yearlyDividend);
     }
 
     /**
