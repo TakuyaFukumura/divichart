@@ -12,9 +12,12 @@ import java.sql.Date;
 
 @Service
 public class DividendHistoryEditService {
+    private final DividendHistoryRepository dividendHistoryRepository;
 
     @Autowired
-    DividendHistoryRepository repository;
+    public DividendHistoryEditService(DividendHistoryRepository dividendHistoryRepository) {
+        this.dividendHistoryRepository = dividendHistoryRepository;
+    }
 
     /**
      * 指定したIDの配当履歴情報を取得する
@@ -24,7 +27,7 @@ public class DividendHistoryEditService {
      */
     @Transactional
     public DividendHistoryDto getDividendHistory(Long id) {
-        DividendHistory dividendHistory = repository.getReferenceById(id);
+        DividendHistory dividendHistory = dividendHistoryRepository.getReferenceById(id);
         return new DividendHistoryDto(
                 dividendHistory.getId(),
                 dividendHistory.getTickerSymbol(),
@@ -48,6 +51,6 @@ public class DividendHistoryEditService {
                 amountReceived,
                 receiptDate
         );
-        repository.save(dividendHistory);
+        dividendHistoryRepository.save(dividendHistory);
     }
 }
