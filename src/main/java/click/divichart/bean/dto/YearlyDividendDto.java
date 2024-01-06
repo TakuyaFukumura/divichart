@@ -10,11 +10,11 @@ import java.io.Serializable;
  */
 @Getter
 @NoArgsConstructor
-public class AnnualDividendDto implements Serializable {
+public class YearlyDividendDto implements Serializable {
     private String labels;
     private String chartData;
 
-    public AnnualDividendDto(String labels, String chartData) {
+    public YearlyDividendDto(String labels, String chartData) {
         this.labels = labels;
         this.chartData = chartData;
     }

@@ -12,14 +12,14 @@
     <header th:replace="~{header}"></header>
     <h1>年別配当グラフ</h1>
     <div class="chart-container">
-        <canvas id="annualDividend"></canvas>
+        <canvas id="yearlyDividend"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        const labels = [ [(${annualDividendDto.getLabels()})] ];
-        const data = [ [[${annualDividendDto.getChartData()}]] ];
-        const ctx = document.getElementById("annualDividend");
+        const labels = [ [(${yearlyDividendDto.getLabels()})] ];
+        const data = [ [[${yearlyDividendDto.getChartData()}]] ];
+        const ctx = document.getElementById("yearlyDividend");
         const chart = new Chart(ctx, {
             type: 'bar',
             data: {
