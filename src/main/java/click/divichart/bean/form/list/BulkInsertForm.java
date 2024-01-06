@@ -1,4 +1,4 @@
-package click.divichart.bean.form.dividendHistoryList;
+package click.divichart.bean.form.list;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

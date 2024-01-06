@@ -1,8 +1,8 @@
 package click.divichart.controller;
 
 import click.divichart.bean.entity.DividendHistory;
-import click.divichart.bean.form.dividendHistoryList.BulkInsertForm;
-import click.divichart.bean.form.dividendHistoryList.InsertForm;
+import click.divichart.bean.form.list.BulkInsertForm;
+import click.divichart.bean.form.list.InsertForm;
 import click.divichart.service.DividendHistoryListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
