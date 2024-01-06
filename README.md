@@ -72,6 +72,10 @@ java -jar ./target/divichart.jar --spring.h2.console.enabled=true
 java -jar ./target/divichart.jar --spring.sql.init.mode=always --spring.sql.init.schema-locations=classpath:./sql/schema.sql
 ```
 
+## 静的解析
+- SonarQubeを使用する
+  - ref. https://docs.sonarsource.com/sonarqube/latest/try-out-sonarqube/
+
 ## 依存関係
 - ツリー表示
 ```bash
