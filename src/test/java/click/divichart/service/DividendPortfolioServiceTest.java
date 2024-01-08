@@ -2,8 +2,10 @@ package click.divichart.service;
 
 import click.divichart.bean.DividendSummaryBean;
 import click.divichart.bean.dto.DividendPortfolioDto;
+import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,11 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DividendPortfolioServiceTest {
 
+    @Autowired
+    private DividendHistoryRepository repository;
+
     private DividendPortfolioService dividendPortfolioService;
 
     @BeforeEach
     void setUp() {
-        dividendPortfolioService = new DividendPortfolioService();
+        dividendPortfolioService = new DividendPortfolioService(repository);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package click.divichart.service;
 
+import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -7,6 +8,10 @@ import java.util.Arrays;
 
 @Service
 public class CumulativeDividendService extends BasicChartService {
+
+    public CumulativeDividendService(DividendHistoryRepository dividendHistoryRepository) {
+        super(dividendHistoryRepository);
+    }
 
     /**
      * グラフ描画用に、指定年の1月～12月までの配当累計を計算する

@@ -2,6 +2,7 @@ package click.divichart.service;
 
 import click.divichart.bean.DividendSummaryBean;
 import click.divichart.bean.dto.DividendPortfolioDto;
+import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,6 +16,10 @@ import java.util.StringJoiner;
 public class DividendPortfolioService extends BasicChartService {
 
     private static final int MAX_DISPLAYED_STOCKS = 15;
+
+    public DividendPortfolioService(DividendHistoryRepository dividendHistoryRepository) {
+        super(dividendHistoryRepository);
+    }
 
     /**
      * チャート描画用に、指定年の配当ポートフォリオデータを取得する

@@ -1,5 +1,6 @@
 package click.divichart.service;
 
+import click.divichart.repository.DividendHistoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,10 @@ import java.util.StringJoiner;
 @Slf4j
 @Service
 public class DividendIncreaseRateService extends BasicChartService {
+
+    public DividendIncreaseRateService(DividendHistoryRepository dividendHistoryRepository) {
+        super(dividendHistoryRepository);
+    }
 
     /**
      * グラフ描画用に、指定年の配当増加率のデータを取得する

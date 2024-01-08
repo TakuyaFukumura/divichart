@@ -1,8 +1,10 @@
 package click.divichart.service;
 
 
+import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,11 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BasicChartServiceTest {
 
+    @Autowired
+    private DividendHistoryRepository repository;
+
     private BasicChartService basicChartService;
 
     @BeforeEach
     void setUp() {
-        basicChartService = new BasicChartService();
+        basicChartService = new BasicChartService(repository);
     }
 
     @Test
