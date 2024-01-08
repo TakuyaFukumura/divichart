@@ -115,9 +115,18 @@ public class DividendPortfolioService extends BasicChartService {
      * @return チャートのラベル
      */
     String createLabel(String tickerSymbol, BigDecimal amountReceived, BigDecimal dividendSum) {
-        BigDecimal percentageOfPortfolio = amountReceived
-                .multiply(BigDecimal.valueOf(100))
-                .divide(dividendSum, RoundingMode.HALF_UP);
+
+        BigDecimal percentageOfPortfolio;
+
+        // 配当合計額がゼロの場合、ゼロ除算を回避する
+        if (BigDecimal.ZERO.compareTo(dividendSum) == 0) {
+            percentageOfPortfolio = BigDecimal.ZERO;
+        } else {
+            // 配当受取額 × 100 ÷ 配当合計額
+            percentageOfPortfolio = amountReceived.multiply(BigDecimal.valueOf(100))
+                    .divide(dividendSum, RoundingMode.HALF_UP);
+        }
+
         return tickerSymbol + " " + percentageOfPortfolio + "%";
     }
 
