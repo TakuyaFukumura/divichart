@@ -75,11 +75,11 @@ public class DividendHistoryListService {
              Reader reader = new InputStreamReader(inputStream, "SJIS");
              CSVParser csvParser = CSVFormat.EXCEL.withHeader().parse(reader)) {
 
-            for (CSVRecord record : csvParser) {
-                String stockCode = record.get("銘柄コード");
+            for (CSVRecord csvRecord : csvParser) {
+                String stockCode = csvRecord.get("銘柄コード");
                 if (isTickerSymbol(stockCode)) {
-                    BigDecimal amountReceived = new BigDecimal(record.get("受取金額[円/現地通貨]"));
-                    String rawDate = record.get("入金日");
+                    BigDecimal amountReceived = new BigDecimal(csvRecord.get("受取金額[円/現地通貨]"));
+                    String rawDate = csvRecord.get("入金日");
                     String formattedDate = rawDate.replace("/", "-");
                     Date receiptDate = Date.valueOf(formattedDate);
                     DividendHistory dividendHistory = new DividendHistory(
