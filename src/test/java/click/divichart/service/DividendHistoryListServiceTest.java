@@ -1,42 +1,47 @@
 package click.divichart.service;
 
+import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DividendHistoryListServiceTest {
 
+    @Autowired
+    private DividendHistoryRepository repository;
+
     private DividendHistoryListService dividendHistoryListService;
 
     @BeforeEach
-    public void setUp() {
-        dividendHistoryListService = new DividendHistoryListService();
+    void setUp() {
+        dividendHistoryListService = new DividendHistoryListService(repository);
     }
 
     @Test
-    public void testIsTickerSymbolWithValidSymbol() {
+    void testIsTickerSymbolWithValidSymbol() {
         String validSymbol = "AAPL";
         boolean result = dividendHistoryListService.isTickerSymbol(validSymbol);
         assertTrue(result);
     }
 
     @Test
-    public void testIsTickerSymbolWithEmptyString() {
+    void testIsTickerSymbolWithEmptyString() {
         String emptyString = "";
         boolean result = dividendHistoryListService.isTickerSymbol(emptyString);
         assertFalse(result);
     }
 
     @Test
-    public void testIsTickerSymbolWithInvalidSymbol() {
+    void testIsTickerSymbolWithInvalidSymbol() {
         String invalidSymbol = "GOOG123";
         boolean result = dividendHistoryListService.isTickerSymbol(invalidSymbol);
         assertFalse(result);
     }
 
     @Test
-    public void testIsTickerSymbolWithLowercaseSymbol() {
+    void testIsTickerSymbolWithLowercaseSymbol() {
         String lowercaseSymbol = "msft";
         boolean result = dividendHistoryListService.isTickerSymbol(lowercaseSymbol);
         assertFalse(result);

@@ -1,6 +1,7 @@
 package click.divichart.controller;
 
 import click.divichart.bean.dto.YearlyDividendDto;
+import click.divichart.service.MonthlyDividendService;
 import click.divichart.service.YearlyDividendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class YearlyDividendController {
     private static final int NUM_OF_YEARS = 5;
 
+    private final YearlyDividendService service;
+
     @Autowired
-    YearlyDividendService service;
+    public YearlyDividendController(YearlyDividendService yearlyDividendService) {
+        this.service = yearlyDividendService;
+    }
 
     /**
      * グラフ表示用のデータを用意してViewへ渡す

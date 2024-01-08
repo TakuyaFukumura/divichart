@@ -1,8 +1,10 @@
 package click.divichart.service;
 
 
+import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,15 +13,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BasicChartServiceTest {
 
+    @Autowired
+    private DividendHistoryRepository repository;
+
     private BasicChartService basicChartService;
 
     @BeforeEach
-    public void setUp() {
-        basicChartService = new BasicChartService();
+    void setUp() {
+        basicChartService = new BasicChartService(repository);
     }
 
     @Test
-    public void testCreateChartData() {
+    void testCreateChartData() {
         BigDecimal[] testData = { BigDecimal.valueOf(1.23), BigDecimal.valueOf(2.34), BigDecimal.valueOf(3.45) };
         String expectedResult = "1.23,2.34,3.45";
 
@@ -30,7 +35,7 @@ class BasicChartServiceTest {
     }
 
     @Test
-    public void testGetRecentYears() {
+    void testGetRecentYears() {
         String[] recentYears = basicChartService.getRecentYears(5);
         int currentYear = LocalDate.now().getYear();
 

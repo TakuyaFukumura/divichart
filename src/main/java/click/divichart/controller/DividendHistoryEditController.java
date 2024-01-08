@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/dividendHistoryEdit")
 public class DividendHistoryEditController {
 
+    private final DividendHistoryEditService service;
+
     @Autowired
-    DividendHistoryEditService service;
+    public DividendHistoryEditController(DividendHistoryEditService dividendHistoryEditService) {
+        this.service = dividendHistoryEditService;
+    }
 
     /**
      * 編集対象の配当履歴を取得してViewへ渡す

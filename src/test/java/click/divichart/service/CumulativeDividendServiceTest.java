@@ -2,23 +2,29 @@ package click.divichart.service;
 
 
 
+import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CumulativeDividendServiceTest {
+
+    @Autowired
+    private DividendHistoryRepository repository;
+
     private CumulativeDividendService CumulativeDividendService;
 
     @BeforeEach
-    public void setUp() {
-        CumulativeDividendService = new CumulativeDividendService();
+    void setUp() {
+        CumulativeDividendService = new CumulativeDividendService(repository);
     }
 
     @Test
-    public void testGetCumulativeDividend() {
+    void testGetCumulativeDividend() {
         BigDecimal[] monthlyDividend = {
                 new BigDecimal("100.00"),
                 new BigDecimal("50.00"),

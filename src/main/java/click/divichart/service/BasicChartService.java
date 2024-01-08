@@ -17,8 +17,12 @@ public class BasicChartService {
 
     private static final int TWELVE_MONTHS = 12;
 
+    protected final DividendHistoryRepository repository;
+
     @Autowired
-    DividendHistoryRepository repository;
+    public BasicChartService(DividendHistoryRepository dividendHistoryRepository) {
+        this.repository = dividendHistoryRepository;
+    }
 
     /**
      * 月別配当金額を取得する

@@ -2,8 +2,10 @@ package click.divichart.service;
 
 import click.divichart.bean.DividendSummaryBean;
 import click.divichart.bean.dto.DividendPortfolioDto;
+import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,15 +15,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DividendPortfolioServiceTest {
 
+    @Autowired
+    private DividendHistoryRepository repository;
+
     private DividendPortfolioService dividendPortfolioService;
 
     @BeforeEach
-    public void setUp() {
-        dividendPortfolioService = new DividendPortfolioService();
+    void setUp() {
+        dividendPortfolioService = new DividendPortfolioService(repository);
     }
 
     @Test
-    public void testCreateChartDataWithValidData() {
+    void testCreateChartDataWithValidData() {
         List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>();
         dividendSummaryBeanList.add(new DividendSummaryBean("AAPL", BigDecimal.valueOf(100.01)));
         dividendSummaryBeanList.add(new DividendSummaryBean("GOOG", BigDecimal.valueOf(50.01)));
@@ -36,7 +41,7 @@ class DividendPortfolioServiceTest {
     }
 
     @Test
-    public void testCreateChartDataWithEmptyList() {
+    void testCreateChartDataWithEmptyList() {
         List<DividendSummaryBean> emptyList = new ArrayList<>();
 
         DividendPortfolioDto chartData = dividendPortfolioService.createChartData(emptyList, BigDecimal.valueOf(150.02));
