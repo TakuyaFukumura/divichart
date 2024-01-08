@@ -22,8 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/dividendHistoryList")
 public class DividendHistoryListController {
 
+    private final DividendHistoryListService service;
+
     @Autowired
-    DividendHistoryListService service;
+    public DividendHistoryListController(DividendHistoryListService dividendHistoryListService) {
+        this.service = dividendHistoryListService;
+    }
 
     /**
      * 指定ページの配当履歴一覧情報を取得してViewに渡す

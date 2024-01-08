@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/cumulativeDividend")
 public class CumulativeDividendController {
 
+    private final CumulativeDividendService service;
+
     @Autowired
-    CumulativeDividendService service;
+    public CumulativeDividendController(CumulativeDividendService cumulativeDividendService) {
+        this.service = cumulativeDividendService;
+    }
 
     /**
      * グラフ表示用のデータを用意してViewへ渡す

@@ -21,8 +21,8 @@ public class DividendIncreaseRateController {
     private final DividendIncreaseRateService service;
 
     @Autowired
-    public DividendIncreaseRateController(DividendIncreaseRateService service) {
-        this.service = service;
+    public DividendIncreaseRateController(DividendIncreaseRateService dividendIncreaseRateService) {
+        this.service = dividendIncreaseRateService;
     }
 
     /**

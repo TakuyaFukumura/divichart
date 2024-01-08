@@ -2,6 +2,7 @@ package click.divichart.controller;
 
 import click.divichart.bean.dto.DividendPortfolioDto;
 import click.divichart.bean.form.DividendPortfolioForm;
+import click.divichart.service.DividendIncreaseRateService;
 import click.divichart.service.DividendPortfolioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping({"/", "/dividendPortfolio"})
 public class DividendPortfolioController {
     
+    private final DividendPortfolioService service;
+
     @Autowired
-    DividendPortfolioService service;
+    public DividendPortfolioController(DividendPortfolioService dividendPortfolioService) {
+        this.service = dividendPortfolioService;
+    }
 
     /**
      * チャート描画用のデータを用意してViewへ渡す
