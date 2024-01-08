@@ -22,8 +22,12 @@ import java.util.List;
 @Service
 public class DividendHistoryListService {
 
+    private final DividendHistoryRepository repository;
+
     @Autowired
-    DividendHistoryRepository repository;
+    public DividendHistoryListService(DividendHistoryRepository dividendHistoryRepository) {
+        this.repository = dividendHistoryRepository;
+    }
 
     /**
      * 対象ページの配当履歴一覧を取得する
