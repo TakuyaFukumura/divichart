@@ -20,8 +20,12 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    private final DataSource dataSource;
+
     @Autowired
-    private DataSource dataSource;
+    public WebSecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
