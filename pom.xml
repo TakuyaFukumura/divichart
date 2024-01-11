@@ -11,7 +11,7 @@
 
 	<groupId>click.divichart</groupId>
 	<artifactId>divichart</artifactId>
-	<version>2.14.3</version>
+	<version>2.15.0</version>
 	<name>divichart</name>
 
 	<properties>
@@ -23,9 +23,24 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!-- spring-boot-starter-thymeleafに含まれるが脆弱性回避のため個別にバージョンアップする -->
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<!-- spring-boot-starter-thymeleafに含まれるが脆弱性回避のため個別にバージョンアップする -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.4.14</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- spring-boot-starter-thymeleafに含まれるが脆弱性回避のため個別にバージョンアップする -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.4.14</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
