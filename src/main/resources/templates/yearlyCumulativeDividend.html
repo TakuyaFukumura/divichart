@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>累計配当グラフ</title>
+    <title>年別累計配当グラフ</title>
     <link th:href="@{/css/basicChart.css}" rel="styleSheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
     <header th:replace="~{header}"></header>
-    <h1>累計配当グラフ</h1>
-    <form th:action="@{/cumulativeDividend}" method="get">
+    <h1>年別累計配当グラフ</h1>
+    <form th:action="@{/yearlyCumulativeDividend}" method="get">
         <div class="mb-3">
             <label for="selectYear" class="form-label">対象年</label>
             <select name="targetYear" id="selectYear" onchange="submit(this.form)" class="form-select">
-                <option th:each="year : ${cumulativeDividendDto.getRecentYears()}" th:value="${year}"
-                        th:text="${year}" th:selected="${year == cumulativeDividendDto.getTargetYear()}"></option>
+                <option th:each="year : ${yearlyCumulativeDividendDto.getRecentYears()}" th:value="${year}"
+                        th:text="${year}" th:selected="${year == yearlyCumulativeDividendDto.getTargetYear()}"></option>
             </select>
         </div>
     </form>
     <div class="chart-container">
-        <canvas id="cumulativeDividend"></canvas>
+        <canvas id="yearlyCumulativeDividend"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        const year = '[[${cumulativeDividendDto.getTargetYear()}]]';
-        const data = [ [[${cumulativeDividendDto.getChartData()}]] ];
-        const ctx = document.getElementById("cumulativeDividend");
+        const year = '[[${yearlyCumulativeDividendDto.getTargetYear()}]]';
+        const data = [ [[${yearlyCumulativeDividendDto.getChartData()}]] ];
+        const ctx = document.getElementById("yearlyCumulativeDividend");
         const chart = new Chart(ctx, {
             type: 'line',
             data: {

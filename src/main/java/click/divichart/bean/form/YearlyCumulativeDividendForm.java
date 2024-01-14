@@ -6,14 +6,14 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 累計配当グラフ画面用フォーム
+ * 年別累計配当グラフ画面用フォーム
  */
 @Getter
 @Setter
-public class CumulativeDividendForm implements Serializable {
+public class YearlyCumulativeDividendForm implements Serializable {
     private String targetYear; // 表示対象年
 
-    CumulativeDividendForm() {
+    YearlyCumulativeDividendForm() {
         this.targetYear = "";
     }
 }
