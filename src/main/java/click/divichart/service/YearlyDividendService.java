@@ -45,23 +45,4 @@ public class YearlyDividendService extends BasicChartService {
         }
         return labels.toString();
     }
-
-    /**
-     * 今年も含めて過去指定年数分の年（西暦）を昇順で取得する
-     *
-     * @param numOfYears 指定された年数
-     * @return 年を表す配列
-     */
-    public String[] getRecentYearsAsc(int numOfYears) {
-        String[] recentYears = new String[numOfYears];
-        int currentYear = LocalDate.now().getYear();
-
-        for (int i = 0; i < numOfYears; i++) {
-            int reverseIndex = numOfYears - 1 - i;
-            int year = currentYear - i;
-            recentYears[reverseIndex] = String.valueOf(year);
-        }
-        return recentYears;
-    }
-
 }
