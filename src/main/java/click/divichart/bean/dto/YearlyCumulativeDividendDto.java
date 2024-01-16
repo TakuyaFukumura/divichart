@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 年別累計配当グラフ画面用DTO
+ * 年間累計配当グラフ画面用DTO
  */
 @Getter
 @Setter

@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * 年別累計配当グラフ画面用フォーム
+ * 年間累計配当グラフ画面用フォーム
  */
 @Getter
 @Setter
