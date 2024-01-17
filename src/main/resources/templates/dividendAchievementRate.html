@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>配当達成率グラフ</title>
+    <link th:href="@{/css/basicChart.css}" rel="styleSheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <header th:replace="~{header}"></header>
+    <h1>配当達成率グラフ</h1>
+    <form th:action="@{/dividendAchievementRate}" method="get">
+        <div class="mb-3">
+            <label for="targetDividend" class="form-label">月平均目標配当額（単位：USD）</label>
+            <select name="targetDividend" id="targetDividend" onchange="submit(this.form)" class="form-select">
+                <option th:value="10" th:text="10"
+                        th:selected="${'10' == dividendAchievementRateDto.getTargetDividend()}"></option>
+                <option th:value="100" th:text="100"
+                        th:selected="${'100' == dividendAchievementRateDto.getTargetDividend()}"></option>
+                <option th:value="200" th:text="200"
+                        th:selected="${'200' == dividendAchievementRateDto.getTargetDividend()}"></option>
+                <option th:value="500" th:text="500"
+                        th:selected="${'500' == dividendAchievementRateDto.getTargetDividend()}"></option>
+                <option th:value="700" th:text="700"
+                        th:selected="${'700' == dividendAchievementRateDto.getTargetDividend()}"></option>
+                <option th:value="1000" th:text="1000"
+                        th:selected="${'1000' == dividendAchievementRateDto.getTargetDividend()}"></option>
+            </select>
+        </div>
+    </form>
+    <div class="chart-container">
+        <canvas id="dividendAchievementRate"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script>
+        const labels = [ [(${dividendAchievementRateDto.getLabels()})] ];
+        const data = [ [[${dividendAchievementRateDto.getChartData()}]] ];
+        const ctx = document.getElementById("dividendAchievementRate");
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '配当達成率',
+                    data: data,
+                    backgroundColor: "rgba(0, 255, 255, 0.5)"
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '配当達成率'
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 0,
+                        ticks: {
+                            callback: function(value, index, ticks) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous">
+    </script>
+</body>
+</html>
