@@ -36,10 +36,13 @@ public class DividendAchievementRateController {
         String labels = service.getLabels(5);
         String chartData = service.getChartData(5, targetDividend);
 
+        String targetDividendYen = service.exchange(targetDividend, "150");
+
         DividendAchievementRateDto dividendAchievementRateDto = new DividendAchievementRateDto(
                 labels,
                 chartData,
-                targetDividend
+                targetDividend,
+                targetDividendYen
         );
         model.addAttribute("dividendAchievementRateDto", dividendAchievementRateDto);
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.StringJoiner;
 
@@ -66,5 +67,18 @@ public class DividendAchievementRateService extends BasicChartService {
             labels.add(year);
         }
         return labels.toString();
+    }
+
+    /**
+     * 円に両替して返す
+     *
+     * @param targetDividend 目標配当
+     * @param rate           ドル円両替レート
+     * @return 円換算の目標配当 例）1,234,567
+     */
+    public String exchange(String targetDividend, String rate) {
+        BigDecimal targetDividendYen = new BigDecimal(targetDividend).multiply(new BigDecimal(rate));
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(targetDividendYen);
     }
 }
