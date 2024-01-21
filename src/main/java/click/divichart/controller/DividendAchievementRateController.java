@@ -31,7 +31,7 @@ public class DividendAchievementRateController {
     @GetMapping
     public String index(Model model, DividendAchievementRateForm form) {
         log.debug("配当達成率表示");
-        String targetDividend = (form.getTargetDividend().isEmpty()) ? "100" : form.getTargetDividend();
+        String targetDividend = (form.getTargetDividend().isEmpty()) ? "135" : form.getTargetDividend();
 
         String labels = service.getLabels(5);
         String chartData = service.getChartData(5, targetDividend);
