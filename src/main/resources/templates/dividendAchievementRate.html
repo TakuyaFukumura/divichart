@@ -13,21 +13,18 @@
     <h1>配当達成率グラフ</h1>
     <form th:action="@{/dividendAchievementRate}" method="get">
         <div class="mb-3">
-            <label for="targetDividend" class="form-label">月平均目標配当額（単位：USD）</label>
-            <select name="targetDividend" id="targetDividend" onchange="submit(this.form)" class="form-select">
-                <option th:value="10" th:text="10"
-                        th:selected="${'10' == dividendAchievementRateDto.getTargetDividend()}"></option>
-                <option th:value="100" th:text="100"
-                        th:selected="${'100' == dividendAchievementRateDto.getTargetDividend()}"></option>
-                <option th:value="200" th:text="200"
-                        th:selected="${'200' == dividendAchievementRateDto.getTargetDividend()}"></option>
-                <option th:value="500" th:text="500"
-                        th:selected="${'500' == dividendAchievementRateDto.getTargetDividend()}"></option>
-                <option th:value="700" th:text="700"
-                        th:selected="${'700' == dividendAchievementRateDto.getTargetDividend()}"></option>
-                <option th:value="1000" th:text="1000"
-                        th:selected="${'1000' == dividendAchievementRateDto.getTargetDividend()}"></option>
-            </select>
+            <label for="targetDividend" class="form-label">目標配当額（単位：USD/月）</label>
+            <input type="number" id="targetDividend" step="1" name="targetDividend" class="form-control"
+                   min="1" list="targetDividendList" onchange="submit(this.form)"
+                   th:value="${dividendAchievementRateDto.getTargetDividend()}" />
+            <datalist id="targetDividendList">
+                <option value="10"></option>
+                <option value="100"></option>
+                <option value="500"></option>
+                <option value="1000"></option>
+                <option value="3000"></option>
+                <option value="5000"></option>
+            </datalist>
         </div>
     </form>
     <div class="chart-container">
