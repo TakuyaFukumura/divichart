@@ -27,7 +27,7 @@
             </datalist>
         </div>
     </form>
-    <p th:text="'換算：' + ${dividendAchievementRateDto.getTargetDividendYen()} + '円（150円/ドル）'"></p>
+    <p th:text="'換算：' + ${dividendAchievementRateDto.getTargetDividendYen()} + '円（レート設定：150円/ドル）'"></p>
     <div class="chart-container">
         <canvas id="dividendAchievementRate"></canvas>
     </div>
