@@ -53,6 +53,6 @@ public class CreateUserAccountController {
             model.addAttribute("errorMessage", "アカウント作成に失敗しました");
             return "createUserAccount";
         }
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
