@@ -43,7 +43,7 @@ public class WebSecurityConfig {
                         mvcMatcherBuilder.pattern("/dividendPortfolio"),
                         mvcMatcherBuilder.pattern("/dividendIncreaseRate"),
                         mvcMatcherBuilder.pattern("/dividendAchievementRate"),
-                        mvcMatcherBuilder.pattern("/createUserAccount")
+                        mvcMatcherBuilder.pattern("/createUserAccount/**")
                 ).permitAll()
                 .anyRequest().authenticated();
 
