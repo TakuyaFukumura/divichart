@@ -53,7 +53,7 @@ public class WebSecurityConfig {
 //                .loginProcessingUrl("/authenticate")    // フォーム認証処理のパス
 //                .usernameParameter("userName")          // ユーザ名のリクエストパラメータ名
 //                .passwordParameter("password")          // パスワードのリクエストパラメータ名
-//                .defaultSuccessUrl("/home")             // 認証成功時の遷移先
+                .defaultSuccessUrl("/dividendPortfolio")             // 認証成功時の遷移先
                 .failureUrl("/login?error");   // 認証失敗時の遷移先
 
         // ログアウト設定
