@@ -43,7 +43,8 @@ public class WebSecurityConfig {
                         mvcMatcherBuilder.pattern("/dividendPortfolio"),
                         mvcMatcherBuilder.pattern("/dividendIncreaseRate"),
                         mvcMatcherBuilder.pattern("/dividendAchievementRate"),
-                        mvcMatcherBuilder.pattern("/createUserAccount/**")
+                        mvcMatcherBuilder.pattern("/createUserAccount/**"),
+                        mvcMatcherBuilder.pattern("/lp")
                 ).permitAll()
                 .anyRequest().authenticated();
 
@@ -58,7 +59,7 @@ public class WebSecurityConfig {
 
         // ログアウト設定
         http.logout()
-                .logoutSuccessUrl("/") // ログアウト成功後の遷移先
+                .logoutSuccessUrl("/lp") // ログアウト成功後の遷移先
                 .permitAll();              // アクセス全許可
 
         // h2-consoleを表示するためにCSRF対策外へ指定
