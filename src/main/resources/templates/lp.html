@@ -19,7 +19,11 @@
             crossorigin="anonymous">
     </script>
     <p>↓試しに使ってみるなら↓</p>
-    <p>ゲストログイン</p>
+    <form th:action="@{/login}" method="post">
+        <input type="hidden" id="username" name="username" value="guest" />
+        <input type="hidden" id="password" name="password" value="guest1234" />
+        <input type="submit" value="ゲストログイン" class="btn btn-primary" />
+    </form>
     <p>特徴：実績値（税引後配当受取額）を元に集計してグラフとして表示する</p>
     <p>機能説明①　配当ポートフォリオ</p>
     <p>機能説明②　年別配当グラフ</p>
