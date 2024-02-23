@@ -10,7 +10,15 @@
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
-    <p>ヘッダー</p>
+    <header th:fragment="header">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a th:href="@{/}" class="navbar-brand">
+                    divichart
+                </a>
+            </div>
+        </nav>
+    </header>
     <p>Welcome to divichart !</p>
     <p>divichart は配当を可視化するサービスです</p>
     <p><a th:href="@{/login}">ログイン／アカウント作成</a></p>
