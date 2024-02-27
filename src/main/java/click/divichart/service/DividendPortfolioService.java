@@ -27,14 +27,14 @@ public class DividendPortfolioService extends BasicChartService {
      * @param targetYear データ作成対象年
      * @return グラフ描画用文字列配列
      */
-    public DividendPortfolioDto getChartData(String targetYear) {
+    public DividendPortfolioDto getChartData(String targetYear, String username) {
         LocalDate startDate = LocalDate.parse(targetYear + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
 
-        List<Object[]> dividendSummaryList = repository.getDividendsForEachStock(startDate, endDate);
+        List<Object[]> dividendSummaryList = repository.getDividendsForEachStock(startDate, endDate, username);
         List<DividendSummaryBean> dividendSummaryBeanList = consolidateSmallValues(dividendSummaryList);
 
-        BigDecimal dividendSum = repository.getDividendSum(startDate, endDate);
+        BigDecimal dividendSum = repository.getDividendSum(startDate, endDate, username);
 
         return createChartData(dividendSummaryBeanList, dividendSum);
     }
