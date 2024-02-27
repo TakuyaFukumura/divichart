@@ -44,12 +44,13 @@ public class DividendHistoryEditService {
      * @param amountReceived 受取配当金額
      * @param receiptDate    受取日
      */
-    public void save(Long id, String tickerSymbol, BigDecimal amountReceived, Date receiptDate) {
+    public void save(Long id, String tickerSymbol, BigDecimal amountReceived, Date receiptDate, String username) {
         DividendHistory dividendHistory = new DividendHistory(
                 id,
                 tickerSymbol,
                 amountReceived,
-                receiptDate
+                receiptDate,
+                username
         );
         dividendHistoryRepository.save(dividendHistory);
     }
