@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,12 +53,13 @@ public class DividendHistoryListController {
      * @return 一覧画面へリダイレクト
      */
     @PostMapping("/insert")
-    public String insert(InsertForm insertForm) {
+    public String insert(InsertForm insertForm, @AuthenticationPrincipal UserDetails user) {
         log.debug("配当履歴登録");
         service.insertDividendHistory(
                 insertForm.getTickerSymbol(),
                 insertForm.getAmountReceived(),
-                insertForm.getReceiptDate()
+                insertForm.getReceiptDate(),
+                user.getUsername()
         );
         return "redirect:/dividendHistoryList";
     }
@@ -68,9 +71,9 @@ public class DividendHistoryListController {
      * @return 一覧画面へリダイレクト
      */
     @PostMapping("/bulkInsert")
-    public String bulkInsert(@RequestParam("csvFile") MultipartFile csvFile) {
+    public String bulkInsert(@RequestParam("csvFile") MultipartFile csvFile, @AuthenticationPrincipal UserDetails user) {
         log.debug("配当履歴CSV一括登録");
-        service.bulkInsert(csvFile);
+        service.bulkInsert(csvFile, user.getUsername());
         return "redirect:/dividendHistoryList";
     }
 }

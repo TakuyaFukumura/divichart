@@ -46,8 +46,9 @@ public class DividendHistoryListService {
      * @param amountReceived 受取金額
      * @param receiptDate    受取日
      */
-    public void insertDividendHistory(String tickerSymbol, BigDecimal amountReceived, Date receiptDate) {
-        DividendHistory dividendHistory = new DividendHistory(tickerSymbol, amountReceived, receiptDate);
+    public void insertDividendHistory(String tickerSymbol, BigDecimal amountReceived,
+                                      Date receiptDate, String username) {
+        DividendHistory dividendHistory = new DividendHistory(tickerSymbol, amountReceived, receiptDate, username);
         repository.save(dividendHistory);
     }
 
@@ -56,9 +57,9 @@ public class DividendHistoryListService {
      *
      * @param csvFile CSVファイル内容
      */
-    public void bulkInsert(MultipartFile csvFile) {
+    public void bulkInsert(MultipartFile csvFile, String username) {
         try {
-            List<DividendHistory> dividendHistoryList = parseCsvFile(csvFile);
+            List<DividendHistory> dividendHistoryList = parseCsvFile(csvFile, username);
             repository.saveAll(dividendHistoryList);
         } catch (IOException e) {
             log.error("CSVファイルの読み込みまたはDBへの保存中にエラーが発生しました。", e);
@@ -72,7 +73,7 @@ public class DividendHistoryListService {
      * @return CSVファイルを読み込んで取得した配当履歴リスト
      * @throws IOException 入出力例外が発生した場合
      */
-    private List<DividendHistory> parseCsvFile(MultipartFile csvFile) throws IOException {
+    private List<DividendHistory> parseCsvFile(MultipartFile csvFile, String username) throws IOException {
         List<DividendHistory> dividendHistoryList = new ArrayList<>();
 
         try (InputStream inputStream = csvFile.getInputStream();
@@ -89,7 +90,8 @@ public class DividendHistoryListService {
                     DividendHistory dividendHistory = new DividendHistory(
                             stockCode,
                             amountReceived,
-                            receiptDate
+                            receiptDate,
+                            username
                     );
                     dividendHistoryList.add(dividendHistory);
                 }
