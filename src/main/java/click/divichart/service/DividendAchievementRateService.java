@@ -25,7 +25,7 @@ public class DividendAchievementRateService extends BasicChartService {
      * @param targetDividend 目標配当額/月
      * @return グラフ描画用文字列
      */
-    public String getChartData(int numOfYears, String targetDividend) {
+    public String getChartData(int numOfYears, String targetDividend, String username) {
         BigDecimal twelveMonths = new BigDecimal("12");
         BigDecimal annualTargetDividend = new BigDecimal(targetDividend).multiply(twelveMonths);
         String[] recentYears = getRecentYearsAsc(numOfYears);
@@ -34,7 +34,7 @@ public class DividendAchievementRateService extends BasicChartService {
         for (int i = 0; i < numOfYears; i++) {
             LocalDate startDate = LocalDate.parse(recentYears[i] + "-01-01");
             LocalDate endDate = startDate.plusYears(1).minusDays(1);
-            yearlyDividend[i] = repository.getDividendSum(startDate, endDate);
+            yearlyDividend[i] = repository.getDividendSum(startDate, endDate, username);
         }
 
         // 達成率を計算する
