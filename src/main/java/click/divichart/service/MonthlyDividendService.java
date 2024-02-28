@@ -18,8 +18,8 @@ public class MonthlyDividendService extends BasicChartService {
      * @param targetYear データ作成対象年
      * @return グラフ描画用文字列
      */
-    public String getChartData(String targetYear) {
-        BigDecimal[] monthlyDividend = getMonthlyDividend(targetYear);
+    public String getChartData(String targetYear, String username) {
+        BigDecimal[] monthlyDividend = getMonthlyDividend(targetYear, username);
         return createChartData(monthlyDividend);
     }
 
