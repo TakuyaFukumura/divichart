@@ -20,14 +20,14 @@ public class CumulativeDividendService extends BasicChartService {
      *
      * @return グラフ描画用文字列
      */
-    public String getChartData(String[] recentYears) {
+    public String getChartData(String[] recentYears, String username) {
         int length = recentYears.length;
         BigDecimal[] yearlyDividend = new BigDecimal[length];
         for (int i = 0; i < length; i++) {
             String targetYear = recentYears[i];
             LocalDate targetYearStartDate = LocalDate.parse(targetYear + "-01-01");
             LocalDate targetYearEndDate = targetYearStartDate.plusYears(1).minusDays(1);
-            BigDecimal targetYearsDividend = repository.getDividendSum(targetYearStartDate, targetYearEndDate);
+            BigDecimal targetYearsDividend = repository.getDividendSum(targetYearStartDate, targetYearEndDate, username);
             yearlyDividend[i] = targetYearsDividend;
         }
         BigDecimal[] cumulativeDividend = getCumulativeDividend(yearlyDividend);
