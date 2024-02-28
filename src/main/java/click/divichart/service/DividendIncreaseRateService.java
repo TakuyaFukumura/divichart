@@ -26,7 +26,7 @@ public class DividendIncreaseRateService extends BasicChartService {
      * @param recentYears 近年を表す文字列配列
      * @return グラフ描画用文字列
      */
-    public String getChartData(String[] recentYears) {
+    public String getChartData(String[] recentYears, String username) {
         BigDecimal hundred = new BigDecimal("100");
         BigDecimal[] rateData = new BigDecimal[recentYears.length];
 
@@ -34,11 +34,19 @@ public class DividendIncreaseRateService extends BasicChartService {
             String targetYear = recentYears[rateData.length - 1 - i];
             LocalDate targetYearStartDate = LocalDate.parse(targetYear + "-01-01");
             LocalDate targetYearEndDate = targetYearStartDate.plusYears(1).minusDays(1);
-            BigDecimal targetYearsDividend = repository.getDividendSum(targetYearStartDate, targetYearEndDate);
+            BigDecimal targetYearsDividend = repository.getDividendSum(
+                    targetYearStartDate,
+                    targetYearEndDate,
+                    username
+            );
 
             LocalDate previousYearStartDate = targetYearStartDate.minusYears(1);
             LocalDate previousYearEndDate = previousYearStartDate.plusYears(1).minusDays(1);
-            BigDecimal previousYearsDividend = repository.getDividendSum(previousYearStartDate, previousYearEndDate);
+            BigDecimal previousYearsDividend = repository.getDividendSum(
+                    previousYearStartDate,
+                    previousYearEndDate,
+                    username
+            );
 
             if (BigDecimal.ZERO.equals(previousYearsDividend)) {
                 log.error("cannot divide by zero");
