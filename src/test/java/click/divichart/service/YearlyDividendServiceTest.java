@@ -41,7 +41,7 @@ class YearlyDividendServiceTest {
         ).thenReturn(new BigDecimal("800"));
 
         // When
-        String chartData = yearlyDividendService.getChartData(2);
+        String chartData = yearlyDividendService.getChartData(2, "test");
 
         // Then
         assertEquals("1000,800", chartData);
