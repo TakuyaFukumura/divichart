@@ -7,6 +7,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,9 @@ public class DividendHistoryListService {
      * @param pageable 取得対象ページ情報
      * @return 対象ページの配当履歴一覧
      */
-    public Page<DividendHistory> getDividendHistoryPage(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<DividendHistory> getDividendHistoryPage(String username, Pageable pageable) {
+        DividendHistory dividendHistory = new DividendHistory(username);
+        return repository.findAll(Example.of(dividendHistory), pageable);
     }
 
     /**

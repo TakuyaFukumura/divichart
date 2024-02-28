@@ -38,9 +38,9 @@ public class DividendHistoryListController {
      * @param pageable ページ情報
      */
     @GetMapping
-    public String index(Model model, Pageable pageable) {
+    public String index(Model model, Pageable pageable, @AuthenticationPrincipal UserDetails user) {
         log.debug("配当履歴一覧画面表示");
-        Page<DividendHistory> dividendHistoryPage = service.getDividendHistoryPage(pageable);
+        Page<DividendHistory> dividendHistoryPage = service.getDividendHistoryPage(user.getUsername(), pageable);
         model.addAttribute("dividendHistoryPage", dividendHistoryPage);
         model.addAttribute("dividendHistories", dividendHistoryPage.getContent());
         return "dividendHistoryList";
