@@ -5,6 +5,8 @@ import click.divichart.bean.form.YearlyCumulativeDividendForm;
 import click.divichart.service.YearlyCumulativeDividendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +31,13 @@ public class YearlyCumulativeDividendController {
      * グラフ表示用のデータを用意してViewへ渡す
      */
     @GetMapping
-    public String index(Model model, YearlyCumulativeDividendForm yearlyCumulativeDividendForm) {
+    public String index(Model model, YearlyCumulativeDividendForm yearlyCumulativeDividendForm,
+                        @AuthenticationPrincipal UserDetails user) {
         log.debug("年間累計配当グラフ表示");
 
         String[] recentYears = service.getRecentYears(5);
         String targetYear = service.getTargetYear(recentYears[0], yearlyCumulativeDividendForm.getTargetYear());
-        String chartData = service.getChartData(targetYear);
+        String chartData = service.getChartData(targetYear, user.getUsername());
 
         YearlyCumulativeDividendDto yearlyCumulativeDividendDto = new YearlyCumulativeDividendDto(
                 recentYears,
