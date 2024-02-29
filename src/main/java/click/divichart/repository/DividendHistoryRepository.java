@@ -26,16 +26,6 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
                 COALESCE(SUM(amount_received), 0) AS dividend_sum
             FROM dividend_history
             WHERE receipt_date BETWEEN :startDate AND :endDate
-            """, nativeQuery = true)
-    BigDecimal getDividendSum(
-            @Param("startDate") LocalDate startDate
-            , @Param("endDate") LocalDate endDate
-    );
-    @Query(value = """
-            SELECT
-                COALESCE(SUM(amount_received), 0) AS dividend_sum
-            FROM dividend_history
-            WHERE receipt_date BETWEEN :startDate AND :endDate
             AND username = :username
             """, nativeQuery = true)
     BigDecimal getDividendSum(
