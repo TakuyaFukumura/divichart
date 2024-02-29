@@ -18,6 +18,7 @@ public class YearlyDividendService extends BasicChartService {
      * グラフ描画用に、年別配当データを取得する
      *
      * @param numOfYears 対象年数
+     * @param username   ユーザ名
      * @return グラフ描画用文字列
      */
     public String getChartData(int numOfYears, String username) {

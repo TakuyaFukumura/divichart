@@ -19,6 +19,7 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
      *
      * @param startDate 開始日
      * @param endDate   終了日
+     * @param username  ユーザ名
      * @return 配当受取合計額
      */
     @Query(value = """
@@ -39,6 +40,7 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
      *
      * @param startDate 開始日
      * @param endDate   終了日
+     * @param username  ユーザ名
      * @return 銘柄別配当受取金額
      */
     @Query(value = """

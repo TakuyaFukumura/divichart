@@ -33,6 +33,7 @@ public class DividendHistoryListService {
     /**
      * 対象ページの配当履歴一覧を取得する
      *
+     * @param username ユーザ名
      * @param pageable 取得対象ページ情報
      * @return 対象ページの配当履歴一覧
      */
@@ -47,6 +48,7 @@ public class DividendHistoryListService {
      * @param tickerSymbol   ティッカーシンボル
      * @param amountReceived 受取金額
      * @param receiptDate    受取日
+     * @param username       ユーザ名
      */
     public void insertDividendHistory(String tickerSymbol, BigDecimal amountReceived,
                                       Date receiptDate, String username) {
@@ -57,7 +59,8 @@ public class DividendHistoryListService {
     /**
      * CSVファイルを読み取って配当履歴をinsertする
      *
-     * @param csvFile CSVファイル内容
+     * @param csvFile  CSVファイル内容
+     * @param username ユーザ名
      */
     public void bulkInsert(MultipartFile csvFile, String username) {
         try {
@@ -71,7 +74,8 @@ public class DividendHistoryListService {
     /**
      * CSVファイルを解析し、配当履歴リストを取得します。
      *
-     * @param csvFile アップロードされた配当CSV
+     * @param csvFile  アップロードされた配当CSV
+     * @param username ユーザ名
      * @return CSVファイルを読み込んで取得した配当履歴リスト
      * @throws IOException 入出力例外が発生した場合
      */

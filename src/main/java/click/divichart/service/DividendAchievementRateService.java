@@ -23,6 +23,7 @@ public class DividendAchievementRateService extends BasicChartService {
      *
      * @param numOfYears     対象年数
      * @param targetDividend 目標配当額/月
+     * @param username       ユーザ名
      * @return グラフ描画用文字列
      */
     public String getChartData(int numOfYears, String targetDividend, String username) {

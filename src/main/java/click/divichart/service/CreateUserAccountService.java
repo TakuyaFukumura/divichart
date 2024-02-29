@@ -21,10 +21,22 @@ public class CreateUserAccountService {
         this.usersRepository = usersRepository;
     }
 
+    /**
+     * ユーザ取得
+     *
+     * @param username ユーザ名
+     * @return 取得したユーザ情報
+     */
     public Users getUser(String username) {
         return usersRepository.findByUsername(username);
     }
 
+    /**
+     * ユーザ情報作成
+     *
+     * @param username ユーザ名
+     * @param password パスワード
+     */
     public void create(String username, String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword = "{bcrypt}" + encoder.encode(password);

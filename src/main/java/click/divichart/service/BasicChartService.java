@@ -28,6 +28,7 @@ public class BasicChartService {
      * 月別配当金額を取得する
      *
      * @param targetYear 対象年
+     * @param username   ユーザ名
      * @return 月別配当配列
      */
     protected BigDecimal[] getMonthlyDividend(String targetYear, String username) {

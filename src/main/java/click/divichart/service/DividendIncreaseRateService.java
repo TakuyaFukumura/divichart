@@ -24,6 +24,7 @@ public class DividendIncreaseRateService extends BasicChartService {
      * グラフ描画用に、指定年の配当増加率のデータを取得する
      *
      * @param recentYears 近年を表す文字列配列
+     * @param username    ユーザ名
      * @return グラフ描画用文字列
      */
     public String getChartData(String[] recentYears, String username) {

@@ -25,6 +25,7 @@ public class DividendPortfolioService extends BasicChartService {
      * チャート描画用に、指定年の配当ポートフォリオデータを取得する
      *
      * @param targetYear データ作成対象年
+     * @param username   ユーザ名
      * @return グラフ描画用文字列配列
      */
     public DividendPortfolioDto getChartData(String targetYear, String username) {
