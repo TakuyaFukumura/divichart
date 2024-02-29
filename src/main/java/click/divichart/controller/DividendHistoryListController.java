@@ -35,7 +35,10 @@ public class DividendHistoryListController {
     /**
      * 指定ページの配当履歴一覧情報を取得してViewに渡す
      *
+     * @param model    画面に渡す情報
      * @param pageable ページ情報
+     * @param user     ログインユーザ情報
+     * @return 配当履歴一覧画面
      */
     @GetMapping
     public String index(Model model, Pageable pageable, @AuthenticationPrincipal UserDetails user) {
@@ -50,6 +53,7 @@ public class DividendHistoryListController {
      * 配当履歴を追加して一覧を表示
      *
      * @param insertForm 配当履歴情報
+     * @param user       ログインユーザ情報
      * @return 一覧画面へリダイレクト
      */
     @PostMapping("/insert")
@@ -68,6 +72,7 @@ public class DividendHistoryListController {
      * 配当履歴を一括登録して一覧表示
      *
      * @param csvFile 配当情報CSV
+     * @param user    ログインユーザ情報
      * @return 一覧画面へリダイレクト
      */
     @PostMapping("/bulkInsert")

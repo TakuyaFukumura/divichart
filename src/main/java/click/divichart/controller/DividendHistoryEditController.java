@@ -48,6 +48,7 @@ public class DividendHistoryEditController {
      * 配当履歴情報をupdateする
      *
      * @param dividendHistoryEditForm 編集後の配当履歴情報
+     * @param user                    ログインユーザ情報
      * @return 配当一覧画面へリダイレクト
      */
     @PostMapping("/submit")
