@@ -28,9 +28,10 @@ public class BasicChartService {
      * 月別配当金額を取得する
      *
      * @param targetYear 対象年
+     * @param username   ユーザ名
      * @return 月別配当配列
      */
-    protected BigDecimal[] getMonthlyDividend(String targetYear) {
+    protected BigDecimal[] getMonthlyDividend(String targetYear, String username) {
         BigDecimal[] monthlyDividend = new BigDecimal[TWELVE_MONTHS];
 
         for (int i = 0; i < TWELVE_MONTHS; i++) {
@@ -40,7 +41,7 @@ public class BasicChartService {
             LocalDate startDate = LocalDate.parse(targetYear + "-" + formattedMonth + "-01");
             LocalDate endDate = startDate.plusMonths(1).minusDays(1);
 
-            BigDecimal dividendSum = repository.getDividendSum(startDate, endDate);
+            BigDecimal dividendSum = repository.getDividendSum(startDate, endDate, username);
             monthlyDividend[i] = dividendSum;
         }
         return monthlyDividend;

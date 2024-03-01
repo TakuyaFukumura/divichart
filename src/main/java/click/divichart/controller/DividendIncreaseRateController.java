@@ -1,6 +1,8 @@
 package click.divichart.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +31,13 @@ public class DividendIncreaseRateController {
      * グラフ表示用のデータを用意してViewへ渡す
      */
     @GetMapping
-    public String index(Model model, MonthlyDividendForm monthlyDividendForm) {
+    public String index(Model model, MonthlyDividendForm monthlyDividendForm,
+                        @AuthenticationPrincipal UserDetails user) {
         log.debug("配当増加率表示");
         String[] recentYears = service.getRecentYears(4);
 
         String labels = service.getLabels(recentYears);
-        String chartData = service.getChartData(recentYears);
+        String chartData = service.getChartData(recentYears, user.getUsername());
 
         DividendIncreaseRateDto dividendIncreaseRateDto = new DividendIncreaseRateDto(labels, chartData);
         model.addAttribute("dividendIncreaseRateDto", dividendIncreaseRateDto);

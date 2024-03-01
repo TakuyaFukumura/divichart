@@ -16,5 +16,7 @@ CREATE TABLE IF NOT EXISTS `dividend_history` (
     `ticker_symbol`   VARCHAR(5) NOT NULL,
     `amount_received` NUMERIC(20, 2) NOT NULL, -- DECIMAL java.math.BigDecimal
     `receipt_date`    DATE NOT NULL, -- DATE java.sql.Date
-    PRIMARY KEY (`id`)
+    `username`        VARCHAR_IGNORECASE(50) NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_dividend_history_users` FOREIGN KEY(`username`) REFERENCES `users`(`username`)
 );

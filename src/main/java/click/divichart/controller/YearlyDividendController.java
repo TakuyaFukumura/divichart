@@ -5,6 +5,8 @@ import click.divichart.service.MonthlyDividendService;
 import click.divichart.service.YearlyDividendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +32,11 @@ public class YearlyDividendController {
      * グラフ表示用のデータを用意してViewへ渡す
      */
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model, @AuthenticationPrincipal UserDetails user) {
         log.debug("年別配当グラフ表示");
 
         String labels = service.getLabels(NUM_OF_YEARS);
-        String chartData = service.getChartData(NUM_OF_YEARS);
+        String chartData = service.getChartData(NUM_OF_YEARS, user.getUsername());
 
         YearlyDividendDto yearlyDividendDto = new YearlyDividendDto(
                 labels,
