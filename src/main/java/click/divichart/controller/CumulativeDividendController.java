@@ -4,6 +4,8 @@ import click.divichart.bean.dto.CumulativeDividendDto;
 import click.divichart.service.CumulativeDividendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +30,11 @@ public class CumulativeDividendController {
      * グラフ表示用のデータを用意してViewへ渡す
      */
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model, @AuthenticationPrincipal UserDetails user) {
         log.debug("累計配当グラフ表示");
 
         String[] recentYears = service.getRecentYearsAsc(5);
-        String chartData = service.getChartData(recentYears);
+        String chartData = service.getChartData(recentYears, user.getUsername());
         String labels = service.getLabels(recentYears);
 
         CumulativeDividendDto cumulativeDividendDto = new CumulativeDividendDto(labels, chartData);

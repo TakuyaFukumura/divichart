@@ -19,6 +19,7 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
      *
      * @param startDate 開始日
      * @param endDate   終了日
+     * @param username  ユーザ名
      * @return 配当受取合計額
      */
     @Query(value = """
@@ -26,10 +27,12 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
                 COALESCE(SUM(amount_received), 0) AS dividend_sum
             FROM dividend_history
             WHERE receipt_date BETWEEN :startDate AND :endDate
+            AND username = :username
             """, nativeQuery = true)
     BigDecimal getDividendSum(
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
+            , @Param("username") String username
     );
 
     /**
@@ -37,6 +40,7 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
      *
      * @param startDate 開始日
      * @param endDate   終了日
+     * @param username  ユーザ名
      * @return 銘柄別配当受取金額
      */
     @Query(value = """
@@ -45,11 +49,13 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
                 COALESCE(SUM(amount_received), 0) AS amount_received
             FROM dividend_history
             WHERE receipt_date BETWEEN :startDate AND :endDate
+            AND username = :username
             GROUP BY ticker_symbol
             ORDER BY amount_received DESC
             """, nativeQuery = true)
     List<Object[]> getDividendsForEachStock(
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
+            , @Param("username") String username
     );
 }

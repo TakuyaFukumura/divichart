@@ -29,19 +29,22 @@ class YearlyDividendServiceTest {
     void testGetChartData() {
         // Given
         int currentYear = LocalDate.now().getYear();
+        String username = "test";
 
         when(repository.getDividendSum(
                 LocalDate.parse((currentYear - 1) + "-01-01"),
-                LocalDate.parse((currentYear - 1) + "-12-31"))
+                LocalDate.parse((currentYear - 1) + "-12-31"),
+                username)
         ).thenReturn(new BigDecimal("1000"));
 
         when(repository.getDividendSum(
                 LocalDate.parse(currentYear + "-01-01"),
-                LocalDate.parse(currentYear + "-12-31"))
+                LocalDate.parse(currentYear + "-12-31"),
+                username)
         ).thenReturn(new BigDecimal("800"));
 
         // When
-        String chartData = yearlyDividendService.getChartData(2);
+        String chartData = yearlyDividendService.getChartData(2, username);
 
         // Then
         assertEquals("1000,800", chartData);
