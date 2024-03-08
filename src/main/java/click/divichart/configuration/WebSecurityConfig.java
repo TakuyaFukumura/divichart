@@ -63,7 +63,7 @@ public class WebSecurityConfig {
                         AntPathRequestMatcher.antMatcher("/h2-console/**")
                 )
         );
-        // http.headers().frameOptions().disable();
+
         http.headers(headers ->
                 headers.frameOptions((frameOptions) ->
                         frameOptions.disable()
