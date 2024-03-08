@@ -1,6 +1,5 @@
 package click.divichart.controller;
 
-import click.divichart.bean.entity.Users;
 import click.divichart.bean.form.CreateUserAccountForm;
 import click.divichart.service.CreateUserAccountService;
 import lombok.extern.slf4j.Slf4j;
