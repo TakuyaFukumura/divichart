@@ -43,8 +43,8 @@ public class WebSecurityConfig {
         );
 
         // ログイン設定
-        http.formLogin(formLogin ->                                            // フォーム認証の有効化
-                        formLogin.loginPage("/login")                             // ログインフォームを表示するパス
+        http.formLogin(formLogin ->                                              // フォーム認証の有効化
+                        formLogin.loginPage("/login")                            // ログインフォームを表示するパス
                                 .defaultSuccessUrl("/dividendPortfolio")         // 認証成功時の遷移先
                                 .failureUrl("/login?error")   // 認証失敗時の遷移先
 //                              .loginProcessingUrl("/authenticate")             // フォーム認証処理のパス
@@ -55,7 +55,7 @@ public class WebSecurityConfig {
         // ログアウト設定
         http.logout(logout ->
                 logout.logoutSuccessUrl("/lp") // ログアウト成功後の遷移先
-                        .permitAll()             // アクセス全許可
+                        .permitAll()           // アクセス全許可
         );
 
         // h2-consoleを表示するためにCSRF対策外へ指定
