@@ -2,7 +2,6 @@ package click.divichart.controller;
 
 import click.divichart.bean.dto.MonthlyDividendDto;
 import click.divichart.bean.form.MonthlyDividendForm;
-import click.divichart.service.DividendPortfolioService;
 import click.divichart.service.MonthlyDividendService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
