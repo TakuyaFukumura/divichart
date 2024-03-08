@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.9</version>
+		<version>3.2.3</version>
 	</parent>
 
 	<groupId>click.divichart</groupId>
 	<artifactId>divichart</artifactId>
-	<version>3.2.0</version>
+	<version>3.3.0</version>
 	<name>divichart</name>
 
 	<properties>
@@ -22,12 +22,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		<!-- spring-boot-starter-thymeleafに含まれるが脆弱性回避のため個別にバージョンアップする -->
-		<dependency>
-			<groupId>org.yaml</groupId>
-			<artifactId>snakeyaml</artifactId>
-			<version>2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
