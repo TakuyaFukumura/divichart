@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -77,15 +75,6 @@ public class WebSecurityConfig {
 
     @Bean
     public UserDetailsManager userDetailsManager() {
-        JdbcUserDetailsManager users = new JdbcUserDetailsManager(this.dataSource);
-        // ユーザーを追加したい時
-//        UserDetails user = User.builder()
-//                .username("admin")
-//                .password("{bcrypt}$2a$10$kxhJnySfXtAL6xjlVks36e.NkqIiXCSUHy2Z2zT8HO8jETJ/t6YwK")
-//                .roles("USER")
-//                .build();
-//        users.createUser(user);
-
-        return users;
+        return new JdbcUserDetailsManager(this.dataSource);
     }
 }
