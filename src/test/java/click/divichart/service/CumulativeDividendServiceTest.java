@@ -8,7 +8,10 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class CumulativeDividendServiceTest {
 
@@ -19,6 +22,24 @@ class CumulativeDividendServiceTest {
     void setUp() {
         mockRepository = mock(DividendHistoryRepository.class);
         cumulativeDividendService = new CumulativeDividendService(mockRepository);
+    }
+
+    @Test
+    void testGetChartData() {
+        // モックの振る舞いを設定
+        when(mockRepository.getDividendSum(any(), any(), anyString()))
+                .thenReturn(BigDecimal.TEN);
+
+        // テストデータの準備
+        String[] recentYears = {"2022", "2023", "2024"};
+        String username = "testUser";
+
+        // テスト実行
+        String chartData = cumulativeDividendService.getChartData(recentYears, username);
+
+        // 検証
+        assertNotNull(chartData);
+        // ここでchartDataの期待値に対するアサーションを行う
     }
 
     @Test
