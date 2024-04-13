@@ -16,6 +16,7 @@ class CumulativeDividendServiceTest {
 
     @BeforeEach
     void setUp() {
+        cumulativeDividendService = new CumulativeDividendService(repository);
     }
 
     @Test
