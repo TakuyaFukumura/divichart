@@ -3,22 +3,22 @@ package click.divichart.service;
 import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 class CumulativeDividendServiceTest {
 
-    @Autowired
-    private DividendHistoryRepository repository;
-
     private CumulativeDividendService cumulativeDividendService;
+    private DividendHistoryRepository mockRepository;
 
     @BeforeEach
     void setUp() {
-        cumulativeDividendService = new CumulativeDividendService(repository);
+        mockRepository = mock(DividendHistoryRepository.class);
+        cumulativeDividendService = new CumulativeDividendService(mockRepository);
     }
 
     @Test
