@@ -3,6 +3,8 @@ package click.divichart.service;
 import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
 
@@ -58,16 +60,20 @@ class CumulativeDividendServiceTest {
         assertEquals(BigDecimal.valueOf(16), cumulativeDividend[2]);
     }
 
-    @Test
-    void getLabels() {
-        // テストデータの準備
-        String[] recentYears = {"2022", "2023", "2024"};
+    @ParameterizedTest
+    @CsvSource({
+            "2022, 2023, 2024"
+    })
+    void getLabels(String param1, String param2, String param3) {
+        // Given
+        String expected = "\"2022年\",\"2023年\",\"2024年\"";
+        String[] recentYears = {param1, param2, param3};
 
-        // テスト実行
+        // When
         String labels = cumulativeDividendService.getLabels(recentYears);
 
         // 検証
         assertNotNull(labels);
-        assertEquals("\"2022年\",\"2023年\",\"2024年\"", labels);
+        assertEquals(expected, labels);
     }
 }
