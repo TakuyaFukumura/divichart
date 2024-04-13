@@ -39,5 +39,14 @@ class CumulativeDividendServiceTest {
 
     @Test
     void getLabels() {
+        // テストデータの準備
+        String[] recentYears = {"2022", "2023", "2024"};
+
+        // テスト実行
+        String labels = cumulativeDividendService.getLabels(recentYears);
+
+        // 検証
+        assertNotNull(labels);
+        assertEquals("\"2022年\",\"2023年\",\"2024年\"", labels);
     }
 }
