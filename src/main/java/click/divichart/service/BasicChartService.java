@@ -63,6 +63,7 @@ public class BasicChartService {
 
     /**
      * 今年も含めて過去指定年数分の年（西暦）を取得する
+     *
      * @param numOfYears 年数
      * @return 年を表す配列 例[ "2024","2023","2022" ]
      */
@@ -107,8 +108,8 @@ public class BasicChartService {
     /**
      * 表示対象年を取得する
      *
-     * @param currentYear   今年
-     * @param targetYear 表示対象年
+     * @param currentYear 今年
+     * @param targetYear  表示対象年
      * @return 表示対象年が不正であれば今年を返す。そうでなければ表示対象年をそのまま返す。
      */
     public String getTargetYear(String currentYear, String targetYear) {

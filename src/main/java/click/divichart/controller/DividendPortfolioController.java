@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/dividendPortfolio")
 public class DividendPortfolioController {
-    
+
     private final DividendPortfolioService service;
 
     @Autowired

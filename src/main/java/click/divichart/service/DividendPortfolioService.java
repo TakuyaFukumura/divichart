@@ -71,7 +71,7 @@ public class DividendPortfolioService extends BasicChartService {
     /**
      * その他の配当情報に加算
      *
-     * @param others             その他の配当情報
+     * @param others              その他の配当情報
      * @param dividendSummaryBean 加算したい配当情報
      */
     private void addToOthers(DividendSummaryBean others, DividendSummaryBean dividendSummaryBean) {
