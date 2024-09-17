@@ -49,6 +49,29 @@ class BasicChartServiceTest {
     }
 
     @Test
+    public void testGetRecentYearsAsc() {
+        int currentYear = LocalDate.now().getYear();
+
+        // テストケース1: 5年間
+        String[] expectedYears5 = {
+                String.valueOf(currentYear - 4),
+                String.valueOf(currentYear - 3),
+                String.valueOf(currentYear - 2),
+                String.valueOf(currentYear - 1),
+                String.valueOf(currentYear)
+        };
+        assertArrayEquals(expectedYears5, basicChartService.getRecentYearsAsc(5));
+
+        // テストケース2: 1年間
+        String[] expectedYears1 = { String.valueOf(currentYear) };
+        assertArrayEquals(expectedYears1, basicChartService.getRecentYearsAsc(1));
+
+        // テストケース3: 0年間（空の配列）
+        String[] expectedYears0 = {};
+        assertArrayEquals(expectedYears0, basicChartService.getRecentYearsAsc(0));
+    }
+
+    @Test
     void testIsNotYearWithValidYear() {
         assertFalse(basicChartService.isNotYear("2023"));
     }

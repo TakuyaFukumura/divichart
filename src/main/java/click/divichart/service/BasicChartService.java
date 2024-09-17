@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 /**
  * ChartService系で共通のロジックを持つクラス
@@ -84,15 +85,10 @@ public class BasicChartService {
      * @return 年を表す配列 例[ "2022","2023","2024" ]
      */
     public String[] getRecentYearsAsc(int numOfYears) {
-        String[] recentYears = new String[numOfYears];
         int currentYear = LocalDate.now().getYear();
-
-        for (int i = 0; i < numOfYears; i++) {
-            int reverseIndex = numOfYears - 1 - i;
-            int year = currentYear - i;
-            recentYears[reverseIndex] = String.valueOf(year);
-        }
-        return recentYears;
+        return IntStream.range(0, numOfYears)
+                .mapToObj(i -> String.valueOf(currentYear - numOfYears + 1 + i))
+                .toArray(String[]::new);
     }
 
     /**
