@@ -35,7 +35,7 @@ public class MonthlyDividendController {
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("月別配当グラフ表示");
 
-        String[] recentYears = service.getRecentYears(5);
+        String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
         String targetYear = service.getTargetYear(recentYears[0], monthlyDividendForm.getTargetYear());
         String chartData = service.getChartData(targetYear, user.getUsername());
 

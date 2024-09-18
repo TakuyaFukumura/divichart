@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -68,14 +70,11 @@ public class BasicChartService {
      * @param numOfYears 年数
      * @return 年を表す配列 例[ "2024","2023","2022" ]
      */
-    public String[] getRecentYears(int numOfYears) {
-        String[] recentYears = new String[numOfYears];
+    public List<String> getRecentYears(int numOfYears) {
         int currentYear = LocalDate.now().getYear();
-
-        for (int i = 0; i < numOfYears; i++) {
-            recentYears[i] = String.valueOf(currentYear - i);
-        }
-        return recentYears;
+        return IntStream.range(0, numOfYears)
+                .mapToObj(i -> String.valueOf(currentYear - i))
+                .collect(Collectors.toList());
     }
 
     /**

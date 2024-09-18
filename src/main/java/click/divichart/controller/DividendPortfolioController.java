@@ -35,7 +35,7 @@ public class DividendPortfolioController {
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("配当ポートフォリオ表示");
 
-        String[] recentYears = service.getRecentYears(5);
+        String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
         String targetYear = service.getTargetYear(recentYears[0], dividendPortfolioForm.getTargetYear());
 
         DividendPortfolioDto dividendPortfolioDto = service.getChartData(targetYear, user.getUsername());

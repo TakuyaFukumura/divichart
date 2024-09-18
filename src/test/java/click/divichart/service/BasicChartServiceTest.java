@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,15 +37,15 @@ class BasicChartServiceTest {
 
     @Test
     void testGetRecentYears() {
-        String[] recentYears = basicChartService.getRecentYears(5);
+        List<String> recentYears = basicChartService.getRecentYears(5);
         int currentYear = LocalDate.now().getYear();
 
         // メソッドが正しい結果を返すかテストします
-        assertEquals(5, recentYears.length);
+        assertEquals(5, recentYears.size());
 
         // 正しい年が含まれていることをテストします
         for (int i = 0; i < 5; i++) {
-            assertEquals(String.valueOf(currentYear - i), recentYears[i]);
+            assertEquals(String.valueOf(currentYear - i), recentYears.get(i));
         }
     }
 
