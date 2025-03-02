@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -74,7 +73,7 @@ public class BasicChartService {
         int currentYear = LocalDate.now().getYear();
         return IntStream.range(0, numOfYears)
                 .mapToObj(i -> String.valueOf(currentYear - i))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**
