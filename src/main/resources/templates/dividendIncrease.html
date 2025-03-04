@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>配当増加額グラフ</title>
+    <link th:href="@{/css/basicChart.css}" rel="styleSheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <header th:replace="~{header}"></header>
+    <h1>配当増加額グラフ</h1>
+    <p th:if="${#strings.isEmpty(dividendIncreaseDto.getChartData())}">データがありません</p>
+    <th:block th:if="${!#strings.isEmpty(dividendIncreaseDto.getChartData())}">
+    <div class="chart-container">
+        <canvas id="dividendIncrease"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script>
+        const labels = [ [(${dividendIncreaseDto.getLabels()})] ];
+        const data = [ [[${dividendIncreaseDto.getChartData()}]] ];
+        const ctx = document.getElementById("dividendIncrease");
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '増加額(ドル)',
+                    data: data,
+                    backgroundColor: "rgba(255, 0, 0, 0.5)"
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '前年比配当増加額'
+                    }
+                },
+                scales: {
+                    y: {
+                        min: -100,
+                        ticks: {
+                            callback: function(value, index, ticks) {
+                                return value + 'ドル';
+                            }
+                        }
+                    }
+                },
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    </th:block>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous">
+    </script>
+</body>
+</html>
