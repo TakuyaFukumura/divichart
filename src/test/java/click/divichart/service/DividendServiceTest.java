@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,6 +37,37 @@ class DividendServiceTest {
         List<Integer> actual = dividendService.getPastYears(pastYearsCount);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetLabels_withMultipleYears() {
+        List<Integer> pastYears = Arrays.asList(2021, 2022, 2023);
+        String expected = "\"2021年\",\"2022年\",\"2023年\"";
+        assertEquals(expected, dividendService.getLabels(pastYears));
+    }
+
+    @Test
+    void testGetLabels_withSingleYear() {
+        List<Integer> pastYears = Collections.singletonList(2023);
+        String expected = "\"2023年\"";
+        assertEquals(expected, dividendService.getLabels(pastYears));
+    }
+
+    @Test
+    void testGetLabels_withEmptyList_shouldThrowException() {
+        List<Integer> pastYears = Collections.emptyList();
+        Exception exception = assertThrows(
+                IllegalArgumentException.class, () -> dividendService.getLabels(pastYears)
+        );
+        assertEquals("過去の年のリストが空です", exception.getMessage());
+    }
+
+    @Test
+    void testGetLabels_withNullList_shouldThrowException() {
+        Exception exception = assertThrows(
+                IllegalArgumentException.class, () -> dividendService.getLabels(null)
+        );
+        assertEquals("過去の年のリストが空です", exception.getMessage());
     }
 
     @Test

@@ -23,31 +23,6 @@ public class DividendIncreaseService extends DividendService {
     }
 
     /**
-     * 指定された過去の年リストから、年を「年」というフォーマットで結合し、カンマ区切りの文字列を返します。
-     * <p>
-     * 例えば、リストに「2021, 2022, 2023」が含まれている場合、返される文字列は
-     * "\"2021年\",\"2022年\",\"2023年\"" となります。
-     * </p>
-     * <p>
-     * 引数が空リストや null の場合、IllegalArgumentException がスローされます。
-     * </p>
-     *
-     * @param pastYears 過去の年を表す整数のリスト。空でないリストが渡される必要があります。
-     * @return 年を「年」という形式で結合した文字列
-     * @throws IllegalArgumentException 引数として空のリストまたは null が渡された場合にスローされます。
-     */
-    public String getLabels(List<Integer> pastYears) {
-        if (pastYears == null || pastYears.isEmpty()) {
-            throw new IllegalArgumentException("過去の年のリストが空です");
-        }
-        StringJoiner labels = new StringJoiner("年\",\"", "\"", "年\"");
-        for (int year : pastYears) {
-            labels.add(String.valueOf(year));
-        }
-        return labels.toString();
-    }
-
-    /**
      * 過去の年ごとの配当増加額を計算してリストで返すメソッドです。
      *
      * @param pastYears 対象となる過去の年のリスト
