@@ -4,10 +4,8 @@ import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 @Service
 public class YearlyDividendService extends DividendService {
@@ -16,45 +14,19 @@ public class YearlyDividendService extends DividendService {
         super(dividendHistoryRepository);
     }
 
-    public List<BigDecimal> getYearlyDividendData(List<Integer> pastYears, String username){
+    /**
+     * 指定された過去の各年に対する配当金の合計を取得し、それをリストとして返します。
+     *
+     * @param pastYears 過去の年を表す整数のリスト。このリストに含まれる各年について、対応する配当金の合計が計算されます。
+     * @param username 配当金情報を取得する対象のユーザー名。
+     * @return 指定された各年における配当金の合計を格納したリスト。リストの要素は {@link BigDecimal} 型で、各年の配当金合計を表します。
+     */
+    public List<BigDecimal> getYearlyDividendData(List<Integer> pastYears, String username) {
         List<BigDecimal> differences = new ArrayList<>();
         for (int targetYear : pastYears) {
             BigDecimal targetYearsDividend = getDividendSum(targetYear, username);
             differences.add(targetYearsDividend);
         }
         return differences;
-    }
-
-    /**
-     * グラフ描画用に、年別配当データを取得する
-     *
-     * @param numOfYears 対象年数
-     * @param username   ユーザ名
-     * @return グラフ描画用文字列
-     */
-    public String getChartData(int numOfYears, String username) {
-        String[] recentYears = getRecentYearsAsc(numOfYears);
-        BigDecimal[] yearlyDividend = new BigDecimal[numOfYears];
-        for (int i = 0; i < numOfYears; i++) {
-            LocalDate startDate = LocalDate.parse(recentYears[i] + "-01-01");
-            LocalDate endDate = startDate.plusYears(1).minusDays(1);
-            yearlyDividend[i] = repository.getDividendSum(startDate, endDate, username);
-        }
-        return createChartData(yearlyDividend);
-    }
-
-    /**
-     * グラフのラベルを取得する
-     *
-     * @param numOfYears 対象年数
-     * @return グラフ描画用ラベル文字列
-     */
-    public String getLabels(int numOfYears) {
-        String[] recentYears = getRecentYearsAsc(numOfYears);
-        StringJoiner labels = new StringJoiner("年\",\"", "\"", "年\"");
-        for (String year : recentYears) {
-            labels.add(year);
-        }
-        return labels.toString();
     }
 }
