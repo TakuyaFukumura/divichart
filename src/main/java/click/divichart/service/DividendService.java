@@ -27,6 +27,28 @@ public class DividendService {
     }
 
     /**
+     * 指定された過去の年数分の年をリストとして取得します。
+     *
+     * <p>現在の年を基準として、過去の年をリストで返します。
+     * 例えば、現在の年が2025年で pastYearsCount が 3 の場合、
+     * [2023, 2024, 2025] を返します。</p>
+     *
+     * @param pastYearsCount 過去の年数（1以上の整数）
+     * @return 指定された年数分の過去の年を含むリスト（昇順）
+     * @throws IllegalArgumentException pastYearsCount が 1 未満の場合
+     */
+    public List<Integer> getPastYears(int pastYearsCount) {
+        if (pastYearsCount < 1) {
+            throw new IllegalArgumentException("pastYearsCount must be at least 1");
+        }
+        int currentYear = LocalDate.now().getYear();
+        int startYear = currentYear - pastYearsCount + 1;
+        return IntStream.range(0, pastYearsCount)
+                .mapToObj(i -> startYear + i)
+                .toList();
+    }
+
+    /**
      * 月別配当金額を取得する
      *
      * @param targetYear 対象年

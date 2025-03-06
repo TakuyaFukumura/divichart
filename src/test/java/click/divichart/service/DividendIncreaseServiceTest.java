@@ -42,18 +42,6 @@ class DividendIncreaseServiceTest {
     }
 
     @Test
-    @DisplayName("getPastYears: 指定年数のリストを取得できる")
-    void getPastYears() {
-        int pastYearsCount = 3;
-        int currentYear = LocalDate.now().getYear();
-        List<Integer> expected = List.of(currentYear - 2, currentYear - 1, currentYear);
-
-        List<Integer> actual = dividendIncreaseService.getPastYears(pastYearsCount);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
     void testGetLabels_withMultipleYears() {
         List<Integer> pastYears = Arrays.asList(2021, 2022, 2023);
         String expected = "\"2021年\",\"2022年\",\"2023年\"";

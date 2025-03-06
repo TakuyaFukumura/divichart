@@ -3,6 +3,7 @@ package click.divichart.service;
 
 import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,6 +23,18 @@ class DividendServiceTest {
     @BeforeEach
     void setUp() {
         dividendService = new DividendService(repository);
+    }
+
+    @Test
+    @DisplayName("getPastYears: 指定年数のリストを取得できる")
+    void getPastYears() {
+        int pastYearsCount = 3;
+        int currentYear = LocalDate.now().getYear();
+        List<Integer> expected = List.of(currentYear - 2, currentYear - 1, currentYear);
+
+        List<Integer> actual = dividendService.getPastYears(pastYearsCount);
+
+        assertEquals(expected, actual);
     }
 
     @Test
