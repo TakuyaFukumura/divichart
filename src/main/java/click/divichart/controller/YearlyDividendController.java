@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -39,10 +40,9 @@ public class YearlyDividendController {
         // new start
         List<Integer> pastYears = service.getPastYears(NUM_OF_YEARS);
         String labels = service.getLabels(pastYears);
+        List<BigDecimal> yearlyDividendData = service.getYearlyDividendData(pastYears, user.getUsername());
+        String chartData = service.createChartData(yearlyDividendData);
         // new end
-
-        //String labels = service.getLabels(NUM_OF_YEARS);
-        String chartData = service.getChartData(NUM_OF_YEARS, user.getUsername());
 
         YearlyDividendDto yearlyDividendDto = new YearlyDividendDto(
                 labels,

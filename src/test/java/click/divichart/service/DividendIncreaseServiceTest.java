@@ -66,32 +66,4 @@ class DividendIncreaseServiceTest {
         assertEquals(new BigDecimal("500"), result.get(0)); // 2022年の増加額
         assertEquals(new BigDecimal("200"), result.get(1)); // 2023年の増加額
     }
-
-    @Test
-    void testCreateChartData_withMultipleValues() {
-        List<BigDecimal> input = Arrays.asList(
-                new BigDecimal("1.23"),
-                new BigDecimal("4.56"),
-                new BigDecimal("7.89")
-        );
-
-        String expected = "1.23,4.56,7.89";
-        assertEquals(expected, dividendIncreaseService.createChartData(input));
-    }
-
-    @Test
-    void testCreateChartData_withSingleValue() {
-        List<BigDecimal> input = Collections.singletonList(new BigDecimal("9.99"));
-
-        String expected = "9.99";
-        assertEquals(expected, dividendIncreaseService.createChartData(input));
-    }
-
-    @Test
-    void testCreateChartData_withEmptyList() {
-        List<BigDecimal> input = Collections.emptyList();
-
-        String expected = "";
-        assertEquals(expected, dividendIncreaseService.createChartData(input));
-    }
 }

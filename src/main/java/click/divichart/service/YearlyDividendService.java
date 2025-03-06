@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 @Service
@@ -12,6 +14,15 @@ public class YearlyDividendService extends DividendService {
 
     public YearlyDividendService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);
+    }
+
+    public List<BigDecimal> getYearlyDividendData(List<Integer> pastYears, String username){
+        List<BigDecimal> differences = new ArrayList<>();
+        for (int targetYear : pastYears) {
+            BigDecimal targetYearsDividend = getDividendSum(targetYear, username);
+            differences.add(targetYearsDividend);
+        }
+        return differences;
     }
 
     /**

@@ -71,6 +71,34 @@ class DividendServiceTest {
     }
 
     @Test
+    void testCreateChartData_withMultipleValues() {
+        List<BigDecimal> input = Arrays.asList(
+                new BigDecimal("1.23"),
+                new BigDecimal("4.56"),
+                new BigDecimal("7.89")
+        );
+
+        String expected = "1.23,4.56,7.89";
+        assertEquals(expected, dividendService.createChartData(input));
+    }
+
+    @Test
+    void testCreateChartData_withSingleValue() {
+        List<BigDecimal> input = Collections.singletonList(new BigDecimal("9.99"));
+
+        String expected = "9.99";
+        assertEquals(expected, dividendService.createChartData(input));
+    }
+
+    @Test
+    void testCreateChartData_withEmptyList() {
+        List<BigDecimal> input = Collections.emptyList();
+
+        String expected = "";
+        assertEquals(expected, dividendService.createChartData(input));
+    }
+
+    @Test
     void testCreateChartData() {
         BigDecimal[] testData = { BigDecimal.valueOf(1.23), BigDecimal.valueOf(2.34), BigDecimal.valueOf(3.45) };
         String expectedResult = "1.23,2.34,3.45";
