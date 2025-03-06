@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 @Service
-public class DividendPortfolioService extends BasicChartService {
+public class DividendPortfolioService extends DividendService {
 
     private static final int MAX_DISPLAYED_STOCKS = 15;
 

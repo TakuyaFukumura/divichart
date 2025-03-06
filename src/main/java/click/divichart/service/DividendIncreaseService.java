@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  */
 @Slf4j
 @Service
-public class DividendIncreaseService extends BasicChartService {
+public class DividendIncreaseService extends DividendService {
 
     public DividendIncreaseService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);

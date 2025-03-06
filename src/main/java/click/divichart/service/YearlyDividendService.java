@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.StringJoiner;
 
 @Service
-public class YearlyDividendService extends BasicChartService {
+public class YearlyDividendService extends DividendService {
 
     public YearlyDividendService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);

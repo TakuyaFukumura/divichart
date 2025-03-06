@@ -12,7 +12,7 @@ import java.util.StringJoiner;
 
 @Slf4j
 @Service
-public class DividendAchievementRateService extends BasicChartService {
+public class DividendAchievementRateService extends DividendService {
 
     public DividendAchievementRateService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);

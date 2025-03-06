@@ -15,14 +15,14 @@ import java.util.stream.IntStream;
  * ChartService系で共通のロジックを持つクラス
  */
 @Service
-public class BasicChartService {
+public class DividendService {
 
     private static final int TWELVE_MONTHS = 12;
 
     protected final DividendHistoryRepository repository;
 
     @Autowired
-    public BasicChartService(DividendHistoryRepository dividendHistoryRepository) {
+    public DividendService(DividendHistoryRepository dividendHistoryRepository) {
         this.repository = dividendHistoryRepository;
     }
 

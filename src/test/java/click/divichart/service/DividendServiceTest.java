@@ -12,16 +12,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BasicChartServiceTest {
+class DividendServiceTest {
 
     @Autowired
     private DividendHistoryRepository repository;
 
-    private BasicChartService basicChartService;
+    private DividendService dividendService;
 
     @BeforeEach
     void setUp() {
-        basicChartService = new BasicChartService(repository);
+        dividendService = new DividendService(repository);
     }
 
     @Test
@@ -29,7 +29,7 @@ class BasicChartServiceTest {
         BigDecimal[] testData = { BigDecimal.valueOf(1.23), BigDecimal.valueOf(2.34), BigDecimal.valueOf(3.45) };
         String expectedResult = "1.23,2.34,3.45";
 
-        String chartData = basicChartService.createChartData(testData);
+        String chartData = dividendService.createChartData(testData);
 
         // メソッドが正しい結果を返すかテストします
         assertEquals(expectedResult, chartData);
@@ -37,7 +37,7 @@ class BasicChartServiceTest {
 
     @Test
     void testGetRecentYears() {
-        List<String> recentYears = basicChartService.getRecentYears(5);
+        List<String> recentYears = dividendService.getRecentYears(5);
         int currentYear = LocalDate.now().getYear();
 
         // メソッドが正しい結果を返すかテストします
@@ -61,40 +61,40 @@ class BasicChartServiceTest {
                 String.valueOf(currentYear - 1),
                 String.valueOf(currentYear)
         };
-        assertArrayEquals(expectedYears5, basicChartService.getRecentYearsAsc(5));
+        assertArrayEquals(expectedYears5, dividendService.getRecentYearsAsc(5));
 
         // テストケース2: 1年間
         String[] expectedYears1 = { String.valueOf(currentYear) };
-        assertArrayEquals(expectedYears1, basicChartService.getRecentYearsAsc(1));
+        assertArrayEquals(expectedYears1, dividendService.getRecentYearsAsc(1));
 
         // テストケース3: 0年間（空の配列）
         String[] expectedYears0 = {};
-        assertArrayEquals(expectedYears0, basicChartService.getRecentYearsAsc(0));
+        assertArrayEquals(expectedYears0, dividendService.getRecentYearsAsc(0));
     }
 
     @Test
     void testIsNotYearWithValidYear() {
-        assertFalse(basicChartService.isNotYear("2023"));
+        assertFalse(dividendService.isNotYear("2023"));
     }
 
     @Test
     void testIsNotYearWithInvalidYear() {
-        assertTrue(basicChartService.isNotYear("food")); // 無効な年の文字列
+        assertTrue(dividendService.isNotYear("food")); // 無効な年の文字列
     }
 
     @Test
     void testIsNotYearWithEmptyString() {
-        assertTrue(basicChartService.isNotYear("")); // 空の文字列
+        assertTrue(dividendService.isNotYear("")); // 空の文字列
     }
 
     @Test
     void testIsNotYearWithTooManyDigits() {
-        assertTrue(basicChartService.isNotYear("12345")); // 桁数が大きすぎるケース
+        assertTrue(dividendService.isNotYear("12345")); // 桁数が大きすぎるケース
     }
 
     @Test
     void testIsNotYearWithLeadingZero() {
-        assertTrue(basicChartService.isNotYear("0123")); // 先頭が0のケース
+        assertTrue(dividendService.isNotYear("0123")); // 先頭が0のケース
     }
 
 }
