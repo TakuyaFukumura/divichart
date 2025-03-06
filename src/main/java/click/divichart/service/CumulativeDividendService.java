@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.StringJoiner;
 
 @Service
-public class CumulativeDividendService extends BasicChartService {
+public class CumulativeDividendService extends DividendService {
 
     public CumulativeDividendService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);

@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 /**
  * 年別配当グラフ用コントローラ
  */
@@ -34,8 +37,10 @@ public class YearlyDividendController {
     public String index(Model model, @AuthenticationPrincipal UserDetails user) {
         log.debug("年別配当グラフ表示");
 
-        String labels = service.getLabels(NUM_OF_YEARS);
-        String chartData = service.getChartData(NUM_OF_YEARS, user.getUsername());
+        List<Integer> pastYears = service.getPastYears(NUM_OF_YEARS);
+        String labels = service.getLabels(pastYears);
+        List<BigDecimal> yearlyDividendData = service.getYearlyDividendData(pastYears, user.getUsername());
+        String chartData = service.createChartData(yearlyDividendData);
 
         YearlyDividendDto yearlyDividendDto = new YearlyDividendDto(
                 labels,

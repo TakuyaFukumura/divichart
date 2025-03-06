@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 @Service
-public class YearlyCumulativeDividendService extends BasicChartService {
+public class YearlyCumulativeDividendService extends DividendService {
 
     public YearlyCumulativeDividendService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);

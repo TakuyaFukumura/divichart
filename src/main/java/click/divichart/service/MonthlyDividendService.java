@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-public class MonthlyDividendService extends BasicChartService {
+public class MonthlyDividendService extends DividendService {
 
     public MonthlyDividendService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);

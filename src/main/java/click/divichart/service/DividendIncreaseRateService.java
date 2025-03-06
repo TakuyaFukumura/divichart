@@ -14,7 +14,7 @@ import java.util.StringJoiner;
  */
 @Slf4j
 @Service
-public class DividendIncreaseRateService extends BasicChartService {
+public class DividendIncreaseRateService extends DividendService {
 
     public DividendIncreaseRateService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);

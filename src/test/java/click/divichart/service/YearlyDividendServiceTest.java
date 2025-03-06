@@ -1,6 +1,7 @@
 package click.divichart.service;
 
 import click.divichart.repository.DividendHistoryRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -8,75 +9,57 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 class YearlyDividendServiceTest {
     @Mock
-    private DividendHistoryRepository repository;
+    private DividendHistoryRepository dividendHistoryRepository;
 
     @InjectMocks
     private YearlyDividendService yearlyDividendService;
 
+    private AutoCloseable mocks;
+
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        mocks = MockitoAnnotations.openMocks(this);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        if (mocks != null) {
+            mocks.close();
+        }
     }
 
     @Test
-    void testGetChartData() {
-        // Given
-        int currentYear = LocalDate.now().getYear();
-        String username = "test";
+    void testGetYearlyDividendData() {
+        List<Integer> pastYears = Arrays.asList(2020, 2021, 2022);
+        String username = "testUser";
 
-        when(repository.getDividendSum(
-                LocalDate.parse((currentYear - 1) + "-01-01"),
-                LocalDate.parse((currentYear - 1) + "-12-31"),
-                username)
-        ).thenReturn(new BigDecimal("1000"));
+        BigDecimal dividend2021 = new BigDecimal("100.50");
+        BigDecimal dividend2022 = new BigDecimal("150.75");
+        BigDecimal dividend2023 = new BigDecimal("200.25");
 
-        when(repository.getDividendSum(
-                LocalDate.parse(currentYear + "-01-01"),
-                LocalDate.parse(currentYear + "-12-31"),
-                username)
-        ).thenReturn(new BigDecimal("800"));
+        when(dividendHistoryRepository.getDividendSum(any(), any(), eq(username)))
+                .thenReturn(dividend2021)  // 2021年の配当金
+                .thenReturn(dividend2022)  // 2022年の配当金
+                .thenReturn(dividend2023); // 2023年の配当金
 
-        // When
-        String chartData = yearlyDividendService.getChartData(2, username);
-
-        // Then
-        assertEquals("1000,800", chartData);
-    }
-
-    @Test
-    void testGetLabels() {
-        // Given
-        int currentYear = LocalDate.now().getYear();
-
-        // When
-        String labels = yearlyDividendService.getLabels(3);
-
-        // Then
-        assertEquals("\"" + (currentYear - 2) + "年\",\"" +
-                (currentYear - 1) + "年\",\"" +
-                currentYear + "年\"", labels
+        List<BigDecimal> expected = Arrays.asList(
+                new BigDecimal("100.50"),
+                new BigDecimal("150.75"),
+                new BigDecimal("200.25")
         );
-    }
 
-    @Test
-    void testGetRecentYearsAsc() {
-        // Given
-        int currentYear = LocalDate.now().getYear();
+        List<BigDecimal> actual = yearlyDividendService.getYearlyDividendData(pastYears, username);
 
-        // When
-        String[] recentYears = yearlyDividendService.getRecentYearsAsc(3);
-
-        // Then
-        assertEquals(3, recentYears.length);
-        assertEquals(String.valueOf(currentYear - 2), recentYears[0]);
-        assertEquals(String.valueOf(currentYear - 1), recentYears[1]);
-        assertEquals(String.valueOf(currentYear), recentYears[2]);
+        assertEquals(expected, actual);
     }
 }
