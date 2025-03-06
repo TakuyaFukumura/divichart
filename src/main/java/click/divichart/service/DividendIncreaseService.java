@@ -5,11 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
-import java.util.stream.IntStream;
 
 /**
  * 配当増加額グラフ用Service
