@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 /**
  * 年間累計配当グラフ用コントローラ
  */
@@ -34,6 +36,9 @@ public class YearlyCumulativeDividendController {
     public String index(Model model, YearlyCumulativeDividendForm yearlyCumulativeDividendForm,
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("年間累計配当グラフ表示");
+
+        List<Integer> pastYears = service.getPastYears(5);
+        String labels = service.getLabels(pastYears);
 
         String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
         String targetYear = service.getTargetYear(recentYears[0], yearlyCumulativeDividendForm.getTargetYear());
