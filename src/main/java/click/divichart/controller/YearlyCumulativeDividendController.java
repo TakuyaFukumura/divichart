@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
+import java.time.Year;
 import java.util.List;
 
 /**
@@ -37,16 +39,17 @@ public class YearlyCumulativeDividendController {
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("年間累計配当グラフ表示");
 
-        List<Integer> pastYears = service.getPastYears(5);
-        String labels = service.getLabels(pastYears);
+        int targetYear = service.getTargetYear(yearlyCumulativeDividendForm.getTargetYear());
+        List<BigDecimal> yearlyCumulativeDividendData =
+                service.getYearlyCumulativeDividendData(targetYear, user.getUsername());
+        String chartData = service.createChartData(yearlyCumulativeDividendData);
 
         String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
-        String targetYear = service.getTargetYear(recentYears[0], yearlyCumulativeDividendForm.getTargetYear());
-        String chartData = service.getChartData(targetYear, user.getUsername());
+
 
         YearlyCumulativeDividendDto yearlyCumulativeDividendDto = new YearlyCumulativeDividendDto(
                 recentYears,
-                targetYear,
+                String.valueOf(targetYear),
                 chartData
         );
         model.addAttribute("yearlyCumulativeDividendDto", yearlyCumulativeDividendDto);
