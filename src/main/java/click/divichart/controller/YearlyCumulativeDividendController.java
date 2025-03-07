@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.time.Year;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public class YearlyCumulativeDividendController {
 
 
         YearlyCumulativeDividendDto yearlyCumulativeDividendDto = new YearlyCumulativeDividendDto(
-                recentYears,
+                Arrays.stream(recentYears).toList(),
                 String.valueOf(targetYear),
                 chartData
         );
