@@ -26,7 +26,7 @@ public class YearlyCumulativeDividendService extends DividendService {
     }
 
     public int getTargetYear(String targetYear) {
-        if (targetYear.isEmpty()){
+        if (targetYear.isEmpty()) {
             return Year.now().getValue();
         }
         return Year.parse(targetYear).getValue();
