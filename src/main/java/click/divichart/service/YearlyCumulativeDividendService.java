@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Year;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +29,6 @@ public class YearlyCumulativeDividendService extends DividendService {
         if (targetYear.isEmpty()){
             return Year.now().getValue();
         }
-        return Integer.parseInt(targetYear);
+        return Year.parse(targetYear).getValue();
     }
 }
