@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.math.BigDecimal;
 import java.time.Year;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -45,11 +46,10 @@ public class YearlyCumulativeDividendController {
                 service.getYearlyCumulativeDividendData(targetYear, user.getUsername());
         String chartData = service.createChartData(yearlyCumulativeDividendData);
 
-        String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
-
+        List<Integer> pastYears = service.getPastYears(5);
 
         YearlyCumulativeDividendDto yearlyCumulativeDividendDto = new YearlyCumulativeDividendDto(
-                Arrays.stream(recentYears).toList(),
+                pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList(),
                 String.valueOf(targetYear),
                 chartData
         );
