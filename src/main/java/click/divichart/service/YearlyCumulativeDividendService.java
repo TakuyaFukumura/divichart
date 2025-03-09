@@ -46,7 +46,8 @@ public class YearlyCumulativeDividendService extends DividendService {
         List<BigDecimal> cumulativeDividend = new ArrayList<>(monthlyDividend);
 
         for (int i = 1; i < cumulativeDividend.size(); i++) {
-            cumulativeDividend.set(i, cumulativeDividend.get(i).add(cumulativeDividend.get(i - 1)));
+            BigDecimal sumDividend = cumulativeDividend.get(i).add(cumulativeDividend.get(i - 1));
+            cumulativeDividend.set(i, sumDividend);
         }
         return Collections.unmodifiableList(cumulativeDividend);
     }
