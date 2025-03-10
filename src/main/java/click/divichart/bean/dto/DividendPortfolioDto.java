@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 配当ポートフォリオ用DTO
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class DividendPortfolioDto implements Serializable {
-    private String[] recentYears;
+    private List<String> recentYears;
     private String targetYear;
     private String labels;
     private String chartData;

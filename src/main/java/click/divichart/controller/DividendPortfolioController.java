@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * 配当ポートフォリオ用コントローラ
  */
@@ -35,12 +38,14 @@ public class DividendPortfolioController {
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("配当ポートフォリオ表示");
 
-        String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
-        String targetYear = service.getTargetYear(recentYears[0], dividendPortfolioForm.getTargetYear());
+        int targetYear = service.getTargetYear(dividendPortfolioForm.getTargetYear());
+        List<Integer> pastYears = service.getPastYears(5);
 
         DividendPortfolioDto dividendPortfolioDto = service.getChartData(targetYear, user.getUsername());
-        dividendPortfolioDto.setRecentYears(recentYears);
-        dividendPortfolioDto.setTargetYear(targetYear);
+        dividendPortfolioDto.setRecentYears(
+                pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList() // 逆順で文字列化
+        );
+        dividendPortfolioDto.setTargetYear(String.valueOf(targetYear));
 
         model.addAttribute("dividendPortfolioDto", dividendPortfolioDto);
 

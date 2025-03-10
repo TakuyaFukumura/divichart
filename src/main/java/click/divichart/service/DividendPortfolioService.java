@@ -28,7 +28,7 @@ public class DividendPortfolioService extends DividendService {
      * @param username   ユーザ名
      * @return グラフ描画用文字列配列
      */
-    public DividendPortfolioDto getChartData(String targetYear, String username) {
+    public DividendPortfolioDto getChartData(int targetYear, String username) {
         LocalDate startDate = LocalDate.parse(targetYear + "-01-01");
         LocalDate endDate = startDate.plusYears(1).minusDays(1);
 
