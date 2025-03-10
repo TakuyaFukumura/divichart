@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
@@ -84,6 +85,22 @@ public class DividendService {
         LocalDate startDate = LocalDate.of(year, 1, 1);
         LocalDate endDate = LocalDate.of(year, 12, 31);
         return repository.getDividendSum(startDate, endDate, username);
+    }
+
+    protected List<BigDecimal> getMonthlyDividend(int targetYear, String username) {
+        List<BigDecimal> monthlyDividend = new ArrayList<>(TWELVE_MONTHS);
+
+        for (int i = 0; i < TWELVE_MONTHS; i++) {
+            int month = i + 1;
+            String formattedMonth = String.format("%02d", month);
+
+            LocalDate startDate = LocalDate.parse(targetYear + "-" + formattedMonth + "-01");
+            LocalDate endDate = startDate.plusMonths(1).minusDays(1);
+
+            BigDecimal dividendSum = repository.getDividendSum(startDate, endDate, username);
+            monthlyDividend.add(dividendSum);
+        }
+        return monthlyDividend;
     }
 
     /**
