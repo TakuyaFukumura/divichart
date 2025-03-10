@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +26,21 @@ class DividendServiceTest {
     @BeforeEach
     void setUp() {
         dividendService = new DividendService(repository);
+    }
+
+    @Test
+    void testGetTargetYear_EmptyString() {
+        // empty stringを渡すと現在の年を取得するテスト
+        int currentYear = Year.now().getValue();
+        int result = dividendService.getTargetYear("");
+        assertEquals(currentYear, result, "現在の年が返されるべきです");
+    }
+
+    @Test
+    void testGetTargetYear_ValidYear() {
+        // 正常な年を文字列で渡すとその年が返されるテスト
+        int result = dividendService.getTargetYear("2022");
+        assertEquals(2022, result, "指定された年が返されるべきです");
     }
 
     @Test
