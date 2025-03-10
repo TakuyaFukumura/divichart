@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.Year;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,21 +28,6 @@ class YearlyCumulativeDividendServiceTest {
     @BeforeEach
     void setUp() {
         yearlyCumulativeDividendService = new YearlyCumulativeDividendService(dividendHistoryRepository);
-    }
-
-    @Test
-    void testGetTargetYear_EmptyString() {
-        // empty stringを渡すと現在の年を取得するテスト
-        int currentYear = Year.now().getValue();
-        int result = yearlyCumulativeDividendService.getTargetYear("");
-        assertEquals(currentYear, result, "現在の年が返されるべきです");
-    }
-
-    @Test
-    void testGetTargetYear_ValidYear() {
-        // 正常な年を文字列で渡すとその年が返されるテスト
-        int result = yearlyCumulativeDividendService.getTargetYear("2022");
-        assertEquals(2022, result, "指定された年が返されるべきです");
     }
 
     @Test

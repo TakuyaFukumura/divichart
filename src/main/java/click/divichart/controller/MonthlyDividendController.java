@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * 月別配当グラフ用コントローラ
  */
@@ -35,18 +38,17 @@ public class MonthlyDividendController {
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("月別配当グラフ表示");
 
-        String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
-        String targetYear = service.getTargetYear(recentYears[0], monthlyDividendForm.getTargetYear());
+        int targetYear = service.getTargetYear(monthlyDividendForm.getTargetYear());
         String chartData = service.getChartData(targetYear, user.getUsername());
+        List<Integer> pastYears = service.getPastYears(5);
 
         MonthlyDividendDto monthlyDividendDto = new MonthlyDividendDto(
-                recentYears,
-                targetYear,
+                pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList(), // 逆順で文字列化
+                String.valueOf(targetYear),
                 chartData
         );
         model.addAttribute("monthlyDividendDto", monthlyDividendDto);
 
         return "monthlyDividend";
     }
-
 }

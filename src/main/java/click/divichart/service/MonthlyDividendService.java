@@ -4,6 +4,7 @@ import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class MonthlyDividendService extends DividendService {
@@ -19,9 +20,8 @@ public class MonthlyDividendService extends DividendService {
      * @param username   ユーザ名
      * @return グラフ描画用文字列
      */
-    public String getChartData(String targetYear, String username) {
-        BigDecimal[] monthlyDividend = getMonthlyDividend(targetYear, username);
+    public String getChartData(int targetYear, String username) {
+        List<BigDecimal> monthlyDividend = getMonthlyDividend(targetYear, username);
         return createChartData(monthlyDividend);
     }
-
 }

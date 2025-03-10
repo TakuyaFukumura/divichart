@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 月別配当グラフ画面用DTO
@@ -13,11 +14,11 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class MonthlyDividendDto implements Serializable {
-    private String[] recentYears;
+    private List<String> recentYears;
     private String targetYear;
     private String chartData;
 
-    public MonthlyDividendDto(String[] recentYears, String targetYear, String chartData) {
+    public MonthlyDividendDto(List<String> recentYears, String targetYear, String chartData) {
         this.recentYears = recentYears;
         this.targetYear = targetYear;
         this.chartData = chartData;
