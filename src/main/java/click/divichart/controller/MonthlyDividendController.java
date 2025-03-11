@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,7 +40,8 @@ public class MonthlyDividendController {
         log.debug("月別配当グラフ表示");
 
         int targetYear = service.getTargetYear(monthlyDividendForm.getTargetYear());
-        String chartData = service.getChartData(targetYear, user.getUsername());
+        List<BigDecimal> monthlyDividend = service.getMonthlyDividendData(targetYear, user.getUsername());
+        String chartData = service.createChartData(monthlyDividend);
         List<Integer> pastYears = service.getPastYears(5);
 
         MonthlyDividendDto monthlyDividendDto = new MonthlyDividendDto(
