@@ -20,8 +20,7 @@ public class MonthlyDividendService extends DividendService {
      * @param username   ユーザ名
      * @return グラフ描画用文字列
      */
-    public String getChartData(int targetYear, String username) {
-        List<BigDecimal> monthlyDividend = getMonthlyDividend(targetYear, username);
-        return createChartData(monthlyDividend);
+    public  List<BigDecimal> getMonthlyDividendData(int targetYear, String username) {
+        return getMonthlyDividend(targetYear, username);
     }
 }
