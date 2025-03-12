@@ -1,5 +1,6 @@
 package click.divichart.controller;
 
+import click.divichart.bean.DividendSummaryBean;
 import click.divichart.bean.dto.DividendPortfolioDto;
 import click.divichart.bean.form.DividendPortfolioForm;
 import click.divichart.service.DividendPortfolioService;
@@ -41,13 +42,16 @@ public class DividendPortfolioController {
         int targetYear = service.getTargetYear(dividendPortfolioForm.getTargetYear());
         List<Integer> pastYears = service.getPastYears(5);
 
-        DividendPortfolioDto dividendPortfolioDto = service.getChartData(targetYear, user.getUsername());
-        dividendPortfolioDto.setRecentYears(
+        List<DividendSummaryBean> dividendSummaryBeanList = service.getChartData(targetYear, user.getUsername());
+
+        DividendPortfolioDto chartData = service.createChartData(targetYear, user.getUsername(), dividendSummaryBeanList);
+
+        chartData.setRecentYears(
                 pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList() // 逆順で文字列化
         );
-        dividendPortfolioDto.setTargetYear(String.valueOf(targetYear));
+        chartData.setTargetYear(String.valueOf(targetYear));
 
-        model.addAttribute("dividendPortfolioDto", dividendPortfolioDto);
+        model.addAttribute("dividendPortfolioDto", chartData);
 
         return "dividendPortfolio";
     }
