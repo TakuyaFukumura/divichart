@@ -74,7 +74,7 @@ public class DividendPortfolioService extends DividendService {
                 .map(bean -> bean.getAmountReceived().toString())
                 .toList();
 
-        String labels = formatLabels(labelsList);
+        String labels = labelsList.isEmpty() ? "\"\"" : "\"" + String.join("\",\"", labelsList) + "\"";
         String chartData = String.join(",", dataList);
 
         return new DividendPortfolioDto(labels, chartData);
@@ -84,10 +84,6 @@ public class DividendPortfolioService extends DividendService {
         LocalDate startDate = LocalDate.of(targetYear, 1, 1);
         LocalDate endDate = LocalDate.of(targetYear, 12, 31);
         return repository.getDividendSum(startDate, endDate, username);
-    }
-
-    private String formatLabels(List<String> labels) {
-        return labels.isEmpty() ? "\"\"" : "\"" + String.join("\",\"", labels) + "\"";
     }
 
     /**
