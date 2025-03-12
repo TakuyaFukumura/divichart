@@ -43,10 +43,10 @@ public class DividendPortfolioController {
         int targetYear = service.getTargetYear(dividendPortfolioForm.getTargetYear());
         List<Integer> pastYears = service.getPastYears(5);
 
-        List<DividendSummaryBean> dividendSummaryBeanList = service.getChartData(targetYear, user.getUsername());
+        List<DividendSummaryBean> dividendSummaryBeanList = service.getDividendPortfolioData(targetYear, user.getUsername());
 
         BigDecimal dividendSum = service.getDividendSum(targetYear, user.getUsername());
-        DividendPortfolioDto chartData = service.createChartData(dividendSum, dividendSummaryBeanList);
+        DividendPortfolioDto chartData = service.convertChartData(dividendSum, dividendSummaryBeanList);
 
         chartData.setRecentYears(
                 pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList() // 逆順で文字列化

@@ -60,26 +60,26 @@ class DividendPortfolioServiceTest {
 //        dividendSummaryBeanList.add(new DividendSummaryBean("AAPL", BigDecimal.valueOf(100.01)));
 //        dividendSummaryBeanList.add(new DividendSummaryBean("GOOG", BigDecimal.valueOf(50.01)));
 //
-//        DividendPortfolioDto chartData = dividendPortfolioService.createChartData(dividendSummaryBeanList, BigDecimal.valueOf(150.02));
+//        DividendPortfolioDto chartData = dividendPortfolioService.convertChartData(dividendSummaryBeanList, BigDecimal.valueOf(150.02));
 //
 //        assertNotNull(chartData);
 //
 //        // 期待される結果を確認します
 //        assertEquals("\"AAPL 66.66%\",\"GOOG 33.34%\"", chartData.getLabels());
-//        assertEquals("100.01,50.01", chartData.getChartData());
+//        assertEquals("100.01,50.01", chartData.getDividendPortfolioData());
 //    }
 //
 //    @Test
 //    void testCreateChartDataWithEmptyList() {
 //        List<DividendSummaryBean> emptyList = new ArrayList<>();
 //
-//        DividendPortfolioDto chartData = dividendPortfolioService.createChartData(emptyList, BigDecimal.valueOf(150.02));
+//        DividendPortfolioDto chartData = dividendPortfolioService.convertChartData(emptyList, BigDecimal.valueOf(150.02));
 //
 //        assertNotNull(chartData);
 //
 //        // 空のリストが渡された場合、空の文字列が返されることを確認します
 //        assertEquals("\"\"", chartData.getLabels());
-//        assertEquals("", chartData.getChartData());
+//        assertEquals("", chartData.getDividendPortfolioData());
 //    }
 
 }

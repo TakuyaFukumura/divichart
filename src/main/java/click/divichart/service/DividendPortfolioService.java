@@ -30,7 +30,7 @@ public class DividendPortfolioService extends DividendService {
      * @throws IllegalArgumentException 無効な入力の場合
      * @see DividendPortfolioDto 戻り値の形式詳細
      */
-    public List<DividendSummaryBean> getChartData(int targetYear, String username) {
+    public List<DividendSummaryBean> getDividendPortfolioData(int targetYear, String username) {
         LocalDate startDate = LocalDate.of(targetYear, 1, 1);
         LocalDate endDate = LocalDate.of(targetYear, 12, 31);
 
@@ -58,7 +58,7 @@ public class DividendPortfolioService extends DividendService {
         return new DividendSummaryBean(projection.getTickerSymbol(), projection.getAmountReceived());
     }
 
-    public DividendPortfolioDto createChartData(BigDecimal dividendSum, List<DividendSummaryBean> dividendSummaryBeanList) {
+    public DividendPortfolioDto convertChartData(BigDecimal dividendSum, List<DividendSummaryBean> dividendSummaryBeanList) {
         List<String> labelsList = dividendSummaryBeanList.stream()
                 .map(bean -> createLabel(
                         bean.getTickerSymbol(),
