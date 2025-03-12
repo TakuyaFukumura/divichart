@@ -37,17 +37,6 @@ public class DividendPortfolioService extends DividendService {
 
         List<DividendSumsByStockProjection> dividendSummaryList = repository.findDividendSumsByStock(startDate, endDate, username);
 
-        return consolidateSmallValues(dividendSummaryList);
-    }
-
-    /**
-     * 配当の集計情報を整理して、小さいデータはその他にまとめる
-     *
-     * @param dividendSummaryList 配当の集計情報
-     * @return 整理された配当の集計情報（ティッカー名と金額）
-     */
-    List<DividendSummaryBean> consolidateSmallValues(List<DividendSumsByStockProjection> dividendSummaryList) {
-
         List<DividendSummaryBean> mainItems = dividendSummaryList.stream()
                 .limit(MAX_DISPLAYED_STOCKS)
                 .map(this::toSummaryBean)

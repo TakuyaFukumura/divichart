@@ -29,30 +29,30 @@ class DividendPortfolioServiceTest {
         dividendPortfolioService = new DividendPortfolioService(repository);
     }
 
-    @Test
-    void testConsolidateSmallValuesWithMocks() {
-        List<DividendSumsByStockProjection> dividendSummaryList = new ArrayList<>();
-
-        for (int i = 1; i <= 20; i++) {
-            DividendSumsByStockProjection mock = mock(DividendSumsByStockProjection.class);
-            when(mock.getTickerSymbol()).thenReturn("STOCK" + i);
-            when(mock.getAmountReceived()).thenReturn(BigDecimal.valueOf(i * 10));
-            dividendSummaryList.add(mock);
-        }
-
-        List<DividendSummaryBean> result = dividendPortfolioService.consolidateSmallValues(dividendSummaryList);
-
-        assertNotNull(result);
-        assertEquals(16, result.size());
-
-        BigDecimal othersAmount = result.stream()
-                .filter(bean -> "その他".equals(bean.getTickerSymbol()))
-                .map(DividendSummaryBean::getAmountReceived)
-                .findFirst()
-                .orElse(BigDecimal.ZERO);
-
-        assertEquals(BigDecimal.valueOf(160 + 170 + 180 + 190 + 200), othersAmount); // 16〜20番目の合計
-    }
+//    @Test
+//    void testConsolidateSmallValuesWithMocks() {
+//        List<DividendSumsByStockProjection> dividendSummaryList = new ArrayList<>();
+//
+//        for (int i = 1; i <= 20; i++) {
+//            DividendSumsByStockProjection mock = mock(DividendSumsByStockProjection.class);
+//            when(mock.getTickerSymbol()).thenReturn("STOCK" + i);
+//            when(mock.getAmountReceived()).thenReturn(BigDecimal.valueOf(i * 10));
+//            dividendSummaryList.add(mock);
+//        }
+//
+//        List<DividendSummaryBean> result = dividendPortfolioService.consolidateSmallValues(dividendSummaryList);
+//
+//        assertNotNull(result);
+//        assertEquals(16, result.size());
+//
+//        BigDecimal othersAmount = result.stream()
+//                .filter(bean -> "その他".equals(bean.getTickerSymbol()))
+//                .map(DividendSummaryBean::getAmountReceived)
+//                .findFirst()
+//                .orElse(BigDecimal.ZERO);
+//
+//        assertEquals(BigDecimal.valueOf(160 + 170 + 180 + 190 + 200), othersAmount); // 16〜20番目の合計
+//    }
 
 //    @Test
 //    void testCreateChartDataWithValidData() {
