@@ -34,46 +34,46 @@ public class DividendPortfolioService extends DividendService {
         LocalDate startDate = LocalDate.of(targetYear, 1, 1);
         LocalDate endDate = LocalDate.of(targetYear, 12, 31);
 
-        List<DividendSumsByStockProjection> dividendSummaryList =
+        List<DividendSumsByStockProjection> dividendSumsByStocks =
                 repository.findDividendSumsByStock(startDate, endDate, username);
 
-        List<DividendSummaryBean> mainItems = dividendSummaryList.stream()
+        List<DividendSummaryBean> mainItems = dividendSumsByStocks.stream()
                 .limit(MAX_DISPLAYED_STOCKS)
                 .map(this::toSummaryBean)
                 .toList();
 
-        List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>(mainItems);
+        List<DividendSummaryBean> dividendSummaryBeans = new ArrayList<>(mainItems);
 
-        BigDecimal othersSum = dividendSummaryList.stream()
+        BigDecimal othersSum = dividendSumsByStocks.stream()
                 .skip(MAX_DISPLAYED_STOCKS)
                 .map(DividendSumsByStockProjection::getAmountReceived)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         if (othersSum.compareTo(BigDecimal.ZERO) > 0) {
-            dividendSummaryBeanList.add(new DividendSummaryBean("その他", othersSum));
+            dividendSummaryBeans.add(new DividendSummaryBean("その他", othersSum));
         }
-        return dividendSummaryBeanList;
+        return dividendSummaryBeans;
     }
 
     private DividendSummaryBean toSummaryBean(DividendSumsByStockProjection projection) {
         return new DividendSummaryBean(projection.getTickerSymbol(), projection.getAmountReceived());
     }
 
-    public DividendPortfolioDto convertChartData(BigDecimal dividendSum, List<DividendSummaryBean> dividendSummaryBeanList) {
-        List<String> labelsList = dividendSummaryBeanList.stream()
-                .map(bean -> createLabel(
+    public DividendPortfolioDto convertChartData(BigDecimal dividendSum, List<DividendSummaryBean> dividendSummaryBeans) {
+        List<String> labelParts = dividendSummaryBeans.stream()
+                .map(bean -> createLabelPart(
                         bean.getTickerSymbol(),
                         bean.getAmountReceived(),
                         dividendSum
                 ))
                 .toList();
 
-        List<String> dataList = dividendSummaryBeanList.stream()
+        List<String> amountReceivedData = dividendSummaryBeans.stream()
                 .map(bean -> bean.getAmountReceived().toString())
                 .toList();
 
-        String labels = labelsList.isEmpty() ? "\"\"" : "\"" + String.join("\",\"", labelsList) + "\"";
-        String chartData = String.join(",", dataList);
+        String labels = labelParts.isEmpty() ? "\"\"" : "\"" + String.join("\",\"", labelParts) + "\"";
+        String chartData = String.join(",", amountReceivedData);
 
         return new DividendPortfolioDto(labels, chartData);
     }
@@ -86,7 +86,7 @@ public class DividendPortfolioService extends DividendService {
      * @param dividendSum    配当合計額
      * @return チャートのラベル
      */
-    String createLabel(String tickerSymbol, BigDecimal amountReceived, BigDecimal dividendSum) {
+    String createLabelPart(String tickerSymbol, BigDecimal amountReceived, BigDecimal dividendSum) {
 
         BigDecimal percentageOfPortfolio;
 
