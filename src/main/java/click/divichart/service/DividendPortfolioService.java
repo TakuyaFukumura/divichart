@@ -32,7 +32,7 @@ public class DividendPortfolioService extends DividendService {
         LocalDate startDate = LocalDate.of(targetYear, 1, 1);
         LocalDate endDate = LocalDate.of(targetYear, 12, 31);
 
-        List<Object[]> dividendSummaryList = repository.getDividendsForEachStock(startDate, endDate, username);
+        List<Object[]> dividendSummaryList = repository.findDividendSumsByStock(startDate, endDate, username);
         List<DividendSummaryBean> dividendSummaryBeanList = consolidateSmallValues(dividendSummaryList);
 
         BigDecimal dividendSum = repository.getDividendSum(startDate, endDate, username);

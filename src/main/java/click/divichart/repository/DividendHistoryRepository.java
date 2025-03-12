@@ -53,7 +53,7 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
             GROUP BY ticker_symbol
             ORDER BY amount_received DESC
             """, nativeQuery = true)
-    List<Object[]> getDividendsForEachStock(
+    List<Object[]> findDividendSumsByStock(
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
             , @Param("username") String username
