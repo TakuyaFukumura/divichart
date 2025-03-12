@@ -29,8 +29,8 @@ public class DividendPortfolioService extends DividendService {
      * @return グラフ描画用文字列配列
      */
     public DividendPortfolioDto getChartData(int targetYear, String username) {
-        LocalDate startDate = LocalDate.parse(targetYear + "-01-01");
-        LocalDate endDate = startDate.plusYears(1).minusDays(1);
+        LocalDate startDate = LocalDate.of(targetYear, 1, 1);
+        LocalDate endDate = LocalDate.of(targetYear, 12, 31);
 
         List<Object[]> dividendSummaryList = repository.getDividendsForEachStock(startDate, endDate, username);
         List<DividendSummaryBean> dividendSummaryBeanList = consolidateSmallValues(dividendSummaryList);
