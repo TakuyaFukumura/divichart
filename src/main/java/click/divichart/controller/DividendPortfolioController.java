@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class DividendPortfolioController {
 
         List<DividendSummaryBean> dividendSummaryBeanList = service.getChartData(targetYear, user.getUsername());
 
-        DividendPortfolioDto chartData = service.createChartData(targetYear, user.getUsername(), dividendSummaryBeanList);
+        BigDecimal dividendSum = service.getDividendSum(targetYear, user.getUsername());
+        DividendPortfolioDto chartData = service.createChartData(dividendSum, dividendSummaryBeanList);
 
         chartData.setRecentYears(
                 pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList() // 逆順で文字列化

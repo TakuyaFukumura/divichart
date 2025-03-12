@@ -11,7 +11,6 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 @Service
 public class DividendPortfolioService extends DividendService {
@@ -59,9 +58,7 @@ public class DividendPortfolioService extends DividendService {
         return new DividendSummaryBean(projection.getTickerSymbol(), projection.getAmountReceived());
     }
 
-    public DividendPortfolioDto createChartData(int targetYear, String username, List<DividendSummaryBean> dividendSummaryBeanList) {
-        BigDecimal dividendSum = getDividendSumForYear(targetYear, username);
-
+    public DividendPortfolioDto createChartData(BigDecimal dividendSum, List<DividendSummaryBean> dividendSummaryBeanList) {
         List<String> labelsList = dividendSummaryBeanList.stream()
                 .map(bean -> createLabel(
                         bean.getTickerSymbol(),
@@ -78,12 +75,6 @@ public class DividendPortfolioService extends DividendService {
         String chartData = String.join(",", dataList);
 
         return new DividendPortfolioDto(labels, chartData);
-    }
-
-    private BigDecimal getDividendSumForYear(int targetYear, String username) {
-        LocalDate startDate = LocalDate.of(targetYear, 1, 1);
-        LocalDate endDate = LocalDate.of(targetYear, 12, 31);
-        return repository.getDividendSum(startDate, endDate, username);
     }
 
     /**
