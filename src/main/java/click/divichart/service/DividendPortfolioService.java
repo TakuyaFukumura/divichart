@@ -34,7 +34,8 @@ public class DividendPortfolioService extends DividendService {
         LocalDate startDate = LocalDate.of(targetYear, 1, 1);
         LocalDate endDate = LocalDate.of(targetYear, 12, 31);
 
-        List<DividendSumsByStockProjection> dividendSummaryList = repository.findDividendSumsByStock(startDate, endDate, username);
+        List<DividendSumsByStockProjection> dividendSummaryList =
+                repository.findDividendSumsByStock(startDate, endDate, username);
 
         List<DividendSummaryBean> mainItems = dividendSummaryList.stream()
                 .limit(MAX_DISPLAYED_STOCKS)
