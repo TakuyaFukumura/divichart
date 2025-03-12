@@ -50,37 +50,27 @@ public class DividendPortfolioService extends DividendService {
      * @return 整理された配当の集計情報（ティッカー名と金額）
      */
     List<DividendSummaryBean> consolidateSmallValues(List<DividendSumsByStockProjection> dividendSummaryList) {
-        List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>();
-        DividendSummaryBean others = new DividendSummaryBean("その他", BigDecimal.ZERO);
 
-        for (DividendSumsByStockProjection dividendSummary : dividendSummaryList) {
-            String tickerSymbol = dividendSummary.getTickerSymbol();
-            BigDecimal amountReceived = dividendSummary.getAmountReceived();
+        List<DividendSummaryBean> mainItems = dividendSummaryList.stream()
+                .limit(MAX_DISPLAYED_STOCKS)
+                .map(this::toSummaryBean)
+                .toList();
 
-            DividendSummaryBean dividendSummaryBean = new DividendSummaryBean(tickerSymbol, amountReceived);
+        List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>(mainItems);
 
-            if (dividendSummaryBeanList.size() < MAX_DISPLAYED_STOCKS) {
-                dividendSummaryBeanList.add(dividendSummaryBean);
-            } else {
-                addToOthers(others, dividendSummaryBean);
-            }
-        }
-        if (others.getAmountReceived().compareTo(BigDecimal.ZERO) != 0) {
-            dividendSummaryBeanList.add(others);
+        BigDecimal othersSum = dividendSummaryList.stream()
+                .skip(MAX_DISPLAYED_STOCKS)
+                .map(DividendSumsByStockProjection::getAmountReceived)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (othersSum.compareTo(BigDecimal.ZERO) > 0) {
+            dividendSummaryBeanList.add(new DividendSummaryBean("その他", othersSum));
         }
         return dividendSummaryBeanList;
     }
 
-    /**
-     * その他の配当情報に加算
-     *
-     * @param others              その他の配当情報
-     * @param dividendSummaryBean 加算したい配当情報
-     */
-    private void addToOthers(DividendSummaryBean others, DividendSummaryBean dividendSummaryBean) {
-        BigDecimal currentAmountReceived = others.getAmountReceived();
-        BigDecimal newAmountReceived = currentAmountReceived.add(dividendSummaryBean.getAmountReceived());
-        others.setAmountReceived(newAmountReceived);
+    private DividendSummaryBean toSummaryBean(DividendSumsByStockProjection projection) {
+        return new DividendSummaryBean(projection.getTickerSymbol(), projection.getAmountReceived());
     }
 
     /**
