@@ -2,6 +2,7 @@ package click.divichart.service;
 
 import click.divichart.bean.DividendSummaryBean;
 import click.divichart.bean.dto.DividendPortfolioDto;
+import click.divichart.bean.dto.DividendSumsByStockProjection;
 import click.divichart.repository.DividendHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class DividendPortfolioServiceTest {
 
@@ -23,6 +27,31 @@ class DividendPortfolioServiceTest {
     @BeforeEach
     void setUp() {
         dividendPortfolioService = new DividendPortfolioService(repository);
+    }
+
+    @Test
+    void testConsolidateSmallValuesWithMocks() {
+        List<DividendSumsByStockProjection> dividendSummaryList = new ArrayList<>();
+
+        for (int i = 1; i <= 20; i++) {
+            DividendSumsByStockProjection mock = mock(DividendSumsByStockProjection.class);
+            when(mock.getTickerSymbol()).thenReturn("STOCK" + i);
+            when(mock.getAmountReceived()).thenReturn(BigDecimal.valueOf(i * 10));
+            dividendSummaryList.add(mock);
+        }
+
+        List<DividendSummaryBean> result = dividendPortfolioService.consolidateSmallValues(dividendSummaryList);
+
+        assertNotNull(result);
+        assertEquals(16, result.size());
+
+        BigDecimal othersAmount = result.stream()
+                .filter(bean -> "その他".equals(bean.getTickerSymbol()))
+                .map(DividendSummaryBean::getAmountReceived)
+                .findFirst()
+                .orElse(BigDecimal.ZERO);
+
+        assertEquals(BigDecimal.valueOf(160 + 170 + 180 + 190 + 200), othersAmount); // 16〜20番目の合計
     }
 
     @Test
