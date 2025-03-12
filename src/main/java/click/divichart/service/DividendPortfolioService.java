@@ -44,7 +44,7 @@ public class DividendPortfolioService extends DividendService {
      * 配当の集計情報を整理して、小さいデータはその他にまとめる
      *
      * @param dividendSummaryList 配当の集計情報
-     * @return 整理された配当の集計情報
+     * @return 整理された配当の集計情報（ティッカー名と金額）
      */
     List<DividendSummaryBean> consolidateSmallValues(List<Object[]> dividendSummaryList) {
         List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>();
