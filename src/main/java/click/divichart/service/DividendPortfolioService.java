@@ -23,11 +23,13 @@ public class DividendPortfolioService extends DividendService {
     }
 
     /**
-     * チャート描画用に、指定年の配当ポートフォリオデータを取得する
+     * 配当ポートフォリオデータを生成します。
      *
      * @param targetYear データ作成対象年
-     * @param username   ユーザ名
-     * @return グラフ描画用文字列配列
+     * @param username ユーザ名
+     * @return 最大15銘柄＋その他で構成されるデータ
+     * @throws IllegalArgumentException 無効な入力の場合
+     * @see DividendPortfolioDto 戻り値の形式詳細
      */
     public DividendPortfolioDto getChartData(int targetYear, String username) {
         LocalDate startDate = LocalDate.of(targetYear, 1, 1);
