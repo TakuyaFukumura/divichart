@@ -1,5 +1,6 @@
 package click.divichart.repository;
 
+import click.divichart.bean.dto.DividendSumsByStockProjection;
 import click.divichart.bean.entity.DividendHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -53,7 +54,7 @@ public interface DividendHistoryRepository extends JpaRepository<DividendHistory
             GROUP BY ticker_symbol
             ORDER BY amount_received DESC
             """, nativeQuery = true)
-    List<Object[]> findDividendSumsByStock(
+    List<DividendSumsByStockProjection> findDividendSumsByStock(
             @Param("startDate") LocalDate startDate
             , @Param("endDate") LocalDate endDate
             , @Param("username") String username

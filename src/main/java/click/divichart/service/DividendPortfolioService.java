@@ -2,6 +2,7 @@ package click.divichart.service;
 
 import click.divichart.bean.DividendSummaryBean;
 import click.divichart.bean.dto.DividendPortfolioDto;
+import click.divichart.bean.dto.DividendSumsByStockProjection;
 import click.divichart.repository.DividendHistoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class DividendPortfolioService extends DividendService {
         LocalDate startDate = LocalDate.of(targetYear, 1, 1);
         LocalDate endDate = LocalDate.of(targetYear, 12, 31);
 
-        List<Object[]> dividendSummaryList = repository.findDividendSumsByStock(startDate, endDate, username);
+        List<DividendSumsByStockProjection> dividendSummaryList = repository.findDividendSumsByStock(startDate, endDate, username);
         List<DividendSummaryBean> dividendSummaryBeanList = consolidateSmallValues(dividendSummaryList);
 
         BigDecimal dividendSum = repository.getDividendSum(startDate, endDate, username);
@@ -46,13 +47,13 @@ public class DividendPortfolioService extends DividendService {
      * @param dividendSummaryList 配当の集計情報
      * @return 整理された配当の集計情報（ティッカー名と金額）
      */
-    List<DividendSummaryBean> consolidateSmallValues(List<Object[]> dividendSummaryList) {
+    List<DividendSummaryBean> consolidateSmallValues(List<DividendSumsByStockProjection> dividendSummaryList) {
         List<DividendSummaryBean> dividendSummaryBeanList = new ArrayList<>();
         DividendSummaryBean others = new DividendSummaryBean("その他", BigDecimal.ZERO);
 
-        for (Object[] dividendSummary : dividendSummaryList) {
-            String tickerSymbol = (String) dividendSummary[0];
-            BigDecimal amountReceived = (BigDecimal) dividendSummary[1];
+        for (DividendSumsByStockProjection dividendSummary : dividendSummaryList) {
+            String tickerSymbol = dividendSummary.getTickerSymbol();
+            BigDecimal amountReceived = dividendSummary.getAmountReceived();
 
             DividendSummaryBean dividendSummaryBean = new DividendSummaryBean(tickerSymbol, amountReceived);
 
