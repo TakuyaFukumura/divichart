@@ -32,13 +32,13 @@ class DividendPortfolioServiceTest {
     @Test
     void testCreateLabelPart() {
         BigDecimal dividendSum = BigDecimal.valueOf(100);
-        BigDecimal amountReceived = BigDecimal.valueOf(25);
+        BigDecimal amountReceived = BigDecimal.valueOf(25.01);
         String tickerSymbol = "MAIN";
 
         String result = dividendPortfolioService.createLabelPart(tickerSymbol, amountReceived, dividendSum);
 
         assertNotNull(result);
-        assertEquals("MAIN 25%", result);
+        assertEquals("MAIN 25.01%", result);
     }
 
     @Test
@@ -50,7 +50,7 @@ class DividendPortfolioServiceTest {
         String result = dividendPortfolioService.createLabelPart(tickerSymbol, amountReceived, dividendSum);
 
         assertNotNull(result);
-        assertEquals("MAIN 0%", result);
+        assertEquals("MAIN 0.00%", result);
     }
 
 //    @Test
