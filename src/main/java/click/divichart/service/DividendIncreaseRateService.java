@@ -43,7 +43,7 @@ public class DividendIncreaseRateService extends DividendService {
             );
 
             LocalDate previousYearStartDate = targetYearStartDate.minusYears(1);
-            LocalDate previousYearEndDate = previousYearStartDate.plusYears(1).minusDays(1);
+            LocalDate previousYearEndDate = targetYearEndDate.minusYears(1);
             BigDecimal previousYearsDividend = repository.getDividendSum(
                     previousYearStartDate,
                     previousYearEndDate,
