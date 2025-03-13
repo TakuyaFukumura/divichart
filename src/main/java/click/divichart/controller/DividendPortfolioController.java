@@ -46,14 +46,18 @@ public class DividendPortfolioController {
         List<DividendSummaryBean> dividendSummaryBeanList = service.getDividendPortfolioData(targetYear, user.getUsername());
 
         BigDecimal dividendSum = service.getDividendSum(targetYear, user.getUsername());
-        DividendPortfolioDto chartData = service.convertChartData(dividendSum, dividendSummaryBeanList);
 
-        chartData.setRecentYears(
-                pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList() // 逆順で文字列化
+        String chartData = service.getChartData(dividendSummaryBeanList);
+        String dividendPortfolioLabels = service.getDividendPortfolioLabels(dividendSum, dividendSummaryBeanList);
+
+        DividendPortfolioDto dividendPortfolioDto = new DividendPortfolioDto(
+                pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList(), // 逆順で文字列化
+                String.valueOf(targetYear),
+                dividendPortfolioLabels,
+                chartData
         );
-        chartData.setTargetYear(String.valueOf(targetYear));
 
-        model.addAttribute("dividendPortfolioDto", chartData);
+        model.addAttribute("dividendPortfolioDto", dividendPortfolioDto);
 
         return "dividendPortfolio";
     }

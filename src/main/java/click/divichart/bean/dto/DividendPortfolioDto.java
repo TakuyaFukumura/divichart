@@ -23,4 +23,10 @@ public class DividendPortfolioDto implements Serializable {
         this.labels = labels;
         this.chartData = chartData;
     }
+    public DividendPortfolioDto(List<String> recentYears, String targetYear, String labels, String chartData) {
+        this.recentYears = recentYears;
+        this.targetYear = targetYear;
+        this.labels = labels;
+        this.chartData = chartData;
+    }
 }
