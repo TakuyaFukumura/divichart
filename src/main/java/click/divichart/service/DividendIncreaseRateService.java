@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.StringJoiner;
 
 /**
@@ -23,18 +24,18 @@ public class DividendIncreaseRateService extends DividendService {
     /**
      * グラフ描画用に、指定年の配当増加率のデータを取得する
      *
-     * @param recentYears 近年を表す文字列配列
+     * @param pastYears 近年を表す文字列配列
      * @param username    ユーザ名
      * @return グラフ描画用文字列
      */
-    public String getChartData(String[] recentYears, String username) {
+    public String getChartData(List<Integer> pastYears, String username) {
         BigDecimal hundred = new BigDecimal("100");
-        BigDecimal[] rateData = new BigDecimal[recentYears.length];
+        BigDecimal[] rateData = new BigDecimal[pastYears.size()];
 
         for (int i = 0; i < rateData.length; i++) {
-            String targetYear = recentYears[rateData.length - 1 - i];
-            LocalDate targetYearStartDate = LocalDate.parse(targetYear + "-01-01");
-            LocalDate targetYearEndDate = targetYearStartDate.plusYears(1).minusDays(1);
+            int targetYear = pastYears.get(pastYears.size() - 1 - i);
+            LocalDate targetYearStartDate = LocalDate.of(targetYear, 1, 1);
+            LocalDate targetYearEndDate = LocalDate.of(targetYear, 12, 31);
             BigDecimal targetYearsDividend = repository.getDividendSum(
                     targetYearStartDate,
                     targetYearEndDate,
