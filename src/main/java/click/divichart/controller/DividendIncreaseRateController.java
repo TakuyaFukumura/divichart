@@ -34,7 +34,7 @@ public class DividendIncreaseRateController {
     public String index(Model model, MonthlyDividendForm monthlyDividendForm,
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("配当増加率表示");
-        String[] recentYears = service.getRecentYears(4).toArray(new String[0]);
+        String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
 
         String labels = service.getLabels(recentYears);
         String chartData = service.getChartData(recentYears, user.getUsername());
