@@ -59,31 +59,10 @@ public class DividendPortfolioService extends DividendService {
         return new DividendSummaryBean(projection.getTickerSymbol(), projection.getAmountReceived());
     }
 
-    public DividendPortfolioDto convertChartData(BigDecimal dividendSum, List<DividendSummaryBean> dividendSummaryBeans) {
-        List<String> labelParts = dividendSummaryBeans.stream()
-                .map(bean -> createLabelPart(
-                        bean.getTickerSymbol(),
-                        bean.getAmountReceived(),
-                        dividendSum
-                ))
-                .toList();
-
-        List<String> amountReceivedData = dividendSummaryBeans.stream()
-                .map(bean -> bean.getAmountReceived().toString())
-                .toList();
-
-        String labels = labelParts.isEmpty() ? "\"\"" : "\"" + String.join("\",\"", labelParts) + "\"";
-        String chartData = String.join(",", amountReceivedData);
-
-        return new DividendPortfolioDto(labels, chartData);
-    }
-
     public String getChartData(List<DividendSummaryBean> dividendSummaryBeans) {
-
         List<String> amountReceivedData = dividendSummaryBeans.stream()
                 .map(bean -> bean.getAmountReceived().toString())
                 .toList();
-
         return String.join(",", amountReceivedData);
     }
 
@@ -95,7 +74,6 @@ public class DividendPortfolioService extends DividendService {
                         dividendSum
                 ))
                 .toList();
-
         return labelParts.isEmpty() ? "\"\"" : "\"" + String.join("\",\"", labelParts) + "\"";
     }
 
@@ -111,7 +89,6 @@ public class DividendPortfolioService extends DividendService {
         BigDecimal percentageOfPortfolio = dividendSum.equals(BigDecimal.ZERO)
                 ? BigDecimal.ZERO
                 : amountReceived.multiply(BigDecimal.valueOf(100)).divide(dividendSum, 2, RoundingMode.HALF_UP);
-
         return String.format("%s %.2f%%", tickerSymbol, percentageOfPortfolio);
     }
 }
