@@ -89,7 +89,7 @@ class DividendPortfolioServiceTest {
 //        assertNotNull(chartData);
 //
 //        // 期待される結果を確認します
-//        assertEquals("\"AAPL 66.66%\",\"GOOG 33.34%\"", chartData.getLabels());
+//        assertEquals("\"AAPL 66.66%\",\"GOOG 33.34%\"", chartData.createYearLabels());
 //        assertEquals("100.01,50.01", chartData.getDividendPortfolioData());
 //    }
 //
@@ -102,7 +102,7 @@ class DividendPortfolioServiceTest {
 //        assertNotNull(chartData);
 //
 //        // 空のリストが渡された場合、空の文字列が返されることを確認します
-//        assertEquals("\"\"", chartData.getLabels());
+//        assertEquals("\"\"", chartData.createYearLabels());
 //        assertEquals("", chartData.getDividendPortfolioData());
 //    }
 

@@ -80,7 +80,7 @@ public class DividendService {
      * @return 年を「年」という形式で結合した文字列
      * @throws IllegalArgumentException 引数として空のリストまたは null が渡された場合にスローされます。
      */
-    public String getLabels(List<Integer> pastYears) {
+    public String createYearLabels(List<Integer> pastYears) {
         if (pastYears == null || pastYears.isEmpty()) {
             throw new IllegalArgumentException("過去の年のリストが空です");
         }

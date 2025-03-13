@@ -41,7 +41,7 @@ public class DividendIncreaseController {
         int pastYearsCount = 6;
         List<Integer> pastYears = service.getPastYears(pastYearsCount);
 
-        String labels = service.getLabels(pastYears);
+        String labels = service.createYearLabels(pastYears);
 
         List<BigDecimal> dividendIncreaseData = service.getDividendIncreaseData(pastYears, user.getUsername());
         // TODO:将来的には両替して表示したい
