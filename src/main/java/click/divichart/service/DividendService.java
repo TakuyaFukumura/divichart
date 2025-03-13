@@ -94,13 +94,13 @@ public class DividendService {
     /**
      * 特定の年の配当金合計を取得するメソッドです。
      *
-     * @param year     対象となる年
-     * @param username ユーザー名。配当のデータを取得する際に使用されます。
+     * @param targetYear 対象となる年
+     * @param username   ユーザー名。配当のデータを取得する際に使用されます。
      * @return 指定した年の配当金合計
      */
-    public BigDecimal getDividendSum(int year, String username) {
-        LocalDate startDate = LocalDate.of(year, 1, 1);
-        LocalDate endDate = LocalDate.of(year, 12, 31);
+    public BigDecimal getDividendSum(int targetYear, String username) {
+        LocalDate startDate = LocalDate.of(targetYear, 1, 1);
+        LocalDate endDate = LocalDate.of(targetYear, 12, 31);
         return repository.getDividendSum(startDate, endDate, username);
     }
 
@@ -133,29 +133,6 @@ public class DividendService {
             chartData.add(dividend.toString());
         }
         return chartData.toString();
-    }
-
-    /**
-     * 月別配当金額を取得する
-     *
-     * @param targetYear 対象年
-     * @param username   ユーザ名
-     * @return 月別配当配列
-     */
-    protected BigDecimal[] getMonthlyDividend(String targetYear, String username) {
-        BigDecimal[] monthlyDividend = new BigDecimal[TWELVE_MONTHS];
-
-        for (int i = 0; i < TWELVE_MONTHS; i++) {
-            int month = i + 1;
-            String formattedMonth = String.format("%02d", month);
-
-            LocalDate startDate = LocalDate.parse(targetYear + "-" + formattedMonth + "-01");
-            LocalDate endDate = startDate.plusMonths(1).minusDays(1);
-
-            BigDecimal dividendSum = repository.getDividendSum(startDate, endDate, username);
-            monthlyDividend[i] = dividendSum;
-        }
-        return monthlyDividend;
     }
 
     /**
@@ -206,19 +183,5 @@ public class DividendService {
      */
     public boolean isNotYear(String year) {
         return !Pattern.matches("^[1-9]\\d{3}$", year);
-    }
-
-    /**
-     * 表示対象年を取得する
-     *
-     * @param currentYear 今年
-     * @param targetYear  表示対象年
-     * @return 表示対象年が不正であれば今年を返す。そうでなければ表示対象年をそのまま返す。
-     */
-    public String getTargetYear(String currentYear, String targetYear) {
-        if (targetYear.isEmpty() || this.isNotYear(targetYear)) {
-            return currentYear;
-        }
-        return targetYear;
     }
 }
