@@ -1,25 +1,19 @@
 package click.divichart.bean.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 配当ポートフォリオ用DTO
  */
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@AllArgsConstructor
 public class DividendPortfolioDto implements Serializable {
-    private String[] recentYears;
+    private List<String> recentYears;
     private String targetYear;
     private String labels;
     private String chartData;
-
-    public DividendPortfolioDto(String labels, String chartData) {
-        this.labels = labels;
-        this.chartData = chartData;
-    }
 }

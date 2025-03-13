@@ -1,5 +1,6 @@
 package click.divichart.controller;
 
+import click.divichart.bean.DividendSummaryBean;
 import click.divichart.bean.dto.DividendPortfolioDto;
 import click.divichart.bean.form.DividendPortfolioForm;
 import click.divichart.service.DividendPortfolioService;
@@ -11,6 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.math.BigDecimal;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * 配当ポートフォリオ用コントローラ
@@ -35,12 +40,22 @@ public class DividendPortfolioController {
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("配当ポートフォリオ表示");
 
-        String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
-        String targetYear = service.getTargetYear(recentYears[0], dividendPortfolioForm.getTargetYear());
+        int targetYear = service.getTargetYear(dividendPortfolioForm.getTargetYear());
+        List<Integer> pastYears = service.getPastYears(5);
 
-        DividendPortfolioDto dividendPortfolioDto = service.getChartData(targetYear, user.getUsername());
-        dividendPortfolioDto.setRecentYears(recentYears);
-        dividendPortfolioDto.setTargetYear(targetYear);
+        List<DividendSummaryBean> dividendSummaryBeanList = service.getDividendPortfolioData(targetYear, user.getUsername());
+
+        BigDecimal dividendSum = service.getDividendSum(targetYear, user.getUsername());
+
+        String chartData = service.getChartData(dividendSummaryBeanList);
+        String dividendPortfolioLabels = service.getDividendPortfolioLabels(dividendSum, dividendSummaryBeanList);
+
+        DividendPortfolioDto dividendPortfolioDto = new DividendPortfolioDto(
+                pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList(), // 逆順で文字列化
+                String.valueOf(targetYear),
+                dividendPortfolioLabels,
+                chartData
+        );
 
         model.addAttribute("dividendPortfolioDto", dividendPortfolioDto);
 
