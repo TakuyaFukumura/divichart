@@ -44,44 +44,44 @@ class DividendServiceTest {
     }
 
     @Test
-    @DisplayName("getPastYears: 指定年数のリストを取得できる")
-    void getPastYears() {
+    @DisplayName("getLastNYears: 指定年数のリストを取得できる")
+    void getLastNYears() {
         int pastYearsCount = 3;
         int currentYear = LocalDate.now().getYear();
         List<Integer> expected = List.of(currentYear - 2, currentYear - 1, currentYear);
 
-        List<Integer> actual = dividendService.getPastYears(pastYearsCount);
+        List<Integer> actual = dividendService.getLastNYears(pastYearsCount);
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void testGetLabels_withMultipleYears() {
+    void testCreateYearLabels_withMultipleYears() {
         List<Integer> pastYears = Arrays.asList(2021, 2022, 2023);
         String expected = "\"2021年\",\"2022年\",\"2023年\"";
-        assertEquals(expected, dividendService.getLabels(pastYears));
+        assertEquals(expected, dividendService.createYearLabels(pastYears));
     }
 
     @Test
-    void testGetLabels_withSingleYear() {
+    void testCreateYearLabels_withSingleYear() {
         List<Integer> pastYears = Collections.singletonList(2023);
         String expected = "\"2023年\"";
-        assertEquals(expected, dividendService.getLabels(pastYears));
+        assertEquals(expected, dividendService.createYearLabels(pastYears));
     }
 
     @Test
-    void testGetLabels_withEmptyList_shouldThrowException() {
+    void testCreateYearLabels_withEmptyList_shouldThrowException() {
         List<Integer> pastYears = Collections.emptyList();
         Exception exception = assertThrows(
-                IllegalArgumentException.class, () -> dividendService.getLabels(pastYears)
+                IllegalArgumentException.class, () -> dividendService.createYearLabels(pastYears)
         );
         assertEquals("過去の年のリストが空です", exception.getMessage());
     }
 
     @Test
-    void testGetLabels_withNullList_shouldThrowException() {
+    void testCreateYearLabels_withNullList_shouldThrowException() {
         Exception exception = assertThrows(
-                IllegalArgumentException.class, () -> dividendService.getLabels(null)
+                IllegalArgumentException.class, () -> dividendService.createYearLabels(null)
         );
         assertEquals("過去の年のリストが空です", exception.getMessage());
     }

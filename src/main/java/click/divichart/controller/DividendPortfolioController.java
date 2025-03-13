@@ -41,7 +41,7 @@ public class DividendPortfolioController {
         log.debug("配当ポートフォリオ表示");
 
         int targetYear = service.getTargetYear(dividendPortfolioForm.getTargetYear());
-        List<Integer> pastYears = service.getPastYears(5);
+        List<Integer> pastYears = service.getLastNYears(5);
 
         List<DividendSummaryBean> dividendSummaryBeanList = service.getDividendPortfolioData(targetYear, user.getUsername());
 

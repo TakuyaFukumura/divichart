@@ -42,7 +42,7 @@ public class MonthlyDividendController {
         int targetYear = service.getTargetYear(monthlyDividendForm.getTargetYear());
         List<BigDecimal> monthlyDividend = service.getMonthlyDividendData(targetYear, user.getUsername());
         String chartData = service.createChartData(monthlyDividend);
-        List<Integer> pastYears = service.getPastYears(5);
+        List<Integer> pastYears = service.getLastNYears(5);
 
         MonthlyDividendDto monthlyDividendDto = new MonthlyDividendDto(
                 pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList(), // 逆順で文字列化
