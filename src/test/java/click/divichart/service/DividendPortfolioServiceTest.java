@@ -29,6 +29,30 @@ class DividendPortfolioServiceTest {
         dividendPortfolioService = new DividendPortfolioService(repository);
     }
 
+    @Test
+    void testCreateLabelPart() {
+        BigDecimal dividendSum = BigDecimal.valueOf(100);
+        BigDecimal amountReceived = BigDecimal.valueOf(25);
+        String tickerSymbol = "MAIN";
+
+        String result = dividendPortfolioService.createLabelPart(tickerSymbol, amountReceived, dividendSum);
+
+        assertNotNull(result);
+        assertEquals("MAIN 25%", result);
+    }
+
+    @Test
+    void testCreateLabelPartWithZeroDividendSum() {
+        BigDecimal dividendSum = BigDecimal.ZERO;
+        BigDecimal amountReceived = BigDecimal.valueOf(25);
+        String tickerSymbol = "MAIN";
+
+        String result = dividendPortfolioService.createLabelPart(tickerSymbol, amountReceived, dividendSum);
+
+        assertNotNull(result);
+        assertEquals("MAIN 0%", result);
+    }
+
 //    @Test
 //    void testConsolidateSmallValuesWithMocks() {
 //        List<DividendSumsByStockProjection> dividendSummaryList = new ArrayList<>();
