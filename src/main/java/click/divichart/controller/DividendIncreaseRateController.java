@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 /**
  * 配当増加率グラフ用コントローラ
  */
@@ -35,8 +37,9 @@ public class DividendIncreaseRateController {
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("配当増加率表示");
         String[] recentYears = service.getRecentYears(5).toArray(new String[0]);
+        List<Integer> pastYears = service.getLastNYears(5);
+        String labels = service.createYearLabels(pastYears);
 
-        String labels = service.getLabels(recentYears);
         String chartData = service.getChartData(recentYears, user.getUsername());
 
         DividendIncreaseRateDto dividendIncreaseRateDto = new DividendIncreaseRateDto(labels, chartData);
