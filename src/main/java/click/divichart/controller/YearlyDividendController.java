@@ -37,7 +37,7 @@ public class YearlyDividendController {
     public String index(Model model, @AuthenticationPrincipal UserDetails user) {
         log.debug("年別配当グラフ表示");
 
-        List<Integer> pastYears = service.getPastYears(NUM_OF_YEARS);
+        List<Integer> pastYears = service.getLastNYears(NUM_OF_YEARS);
         String labels = service.createYearLabels(pastYears);
         List<BigDecimal> yearlyDividendData = service.getYearlyDividendData(pastYears, user.getUsername());
         String chartData = service.createChartData(yearlyDividendData);

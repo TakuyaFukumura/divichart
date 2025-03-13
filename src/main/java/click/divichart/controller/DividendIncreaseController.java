@@ -39,7 +39,7 @@ public class DividendIncreaseController {
         log.debug("配当増加額表示");
 
         int pastYearsCount = 6;
-        List<Integer> pastYears = service.getPastYears(pastYearsCount);
+        List<Integer> pastYears = service.getLastNYears(pastYearsCount);
 
         String labels = service.createYearLabels(pastYears);
 

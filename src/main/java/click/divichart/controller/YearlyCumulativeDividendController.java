@@ -44,7 +44,7 @@ public class YearlyCumulativeDividendController {
                 service.getYearlyCumulativeDividendData(targetYear, user.getUsername());
         String chartData = service.createChartData(yearlyCumulativeDividendData);
 
-        List<Integer> pastYears = service.getPastYears(5);
+        List<Integer> pastYears = service.getLastNYears(5);
 
         YearlyCumulativeDividendDto yearlyCumulativeDividendDto = new YearlyCumulativeDividendDto(
                 pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList(), // 逆順で文字列化

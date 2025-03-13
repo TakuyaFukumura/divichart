@@ -55,7 +55,7 @@ public class DividendService {
      * @return 指定された年数分の過去の年を含むリスト（昇順）
      * @throws IllegalArgumentException pastYearsCount が 1 未満の場合
      */
-    public List<Integer> getPastYears(int pastYearsCount) {
+    public List<Integer> getLastNYears(int pastYearsCount) {
         if (pastYearsCount < 1) {
             throw new IllegalArgumentException("pastYearsCount must be at least 1");
         }

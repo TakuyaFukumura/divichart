@@ -44,13 +44,13 @@ class DividendServiceTest {
     }
 
     @Test
-    @DisplayName("getPastYears: 指定年数のリストを取得できる")
-    void getPastYears() {
+    @DisplayName("getLastNYears: 指定年数のリストを取得できる")
+    void getLastNYears() {
         int pastYearsCount = 3;
         int currentYear = LocalDate.now().getYear();
         List<Integer> expected = List.of(currentYear - 2, currentYear - 1, currentYear);
 
-        List<Integer> actual = dividendService.getPastYears(pastYearsCount);
+        List<Integer> actual = dividendService.getLastNYears(pastYearsCount);
 
         assertEquals(expected, actual);
     }
