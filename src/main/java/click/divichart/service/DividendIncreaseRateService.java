@@ -21,16 +21,9 @@ public class DividendIncreaseRateService extends DividendService {
         super(dividendHistoryRepository);
     }
 
-    /**
-     * グラフ描画用に、指定年の配当増加率のデータを取得する
-     *
-     * @param pastYears 近年を表す文字列配列
-     * @param username    ユーザ名
-     * @return グラフ描画用文字列
-     */
-    public String getChartData(List<Integer> pastYears, String username) {
+    public BigDecimal[] getRateData(List<Integer> pastYears, String username) {
         BigDecimal hundred = new BigDecimal("100");
-        BigDecimal[] rateData = new BigDecimal[pastYears.size()];
+        BigDecimal[] rateData = new BigDecimal[pastYears.size()]; // TODO:リストに変えたい
 
         for (int i = 0; i < rateData.length; i++) {
             int targetYear = pastYears.get(i);
@@ -52,14 +45,14 @@ public class DividendIncreaseRateService extends DividendService {
 
             if (BigDecimal.ZERO.equals(previousYearsDividend)) {
                 log.error("cannot divide by zero");
-                return "";
+                return new BigDecimal[]{};
             } else {
                 // 増加率 = (対象年の配当 - 前年の配当) * 100 / 前年の配当
                 BigDecimal increaseAmount = targetYearsDividend.subtract(previousYearsDividend);
                 rateData[i] = increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP);
             }
         }
-        return createChartData(rateData);
+        return rateData;
     }
 
     /**

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -39,7 +40,8 @@ public class DividendIncreaseRateController {
         List<Integer> pastYears = service.getLastNYears(5);
         String labels = service.createYearLabels(pastYears);
 
-        String chartData = service.getChartData(pastYears, user.getUsername());
+        BigDecimal[] rateData = service.getRateData(pastYears, user.getUsername());
+        String chartData = service.createChartData(rateData);
 
         DividendIncreaseRateDto dividendIncreaseRateDto = new DividendIncreaseRateDto(labels, chartData);
         model.addAttribute("dividendIncreaseRateDto", dividendIncreaseRateDto);
