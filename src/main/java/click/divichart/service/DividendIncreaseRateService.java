@@ -26,8 +26,7 @@ public class DividendIncreaseRateService extends DividendService {
         BigDecimal hundred = new BigDecimal("100");
         List<BigDecimal> rateData = new ArrayList<>();
 
-        for (int i = 0; i < pastYears.size(); i++) {
-            int targetYear = pastYears.get(i);
+        for (int targetYear : pastYears) {
             LocalDate targetYearStartDate = LocalDate.of(targetYear, 1, 1);
             LocalDate targetYearEndDate = LocalDate.of(targetYear, 12, 31);
             BigDecimal targetYearsDividend = repository.getDividendSum(
