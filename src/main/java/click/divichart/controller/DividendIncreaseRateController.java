@@ -40,7 +40,7 @@ public class DividendIncreaseRateController {
         List<Integer> pastYears = service.getLastNYears(5);
         String labels = service.createYearLabels(pastYears);
 
-        BigDecimal[] rateData = service.getRateData(pastYears, user.getUsername());
+        List<BigDecimal> rateData = service.getRateData(pastYears, user.getUsername());
         String chartData = service.createChartData(rateData);
 
         DividendIncreaseRateDto dividendIncreaseRateDto = new DividendIncreaseRateDto(labels, chartData);

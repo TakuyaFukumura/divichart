@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -21,11 +22,11 @@ public class DividendIncreaseRateService extends DividendService {
         super(dividendHistoryRepository);
     }
 
-    public BigDecimal[] getRateData(List<Integer> pastYears, String username) {
+    public List<BigDecimal> getRateData(List<Integer> pastYears, String username) {
         BigDecimal hundred = new BigDecimal("100");
-        BigDecimal[] rateData = new BigDecimal[pastYears.size()]; // TODO:リストに変えたい
+        List<BigDecimal> rateData = new ArrayList<>();
 
-        for (int i = 0; i < rateData.length; i++) {
+        for (int i = 0; i < pastYears.size(); i++) {
             int targetYear = pastYears.get(i);
             LocalDate targetYearStartDate = LocalDate.of(targetYear, 1, 1);
             LocalDate targetYearEndDate = LocalDate.of(targetYear, 12, 31);
@@ -45,11 +46,11 @@ public class DividendIncreaseRateService extends DividendService {
 
             if (BigDecimal.ZERO.equals(previousYearsDividend)) {
                 log.error("cannot divide by zero");
-                return new BigDecimal[]{};
+                return new ArrayList<>();
             } else {
                 // 増加率 = (対象年の配当 - 前年の配当) * 100 / 前年の配当
                 BigDecimal increaseAmount = targetYearsDividend.subtract(previousYearsDividend);
-                rateData[i] = increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP);
+                rateData.add(increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP));
             }
         }
         return rateData;
