@@ -42,6 +42,10 @@ public class DividendAchievementRateService extends DividendService {
      */
     public List<BigDecimal> getDividendAchievementRateData(List<Integer> recentYearsAsc,
                                                            BigDecimal annualGoalDividendAmount, String username) {
+        if (BigDecimal.ZERO.equals(annualGoalDividendAmount)) {
+            log.error("cannot divide by zero");
+            return Collections.emptyList();
+        }
 
         List<BigDecimal> yearlyDividends = new ArrayList<>();
         for (Integer year : recentYearsAsc) {
@@ -49,11 +53,6 @@ public class DividendAchievementRateService extends DividendService {
             LocalDate endDate = LocalDate.of(year, 12, 31);
             BigDecimal yearlyDividend = repository.getDividendSum(startDate, endDate, username);
             yearlyDividends.add(yearlyDividend);
-        }
-
-        if (BigDecimal.ZERO.equals(annualGoalDividendAmount)) {
-            log.error("cannot divide by zero");
-            return Collections.emptyList();
         }
 
         // 達成率を計算する
