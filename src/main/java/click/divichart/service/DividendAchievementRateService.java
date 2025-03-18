@@ -36,22 +36,22 @@ public class DividendAchievementRateService extends DividendService {
         List<Integer> recentYearsAsc = pastYears.stream().sorted().toList();
 
         List<BigDecimal> yearlyDividends = new ArrayList<>();
-        for (int i = 0; i < pastYears.size(); i++) {
-            LocalDate startDate = LocalDate.of(recentYearsAsc.get(i), 1, 1);
-            LocalDate endDate = LocalDate.of(recentYearsAsc.get(i), 12, 31);
+        for (Integer year : recentYearsAsc) {
+            LocalDate startDate = LocalDate.of(year, 1, 1);
+            LocalDate endDate = LocalDate.of(year, 12, 31);
             BigDecimal yearlyDividend = repository.getDividendSum(startDate, endDate, username);
             yearlyDividends.add(yearlyDividend);
         }
 
         // 達成率を計算する
         List<BigDecimal> dividendAchievementRates = new ArrayList<>();
-        for (int i = 0; i < pastYears.size(); i++) {
+        for (BigDecimal yearlyDividend : yearlyDividends) {
             if (BigDecimal.ZERO.equals(annualGoalDividendAmount)) {
                 log.error("cannot divide by zero");
                 return new ArrayList<>();
             } else {
                 // 目標配当達成率 = 年間配当 * 100 / 年間目標配当
-                dividendAchievementRates.add(yearlyDividends.get(i).multiply(HUNDRED)
+                dividendAchievementRates.add(yearlyDividend.multiply(HUNDRED)
                         .divide(annualGoalDividendAmount, RoundingMode.HALF_UP));
             }
         }
