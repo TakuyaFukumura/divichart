@@ -25,7 +25,7 @@ public class DividendPortfolioService extends DividendService {
      * 配当ポートフォリオデータを生成します。
      *
      * @param targetYear データ作成対象年
-     * @param username ユーザ名
+     * @param username   ユーザ名
      * @return 最大15銘柄＋その他で構成されるデータ
      * @throws IllegalArgumentException 無効な入力の場合
      * @see DividendPortfolioDto 戻り値の形式詳細
