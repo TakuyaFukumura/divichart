@@ -11,9 +11,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class DividendAchievementRateForm implements Serializable {
-    private String targetDividend; // 目標配当
+    private String goalDividendAmount; // 目標配当
 
     DividendAchievementRateForm() {
-        this.targetDividend = "";
+        this.goalDividendAmount = "";
     }
 }
