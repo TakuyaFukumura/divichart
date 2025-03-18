@@ -40,8 +40,8 @@ public class DividendAchievementRateService extends DividendService {
      * @param username                 ユーザ名
      * @return グラフ描画用文字列
      */
-    public List<BigDecimal> getDividendAchievementRateData(List<Integer> recentYearsAsc,
-                                                           BigDecimal annualGoalDividendAmount, String username) {
+    public List<BigDecimal> getDividendAchievementRates(List<Integer> recentYearsAsc,
+                                                        BigDecimal annualGoalDividendAmount, String username) {
         if (BigDecimal.ZERO.equals(annualGoalDividendAmount)) {
             log.error("cannot divide by zero");
             return Collections.emptyList();
@@ -64,12 +64,12 @@ public class DividendAchievementRateService extends DividendService {
     /**
      * 円に両替して返す
      *
-     * @param targetDividend 目標配当
-     * @param rate           ドル円両替レート
+     * @param goalDividendAmount 目標配当
+     * @param rate               ドル円両替レート
      * @return 円換算の目標配当 例）1,234,567
      */
-    public String exchange(String targetDividend, String rate) {
-        BigDecimal targetDividendYen = new BigDecimal(targetDividend).multiply(new BigDecimal(rate));
+    public String exchange(String goalDividendAmount, String rate) {
+        BigDecimal targetDividendYen = new BigDecimal(goalDividendAmount).multiply(new BigDecimal(rate));
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         return decimalFormat.format(targetDividendYen);
     }
