@@ -18,12 +18,13 @@ import java.util.StringJoiner;
 @Service
 public class DividendIncreaseRateService extends DividendService {
 
+    public static final BigDecimal HUNDRED = new BigDecimal("100");
+
     public DividendIncreaseRateService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);
     }
 
     public List<BigDecimal> getRateData(List<Integer> pastYears, String username) {
-        BigDecimal hundred = new BigDecimal("100");
         List<BigDecimal> rateData = new ArrayList<>();
 
         for (int targetYear : pastYears) {
@@ -49,7 +50,7 @@ public class DividendIncreaseRateService extends DividendService {
             } else {
                 // 増加率 = (対象年の配当 - 前年の配当) * 100 / 前年の配当
                 BigDecimal increaseAmount = targetYearsDividend.subtract(previousYearsDividend);
-                BigDecimal increaseRate = increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP);
+                BigDecimal increaseRate = increaseAmount.multiply(HUNDRED).divide(previousYearsDividend, RoundingMode.HALF_UP);
                 rateData.add(increaseRate);
             }
         }
