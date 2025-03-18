@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 /**
  * 配当達成率グラフ用コントローラ
  */
@@ -33,18 +36,25 @@ public class DividendAchievementRateController {
     @GetMapping
     public String index(Model model, DividendAchievementRateForm form, @AuthenticationPrincipal UserDetails user) {
         log.debug("配当達成率表示");
-        String targetDividend = (form.getTargetDividend().isEmpty()) ? "135" : form.getTargetDividend();
+        String goalDividendAmount = (form.getGoalDividendAmount().isEmpty()) ? "135" : form.getGoalDividendAmount();
 
-        String labels = service.getLabels(5);
-        String chartData = service.getChartData(5, targetDividend, user.getUsername());
+        List<Integer> pastYears = service.getLastNYears(5);
 
-        String targetDividendYen = service.exchange(targetDividend, "150");
+        List<Integer> recentYearsAsc = service.getRecentYearsAsc(pastYears);
+        BigDecimal annualGoalDividendAmount = service.getAnnualGoalDividendAmount(goalDividendAmount);
+
+        List<BigDecimal> dividendAchievementRates = service.getDividendAchievementRates(recentYearsAsc, annualGoalDividendAmount, user.getUsername());
+        String chartData = service.createChartData(dividendAchievementRates);
+
+        String goalDividendAmountYen = service.exchange(goalDividendAmount, "150");
+
+        String labels = service.createYearLabels(pastYears);
 
         DividendAchievementRateDto dividendAchievementRateDto = new DividendAchievementRateDto(
                 labels,
                 chartData,
-                targetDividend,
-                targetDividendYen
+                goalDividendAmount,
+                goalDividendAmountYen
         );
         model.addAttribute("dividendAchievementRateDto", dividendAchievementRateDto);
 
