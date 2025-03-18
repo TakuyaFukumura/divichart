@@ -30,8 +30,8 @@ public class DividendAchievementRateService extends DividendService {
      * @return グラフ描画用文字列
      */
     public List<BigDecimal> getDividendAchievementRateData(List<Integer> pastYears, String targetDividend, String username) {
-        BigDecimal twelveMonths = new BigDecimal("12");
-        BigDecimal annualGoalDividendAmount = new BigDecimal(targetDividend).multiply(twelveMonths);
+        BigDecimal monthsInYear = new BigDecimal("12");
+        BigDecimal annualGoalDividendAmount = new BigDecimal(targetDividend).multiply(monthsInYear);
         String[] recentYears = getRecentYearsAsc(pastYears.size());
 
         List<BigDecimal> yearlyDividend = new ArrayList<>();
