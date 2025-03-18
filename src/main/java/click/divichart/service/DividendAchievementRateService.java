@@ -16,6 +16,8 @@ import java.util.List;
 public class DividendAchievementRateService extends DividendService {
 
     public static final BigDecimal HUNDRED = new BigDecimal("100");
+    public static final BigDecimal MONTHS_IN_YEAR = new BigDecimal("12");
+
 
     public DividendAchievementRateService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);
@@ -30,8 +32,7 @@ public class DividendAchievementRateService extends DividendService {
      * @return グラフ描画用文字列
      */
     public List<BigDecimal> getDividendAchievementRateData(List<Integer> pastYears, String targetDividend, String username) {
-        BigDecimal monthsInYear = new BigDecimal("12");
-        BigDecimal annualGoalDividendAmount = new BigDecimal(targetDividend).multiply(monthsInYear);
+        BigDecimal annualGoalDividendAmount = new BigDecimal(targetDividend).multiply(MONTHS_IN_YEAR);
         String[] recentYears = getRecentYearsAsc(pastYears.size());
 
         List<BigDecimal> yearlyDividend = new ArrayList<>();
