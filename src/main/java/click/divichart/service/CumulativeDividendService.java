@@ -30,17 +30,8 @@ public class CumulativeDividendService extends DividendService {
             BigDecimal targetYearsDividend = repository.getDividendSum(targetYearStartDate, targetYearEndDate, username);
             yearlyDividends.add(targetYearsDividend);
         }
-        return getCumulativeDividend(yearlyDividends);
-    }
 
-    /**
-     * 累計額の配列にして返す
-     *
-     * @param yearlyDividend 年別配当
-     * @return 累計配当
-     */
-    List<BigDecimal> getCumulativeDividend(List<BigDecimal> yearlyDividend) {
-        List<BigDecimal> cumulativeDividend = new ArrayList<>(yearlyDividend);
+        List<BigDecimal> cumulativeDividend = new ArrayList<>(yearlyDividends);
 
         for (int i = 1; i < cumulativeDividend.size(); i++) {
             cumulativeDividend.set(i, cumulativeDividend.get(i).add(cumulativeDividend.get(i - 1)));
