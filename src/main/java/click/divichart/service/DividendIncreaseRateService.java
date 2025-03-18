@@ -56,19 +56,4 @@ public class DividendIncreaseRateService extends DividendService {
         }
         return rateData;
     }
-
-    /**
-     * グラフのラベルを取得する
-     *
-     * @param recentYears 近年を表す文字列配列
-     * @return グラフ描画用ラベル文字列
-     */
-    public String getLabels(String[] recentYears) {
-        StringJoiner labels = new StringJoiner("年\",\"", "\"", "年\"");
-        for (int i = recentYears.length - 1; i >= 0; i--) {
-            String year = recentYears[i];
-            labels.add(year);
-        }
-        return labels.toString();
-    }
 }
