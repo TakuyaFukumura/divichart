@@ -33,13 +33,14 @@ public class DividendAchievementRateService extends DividendService {
      */
     public List<BigDecimal> getDividendAchievementRateData(List<Integer> pastYears, String targetDividend, String username) {
         BigDecimal annualGoalDividendAmount = new BigDecimal(targetDividend).multiply(MONTHS_IN_YEAR);
-        String[] recentYears = getRecentYearsAsc(pastYears.size());
+        String[] recentYears = getRecentYearsAsc(pastYears.size());//TODO:ここの処理変えたい
 
-        List<BigDecimal> yearlyDividend = new ArrayList<>();
+        List<BigDecimal> yearlyDividends = new ArrayList<>();
         for (int i = 0; i < pastYears.size(); i++) {
-            LocalDate startDate = LocalDate.parse(recentYears[i] + "-01-01");
-            LocalDate endDate = startDate.plusYears(1).minusDays(1);
-            yearlyDividend.add(repository.getDividendSum(startDate, endDate, username));
+            LocalDate startDate = LocalDate.parse(recentYears[i] + "-01-01");//TODO:ofに変えたい
+            LocalDate endDate = startDate.plusYears(1).minusDays(1);//TODO:LocalDate.ofを使いたい
+            BigDecimal yearlyDividend = repository.getDividendSum(startDate, endDate, username);
+            yearlyDividends.add(yearlyDividend);
         }
 
         // 達成率を計算する
@@ -50,7 +51,7 @@ public class DividendAchievementRateService extends DividendService {
                 return new ArrayList<>();
             } else {
                 // 目標配当達成率 = 年間配当 * 100 / 年間目標配当
-                dividendAchievementRates.add(yearlyDividend.get(i).multiply(HUNDRED)
+                dividendAchievementRates.add(yearlyDividends.get(i).multiply(HUNDRED)
                         .divide(annualGoalDividendAmount, RoundingMode.HALF_UP));
             }
         }
