@@ -43,17 +43,17 @@ public class DividendAchievementRateService extends DividendService {
             yearlyDividends.add(yearlyDividend);
         }
 
+        if (BigDecimal.ZERO.equals(annualGoalDividendAmount)) {
+            log.error("cannot divide by zero");
+            return new ArrayList<>();
+        }
+
         // 達成率を計算する
         List<BigDecimal> dividendAchievementRates = new ArrayList<>();
         for (BigDecimal yearlyDividend : yearlyDividends) {
-            if (BigDecimal.ZERO.equals(annualGoalDividendAmount)) {
-                log.error("cannot divide by zero");
-                return new ArrayList<>();
-            } else {
-                // 目標配当達成率 = 年間配当 * 100 / 年間目標配当
-                dividendAchievementRates.add(yearlyDividend.multiply(HUNDRED)
-                        .divide(annualGoalDividendAmount, RoundingMode.HALF_UP));
-            }
+            // 目標配当達成率 = 年間配当 / 年間目標配当 * 100
+            BigDecimal dividendAchievementRate = yearlyDividend.divide(annualGoalDividendAmount, RoundingMode.HALF_UP);
+            dividendAchievementRates.add(dividendAchievementRate.multiply(HUNDRED));
         }
 
         return dividendAchievementRates;
