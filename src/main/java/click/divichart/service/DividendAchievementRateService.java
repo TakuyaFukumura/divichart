@@ -33,12 +33,12 @@ public class DividendAchievementRateService extends DividendService {
      */
     public List<BigDecimal> getDividendAchievementRateData(List<Integer> pastYears, String targetDividend, String username) {
         BigDecimal annualGoalDividendAmount = new BigDecimal(targetDividend).multiply(MONTHS_IN_YEAR);
-        String[] recentYears = getRecentYearsAsc(pastYears.size());//TODO:ここの処理変えたい
+        List<Integer> recentYearsAsc = pastYears.stream().sorted().toList();
 
         List<BigDecimal> yearlyDividends = new ArrayList<>();
         for (int i = 0; i < pastYears.size(); i++) {
-            LocalDate startDate = LocalDate.parse(recentYears[i] + "-01-01");//TODO:ofに変えたい
-            LocalDate endDate = startDate.plusYears(1).minusDays(1);//TODO:LocalDate.ofを使いたい
+            LocalDate startDate = LocalDate.of(recentYearsAsc.get(i), 1, 1);
+            LocalDate endDate = LocalDate.of(recentYearsAsc.get(i), 12, 31);
             BigDecimal yearlyDividend = repository.getDividendSum(startDate, endDate, username);
             yearlyDividends.add(yearlyDividend);
         }
