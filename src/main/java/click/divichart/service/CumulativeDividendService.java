@@ -23,19 +23,19 @@ public class CumulativeDividendService extends DividendService {
      * @return グラフ描画用文字列
      */
     public List<BigDecimal> getCumulativeDividendData(List<Integer> pastYears, String username) {
-        List<BigDecimal> yearlyDividends = new ArrayList<>();
+        List<BigDecimal> cumulativeDividend = new ArrayList<>();
+
+        BigDecimal previousSum = BigDecimal.ZERO;
         for (int targetYear : pastYears) {
             LocalDate targetYearStartDate = LocalDate.of(targetYear, 1, 1);
             LocalDate targetYearEndDate = LocalDate.of(targetYear, 12, 31);
             BigDecimal targetYearsDividend = repository.getDividendSum(targetYearStartDate, targetYearEndDate, username);
-            yearlyDividends.add(targetYearsDividend);
+
+            // 累積配当金を計算してリストに追加
+            previousSum = previousSum.add(targetYearsDividend);
+            cumulativeDividend.add(previousSum);
         }
 
-        List<BigDecimal> cumulativeDividend = new ArrayList<>(yearlyDividends);
-
-        for (int i = 1; i < cumulativeDividend.size(); i++) {
-            cumulativeDividend.set(i, cumulativeDividend.get(i).add(cumulativeDividend.get(i - 1)));
-        }
         return cumulativeDividend;
     }
 }
