@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.StringJoiner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 配当増加率グラフ用Service
@@ -16,25 +17,18 @@ import java.util.StringJoiner;
 @Service
 public class DividendIncreaseRateService extends DividendService {
 
+    public static final BigDecimal HUNDRED = new BigDecimal("100");
+
     public DividendIncreaseRateService(DividendHistoryRepository dividendHistoryRepository) {
         super(dividendHistoryRepository);
     }
 
-    /**
-     * グラフ描画用に、指定年の配当増加率のデータを取得する
-     *
-     * @param recentYears 近年を表す文字列配列
-     * @param username    ユーザ名
-     * @return グラフ描画用文字列
-     */
-    public String getChartData(String[] recentYears, String username) {
-        BigDecimal hundred = new BigDecimal("100");
-        BigDecimal[] rateData = new BigDecimal[recentYears.length];
+    public List<BigDecimal> getDividendIncreaseRateData(List<Integer> pastYears, String username) {
+        List<BigDecimal> rateData = new ArrayList<>();
 
-        for (int i = 0; i < rateData.length; i++) {
-            String targetYear = recentYears[rateData.length - 1 - i];
-            LocalDate targetYearStartDate = LocalDate.parse(targetYear + "-01-01");
-            LocalDate targetYearEndDate = targetYearStartDate.plusYears(1).minusDays(1);
+        for (int targetYear : pastYears) {
+            LocalDate targetYearStartDate = LocalDate.of(targetYear, 1, 1);
+            LocalDate targetYearEndDate = LocalDate.of(targetYear, 12, 31);
             BigDecimal targetYearsDividend = repository.getDividendSum(
                     targetYearStartDate,
                     targetYearEndDate,
@@ -42,7 +36,7 @@ public class DividendIncreaseRateService extends DividendService {
             );
 
             LocalDate previousYearStartDate = targetYearStartDate.minusYears(1);
-            LocalDate previousYearEndDate = previousYearStartDate.plusYears(1).minusDays(1);
+            LocalDate previousYearEndDate = targetYearEndDate.minusYears(1);
             BigDecimal previousYearsDividend = repository.getDividendSum(
                     previousYearStartDate,
                     previousYearEndDate,
@@ -51,28 +45,14 @@ public class DividendIncreaseRateService extends DividendService {
 
             if (BigDecimal.ZERO.equals(previousYearsDividend)) {
                 log.error("cannot divide by zero");
-                return "";
+                return new ArrayList<>();
             } else {
-                // 増加率 = (対象年の配当 - 前年の配当) * 100 / 前年の配当
+                // 増加率 = (対象年の配当 - 前年の配当) / 前年の配当 * 100
                 BigDecimal increaseAmount = targetYearsDividend.subtract(previousYearsDividend);
-                rateData[i] = increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP);
+                BigDecimal increaseRate = increaseAmount.divide(previousYearsDividend, RoundingMode.HALF_UP);
+                rateData.add(increaseRate.multiply(HUNDRED));
             }
         }
-        return createChartData(rateData);
-    }
-
-    /**
-     * グラフのラベルを取得する
-     *
-     * @param recentYears 近年を表す文字列配列
-     * @return グラフ描画用ラベル文字列
-     */
-    public String getLabels(String[] recentYears) {
-        StringJoiner labels = new StringJoiner("年\",\"", "\"", "年\"");
-        for (int i = recentYears.length - 1; i >= 0; i--) {
-            String year = recentYears[i];
-            labels.add(year);
-        }
-        return labels.toString();
+        return rateData;
     }
 }

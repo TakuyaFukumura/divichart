@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 /**
  * 配当増加率グラフ用コントローラ
  */
@@ -34,10 +37,11 @@ public class DividendIncreaseRateController {
     public String index(Model model, MonthlyDividendForm monthlyDividendForm,
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("配当増加率表示");
-        String[] recentYears = service.getRecentYears(4).toArray(new String[0]);
+        List<Integer> pastYears = service.getLastNYears(5);
+        String labels = service.createYearLabels(pastYears);
 
-        String labels = service.getLabels(recentYears);
-        String chartData = service.getChartData(recentYears, user.getUsername());
+        List<BigDecimal> rateData = service.getDividendIncreaseRateData(pastYears, user.getUsername());
+        String chartData = service.createChartData(rateData);
 
         DividendIncreaseRateDto dividendIncreaseRateDto = new DividendIncreaseRateDto(labels, chartData);
         model.addAttribute("dividendIncreaseRateDto", dividendIncreaseRateDto);

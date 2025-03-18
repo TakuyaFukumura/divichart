@@ -141,7 +141,7 @@ public class DividendService {
      * @param dividends 合成したいデータ配列
      * @return 合成した文字列 例）"1,2,3,4,5"
      */
-    protected String createChartData(BigDecimal[] dividends) {
+    public String createChartData(BigDecimal[] dividends) {
         StringJoiner chartData = new StringJoiner(",");
         for (BigDecimal dividend : dividends) {
             chartData.add(dividend.toString());
