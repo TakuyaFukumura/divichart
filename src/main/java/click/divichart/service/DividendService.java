@@ -66,6 +66,10 @@ public class DividendService {
                 .toList();
     }
 
+    public List<Integer> getLastNYearsAsc(int pastYearsCount) {
+        return getLastNYears(pastYearsCount).stream().sorted().toList();
+    }
+
     /**
      * 指定された過去の年リストから、年を「年」というフォーマットで結合し、カンマ区切りの文字列を返します。
      * <p>

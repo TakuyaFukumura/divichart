@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 /**
  * 累計配当グラフ用コントローラ
  */
@@ -33,9 +35,11 @@ public class CumulativeDividendController {
     public String index(Model model, @AuthenticationPrincipal UserDetails user) {
         log.debug("累計配当グラフ表示");
 
+        List<Integer> pastYears = service.getLastNYearsAsc(5);
+        String labels = service.createYearLabels(pastYears);
+
         String[] recentYears = service.getRecentYearsAsc(5);
         String chartData = service.getChartData(recentYears, user.getUsername());
-        String labels = service.getLabels(recentYears);
 
         CumulativeDividendDto cumulativeDividendDto = new CumulativeDividendDto(labels, chartData);
         model.addAttribute("cumulativeDividendDto", cumulativeDividendDto);
