@@ -23,7 +23,7 @@ public class DividendIncreaseRateService extends DividendService {
         super(dividendHistoryRepository);
     }
 
-    public List<BigDecimal> getRateData(List<Integer> pastYears, String username) {
+    public List<BigDecimal> getDividendIncreaseRateData(List<Integer> pastYears, String username) {
         List<BigDecimal> rateData = new ArrayList<>();
 
         for (int targetYear : pastYears) {
