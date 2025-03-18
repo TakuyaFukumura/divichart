@@ -47,10 +47,10 @@ public class DividendIncreaseRateService extends DividendService {
                 log.error("cannot divide by zero");
                 return new ArrayList<>();
             } else {
-                // 増加率 = (対象年の配当 - 前年の配当) * 100 / 前年の配当
+                // 増加率 = (対象年の配当 - 前年の配当) / 前年の配当 * 100
                 BigDecimal increaseAmount = targetYearsDividend.subtract(previousYearsDividend);
-                BigDecimal increaseRate = increaseAmount.multiply(HUNDRED).divide(previousYearsDividend, RoundingMode.HALF_UP);
-                rateData.add(increaseRate);
+                BigDecimal increaseRate = increaseAmount.divide(previousYearsDividend, RoundingMode.HALF_UP);
+                rateData.add(increaseRate.multiply(HUNDRED));
             }
         }
         return rateData;
