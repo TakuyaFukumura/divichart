@@ -23,16 +23,20 @@ public class DividendAchievementRateService extends DividendService {
         super(dividendHistoryRepository);
     }
 
+    public BigDecimal getAnnualGoalDividendAmount(String goalDividendAmount){
+        return new BigDecimal(goalDividendAmount).multiply(MONTHS_IN_YEAR);
+    }
+
     /**
      * グラフ描画用に、配当達成率データを取得する
      *
-     * @param pastYears      対象年
-     * @param targetDividend 目標配当額/月
-     * @param username       ユーザ名
+     * @param pastYears                対象年
+     * @param annualGoalDividendAmount 年間目標配当額
+     * @param username                 ユーザ名
      * @return グラフ描画用文字列
      */
-    public List<BigDecimal> getDividendAchievementRateData(List<Integer> pastYears, String targetDividend, String username) {
-        BigDecimal annualGoalDividendAmount = new BigDecimal(targetDividend).multiply(MONTHS_IN_YEAR);
+    public List<BigDecimal> getDividendAchievementRateData(List<Integer> pastYears,
+                                                           BigDecimal annualGoalDividendAmount, String username) {
         List<Integer> recentYearsAsc = pastYears.stream().sorted().toList();
 
         List<BigDecimal> yearlyDividends = new ArrayList<>();

@@ -40,7 +40,8 @@ public class DividendAchievementRateController {
 
         List<Integer> pastYears = service.getLastNYears(5);
         String labels = service.createYearLabels(pastYears);
-        List<BigDecimal> dividendAchievementRateData = service.getDividendAchievementRateData(pastYears, targetDividend, user.getUsername());
+        BigDecimal annualGoalDividendAmount = service.getAnnualGoalDividendAmount(targetDividend);
+        List<BigDecimal> dividendAchievementRateData = service.getDividendAchievementRateData(pastYears, annualGoalDividendAmount, user.getUsername());
         String chartData = service.createChartData(dividendAchievementRateData);
 
         String targetDividendYen = service.exchange(targetDividend, "150");
