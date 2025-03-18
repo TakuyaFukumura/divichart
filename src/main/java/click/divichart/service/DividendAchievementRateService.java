@@ -9,6 +9,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -49,7 +50,7 @@ public class DividendAchievementRateService extends DividendService {
 
         if (BigDecimal.ZERO.equals(annualGoalDividendAmount)) {
             log.error("cannot divide by zero");
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
 
         // 達成率を計算する
