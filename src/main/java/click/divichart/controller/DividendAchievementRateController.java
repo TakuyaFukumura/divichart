@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 /**
  * 配当達成率グラフ用コントローラ
  */
@@ -35,7 +37,8 @@ public class DividendAchievementRateController {
         log.debug("配当達成率表示");
         String targetDividend = (form.getGoalDividendAmount().isEmpty()) ? "135" : form.getGoalDividendAmount();
 
-        String labels = service.getLabels(5);
+        List<Integer> pastYears = service.getLastNYears(5);
+        String labels = service.createYearLabels(pastYears);
         String chartData = service.getChartData(5, targetDividend, user.getUsername());
 
         String targetDividendYen = service.exchange(targetDividend, "150");

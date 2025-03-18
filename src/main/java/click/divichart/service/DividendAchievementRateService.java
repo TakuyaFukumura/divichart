@@ -56,21 +56,6 @@ public class DividendAchievementRateService extends DividendService {
     }
 
     /**
-     * グラフのラベルを取得する
-     *
-     * @param numOfYears 対象年数
-     * @return グラフ描画用ラベル文字列
-     */
-    public String getLabels(int numOfYears) {
-        String[] recentYears = getRecentYearsAsc(numOfYears);
-        StringJoiner labels = new StringJoiner("年\",\"", "\"", "年\"");
-        for (String year : recentYears) {
-            labels.add(year);
-        }
-        return labels.toString();
-    }
-
-    /**
      * 円に両替して返す
      *
      * @param targetDividend 目標配当
