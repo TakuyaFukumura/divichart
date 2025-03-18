@@ -47,17 +47,12 @@ public class DividendAchievementRateService extends DividendService {
             return Collections.emptyList();
         }
 
-        List<BigDecimal> yearlyDividends = new ArrayList<>();
+        List<BigDecimal> dividendAchievementRates = new ArrayList<>();
         for (Integer year : recentYearsAsc) {
             LocalDate startDate = LocalDate.of(year, 1, 1);
             LocalDate endDate = LocalDate.of(year, 12, 31);
             BigDecimal yearlyDividend = repository.getDividendSum(startDate, endDate, username);
-            yearlyDividends.add(yearlyDividend);
-        }
 
-        // 達成率を計算する
-        List<BigDecimal> dividendAchievementRates = new ArrayList<>();
-        for (BigDecimal yearlyDividend : yearlyDividends) {
             // 目標配当達成率 = 年間配当 / 年間目標配当 * 100
             BigDecimal dividendAchievementRate = yearlyDividend.divide(annualGoalDividendAmount, RoundingMode.HALF_UP);
             dividendAchievementRates.add(dividendAchievementRate.multiply(HUNDRED));
