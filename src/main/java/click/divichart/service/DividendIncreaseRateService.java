@@ -49,7 +49,8 @@ public class DividendIncreaseRateService extends DividendService {
             } else {
                 // 増加率 = (対象年の配当 - 前年の配当) * 100 / 前年の配当
                 BigDecimal increaseAmount = targetYearsDividend.subtract(previousYearsDividend);
-                rateData.add(increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP));
+                BigDecimal increaseRate = increaseAmount.multiply(hundred).divide(previousYearsDividend, RoundingMode.HALF_UP);
+                rateData.add(increaseRate);
             }
         }
         return rateData;
