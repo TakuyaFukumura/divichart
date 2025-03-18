@@ -39,12 +39,15 @@ public class DividendAchievementRateController {
         String targetDividend = (form.getGoalDividendAmount().isEmpty()) ? "135" : form.getGoalDividendAmount();
 
         List<Integer> pastYears = service.getLastNYears(5);
-        String labels = service.createYearLabels(pastYears);
+
         BigDecimal annualGoalDividendAmount = service.getAnnualGoalDividendAmount(targetDividend);
-        List<BigDecimal> dividendAchievementRateData = service.getDividendAchievementRateData(pastYears, annualGoalDividendAmount, user.getUsername());
+        List<Integer> recentYearsAsc = service.getRecentYearsAsc(pastYears);
+        List<BigDecimal> dividendAchievementRateData = service.getDividendAchievementRateData(recentYearsAsc, annualGoalDividendAmount, user.getUsername());
         String chartData = service.createChartData(dividendAchievementRateData);
 
         String targetDividendYen = service.exchange(targetDividend, "150");
+
+        String labels = service.createYearLabels(pastYears);
 
         DividendAchievementRateDto dividendAchievementRateDto = new DividendAchievementRateDto(
                 labels,
