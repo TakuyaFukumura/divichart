@@ -16,9 +16,9 @@ public class CumulativeDividendService extends DividendService {
     }
 
     /**
-     * グラフ描画用に、近年の配当累計データを取得する
+     * グラフ描画用に、指定年範囲の配当累計データを取得する
      *
-     * @param pastYears 近年
+     * @param pastYears 指定年範囲
      * @param username  ユーザ名
      * @return グラフ描画用文字列
      */
