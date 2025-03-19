@@ -40,7 +40,7 @@ public class DividendAchievementRateController {
 
         List<Integer> pastYears = service.getLastNYears(5);
 
-        List<Integer> recentYearsAsc = service.getRecentYearsAsc(pastYears);
+        List<Integer> recentYearsAsc = service.getLastNYearsAsc(5);
         BigDecimal annualGoalDividendAmount = service.getAnnualGoalDividendAmount(goalDividendAmount);
 
         List<BigDecimal> dividendAchievementRates = service.getDividendAchievementRates(recentYearsAsc, annualGoalDividendAmount, user.getUsername());

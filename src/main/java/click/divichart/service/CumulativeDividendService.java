@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.StringJoiner;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CumulativeDividendService extends DividendService {
@@ -16,53 +16,26 @@ public class CumulativeDividendService extends DividendService {
     }
 
     /**
-     * グラフ描画用に、近年の配当累計データを取得する
+     * グラフ描画用に、指定年範囲の配当累計データを取得する
      *
-     * @param recentYears 近年を表す文字列配列
-     * @param username    ユーザ名
+     * @param pastYears 指定年範囲
+     * @param username  ユーザ名
      * @return グラフ描画用文字列
      */
-    public String getChartData(String[] recentYears, String username) {
-        int length = recentYears.length;
-        BigDecimal[] yearlyDividend = new BigDecimal[length];
-        for (int i = 0; i < length; i++) {
-            String targetYear = recentYears[i];
-            LocalDate targetYearStartDate = LocalDate.parse(targetYear + "-01-01");
-            LocalDate targetYearEndDate = targetYearStartDate.plusYears(1).minusDays(1);
+    public List<BigDecimal> getCumulativeDividendData(List<Integer> pastYears, String username) {
+        List<BigDecimal> cumulativeDividends = new ArrayList<>();
+
+        BigDecimal cumulativeDividend = BigDecimal.ZERO;
+        for (int targetYear : pastYears) {
+            LocalDate targetYearStartDate = LocalDate.of(targetYear, 1, 1);
+            LocalDate targetYearEndDate = LocalDate.of(targetYear, 12, 31);
             BigDecimal targetYearsDividend = repository.getDividendSum(targetYearStartDate, targetYearEndDate, username);
-            yearlyDividend[i] = targetYearsDividend;
+
+            // 累積配当金を計算してリストに追加
+            cumulativeDividend = cumulativeDividend.add(targetYearsDividend);
+            cumulativeDividends.add(cumulativeDividend);
         }
-        BigDecimal[] cumulativeDividend = getCumulativeDividend(yearlyDividend);
-        return createChartData(cumulativeDividend);
+
+        return cumulativeDividends;
     }
-
-    /**
-     * 累計額の配列にして返す
-     *
-     * @param yearlyDividend 年別配当
-     * @return 累計配当
-     */
-    BigDecimal[] getCumulativeDividend(BigDecimal[] yearlyDividend) {
-        BigDecimal[] cumulativeDividend = Arrays.copyOf(yearlyDividend, yearlyDividend.length);
-
-        for (int i = 1; i < cumulativeDividend.length; i++) {
-            cumulativeDividend[i] = cumulativeDividend[i].add(cumulativeDividend[i - 1]);
-        }
-        return cumulativeDividend;
-    }
-
-    /**
-     * グラフのラベルを取得する
-     *
-     * @param recentYears 近年を表す文字列配列
-     * @return グラフ描画用ラベル文字列
-     */
-    public String getLabels(String[] recentYears) {
-        StringJoiner labels = new StringJoiner("年\",\"", "\"", "年\"");
-        for (String year : recentYears) {
-            labels.add(year);
-        }
-        return labels.toString();
-    }
-
 }
