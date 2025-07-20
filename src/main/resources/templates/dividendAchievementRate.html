@@ -33,9 +33,9 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script>
-        const labels = [ [(${dividendAchievementRateDto.getLabels()})] ];
-        const data = [ [[${dividendAchievementRateDto.getChartData()}]] ];
+    <script th:inline="javascript">
+        const labels = /*[[${dividendAchievementRateDto.getLabels()}]]*/ [];
+        const data = /*[[${dividendAchievementRateDto.getChartData()}]]*/ [];
         const ctx = document.getElementById("dividendAchievementRate");
         const chart = new Chart(ctx, {
             type: 'bar',
