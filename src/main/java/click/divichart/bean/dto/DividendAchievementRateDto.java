@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 配当達成率グラフ画面用DTO
@@ -11,12 +13,12 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 public class DividendAchievementRateDto implements Serializable {
-    private String labels;
-    private String chartData;
+    private List<String> labels;
+    private List<BigDecimal> chartData;
     private String targetDividend;
     private String targetDividendYen;
 
-    public DividendAchievementRateDto(String labels, String chartData,
+    public DividendAchievementRateDto(List<String> labels, List<BigDecimal> chartData,
                                       String targetDividend, String targetDividendYen) {
         this.labels = labels;
         this.chartData = chartData;

@@ -44,17 +44,26 @@ public class DividendPortfolioController {
         List<Integer> pastYears = service.getLastNYears(5);
 
         List<DividendSummaryBean> dividendSummaryBeanList = service.getDividendPortfolioData(targetYear, user.getUsername());
-
         BigDecimal dividendSum = service.getDividendSum(targetYear, user.getUsername());
 
-        String chartData = service.getChartData(dividendSummaryBeanList);
-        String dividendPortfolioLabels = service.getDividendPortfolioLabels(dividendSum, dividendSummaryBeanList);
+        // Create labels and data as lists instead of comma-separated strings
+        List<String> portfolioLabels = dividendSummaryBeanList.stream()
+                .map(bean -> service.createLabelPart(
+                        bean.getTickerSymbol(),
+                        bean.getAmountReceived(),
+                        dividendSum
+                ))
+                .toList();
+
+        List<BigDecimal> portfolioData = dividendSummaryBeanList.stream()
+                .map(DividendSummaryBean::getAmountReceived)
+                .toList();
 
         DividendPortfolioDto dividendPortfolioDto = new DividendPortfolioDto(
                 pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList(), // 逆順で文字列化
                 String.valueOf(targetYear),
-                dividendPortfolioLabels,
-                chartData
+                portfolioLabels,
+                portfolioData
         );
 
         model.addAttribute("dividendPortfolioDto", dividendPortfolioDto);

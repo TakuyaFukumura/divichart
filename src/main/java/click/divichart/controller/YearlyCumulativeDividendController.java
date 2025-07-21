@@ -42,14 +42,13 @@ public class YearlyCumulativeDividendController {
         int targetYear = service.getTargetYear(yearlyCumulativeDividendForm.getTargetYear());
         List<BigDecimal> yearlyCumulativeDividendData =
                 service.getYearlyCumulativeDividendData(targetYear, user.getUsername());
-        String chartData = service.createChartData(yearlyCumulativeDividendData);
 
         List<Integer> pastYears = service.getLastNYears(5);
 
         YearlyCumulativeDividendDto yearlyCumulativeDividendDto = new YearlyCumulativeDividendDto(
                 pastYears.stream().map(String::valueOf).sorted(Comparator.reverseOrder()).toList(), // 逆順で文字列化
                 String.valueOf(targetYear),
-                chartData
+                yearlyCumulativeDividendData
         );
         model.addAttribute("yearlyCumulativeDividendDto", yearlyCumulativeDividendDto);
 
