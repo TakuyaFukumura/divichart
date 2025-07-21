@@ -85,7 +85,7 @@ public class DividendPortfolioService extends DividendService {
      * @param dividendSum    配当合計額
      * @return チャートのラベル
      */
-    String createLabelPart(String tickerSymbol, BigDecimal amountReceived, BigDecimal dividendSum) {
+    public String createLabelPart(String tickerSymbol, BigDecimal amountReceived, BigDecimal dividendSum) {
         BigDecimal percentageOfPortfolio = dividendSum.equals(BigDecimal.ZERO)
                 ? BigDecimal.ZERO
                 : amountReceived.multiply(BigDecimal.valueOf(100)).divide(dividendSum, 2, RoundingMode.HALF_UP);

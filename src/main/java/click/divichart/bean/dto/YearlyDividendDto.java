@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 年別配当グラフ画面用DTO
@@ -11,10 +13,10 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 public class YearlyDividendDto implements Serializable {
-    private String labels;
-    private String chartData;
+    private List<Integer> labels;
+    private List<BigDecimal> chartData;
 
-    public YearlyDividendDto(String labels, String chartData) {
+    public YearlyDividendDto(List<Integer> labels, List<BigDecimal> chartData) {
         this.labels = labels;
         this.chartData = chartData;
     }

@@ -38,12 +38,9 @@ public class DividendIncreaseRateController {
                         @AuthenticationPrincipal UserDetails user) {
         log.debug("配当増加率表示");
         List<Integer> pastYears = service.getLastNYears(5);
-        String labels = service.createYearLabels(pastYears);
-
         List<BigDecimal> rateData = service.getDividendIncreaseRateData(pastYears, user.getUsername());
-        String chartData = service.createChartData(rateData);
 
-        DividendIncreaseRateDto dividendIncreaseRateDto = new DividendIncreaseRateDto(labels, chartData);
+        DividendIncreaseRateDto dividendIncreaseRateDto = new DividendIncreaseRateDto(pastYears, rateData);
         model.addAttribute("dividendIncreaseRateDto", dividendIncreaseRateDto);
 
         return "dividendIncreaseRate";

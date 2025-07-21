@@ -40,15 +40,10 @@ public class DividendIncreaseController {
 
         int pastYearsCount = 6;
         List<Integer> pastYears = service.getLastNYears(pastYearsCount);
-
-        String labels = service.createYearLabels(pastYears);
-
         List<BigDecimal> dividendIncreaseData = service.getDividendIncreaseData(pastYears, user.getUsername());
         // TODO:将来的には両替して表示したい
 
-        String chartData = service.createChartData(dividendIncreaseData);
-
-        DividendIncreaseDto dividendIncreaseDto = new DividendIncreaseDto(labels, chartData);
+        DividendIncreaseDto dividendIncreaseDto = new DividendIncreaseDto(pastYears, dividendIncreaseData);
         model.addAttribute("dividendIncreaseDto", dividendIncreaseDto);
 
         return "dividendIncrease";

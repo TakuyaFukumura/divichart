@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 累計配当グラフ画面用DTO
@@ -14,10 +16,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CumulativeDividendDto implements Serializable {
 
-    private String labels;
-    private String chartData;
+    private List<Integer> labels;
+    private List<BigDecimal> chartData;
 
-    public CumulativeDividendDto(String labels, String chartData) {
+    public CumulativeDividendDto(List<Integer> labels, List<BigDecimal> chartData) {
         this.labels = labels;
         this.chartData = chartData;
     }
